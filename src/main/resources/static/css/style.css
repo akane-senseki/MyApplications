@@ -1,10 +1,8 @@
-.header_nav ul li {
-  display: inline; }
+.header_nav li {
+  display: inline-block; }
 
-body {
-  background: #333; }
 
-.footer_nav ul li {
-  display: inline; }
+.footer_nav li {
+  display: inline-block; }
 
 /*# sourceMappingURL=style.css.map */
