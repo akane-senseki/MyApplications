@@ -4,10 +4,10 @@ header {
   header .header_container {
     display: flex;
     justify-content: space-around; }
-  header .header_nav {
-    text-align: center; }
-    header .header_nav li {
-      display: inline-block; }
+    header .header_container .header_item li {
+      display: inline; }
+      header .header_container .header_item li a {
+        text-decoration: none; }
 
 .main h1 {
   color: #55c;
@@ -29,4 +29,4 @@ footer {
 
 /*# sourceMappingURL=style.css.map */
 
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=style.css;.map */

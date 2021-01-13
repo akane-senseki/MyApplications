@@ -8,15 +8,24 @@
 </head>
 <body>
     <div class="wrapper">
-        <div id="header">
-            <h1>MyApplications</h1>
+        <header>
+            <div class="header_container">
+                <div class="header_item">
+                    <h1>MyApplications</h1>
+                </div>
+                <div class="header_item">
+                    <button type="button">ログイン</button>
+                    <button type="button">新規登録</button>
+                </div>
+            </div>
             <ul class="header_nav">
                 <li><a th:href="@{/}">Home</a></li>
                 <li><a th:href="@{/}">Demo Battle</a></li>
                 <li><a th:href="@{/}">Pc Dice</a></li>
                 <li><a th:href="@{/}">Characeter Sheet</a></li>
+                <li><a th:href="@{/}">Info</a></li>
             </ul>
-        </div>
+        </header>
 
         <div id="content">
             <div th:replace="${body}"></div>
@@ -28,6 +37,7 @@
                 <li><a th:href="@{/}">Demo Battle</a></li>
                 <li><a th:href="@{/}">Pc Dice</a></li>
                 <li><a th:href="@{/}">Characeter Sheet</a></li>
+                <li><a th:href="@{/}">Info</a></li>
             </ul>
             <small>©2021- MyApplicationss</small>
         </footer>
