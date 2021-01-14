@@ -26,11 +26,13 @@
                 <li><a th:href="@{/}">Info</a></li>
             </ul>
         </header>
+        <main>
 
-        <div id="content">
-            <div th:replace="${body}"></div>
-        </div>
+            <div id="content">
+                <div th:replace="${body}"></div>
+            </div>
 
+        </main>
         <footer>
             <ul class="footer_nav">
                 <li><a th:href="@{/}">Home</a></li>
