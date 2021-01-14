@@ -27,22 +27,24 @@ public class Pic_Data {
     @Column(name = "defa")
     private String defa;
 
-    @Column(name = "load")
-    private String load;
+    @Column(name = "load_img")
+    private String load_img;
 
-    @Column(name = "critical")
-    private String critical;
+    @Column(name = "critical_img")
+    private String critical_img;
 
-    @Column(name = "fumble")
-    private String fumble;
+    @Column(name = "fumble_img")
+    private String fumble_img;
 
-    @Column(name = "hover")
-    private String hover;
+    @Column(name = "hover_img")
+    private String hover_img;
 
-    @Column(name = "active")
-    private String active;
+    @Column(name = "active_img")
+    private String active_img;
 
     @Column(name = "release_flag") //公開可否
     private int release_flag;
+
+
 
 }
