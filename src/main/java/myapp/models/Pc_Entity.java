@@ -9,7 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 @Table(name = "pc_entity")
 @Entity
 public class Pc_Entity {
