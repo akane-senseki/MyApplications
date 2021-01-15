@@ -1,7 +1,9 @@
 package myapp.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SecurityData {
 
     //ペッパー番号
@@ -15,7 +17,5 @@ public class SecurityData {
     public void setPepper(String pepper) {
         this.pepper = pepper;
     }
-
-
 
 }
