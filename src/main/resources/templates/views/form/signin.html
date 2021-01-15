@@ -16,6 +16,7 @@
                 <input type="password" id="signin_password" name="signin_password" /> <br /> <br />
                 <label for="re_password">パスワードの再入力</label><br />
                     <input type="password" id="re_password" name="re_password" /> <br /> <br />
+                <input type="hidden" name="token" th:value="${user.token}" />
                 <button type="submit" onclick="return check_signin()">登録</button>
                 <br/>
                 <a href="#">利用規約</a>
