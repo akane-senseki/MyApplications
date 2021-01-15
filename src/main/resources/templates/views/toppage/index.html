@@ -1,15 +1,29 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{views/layout/app :: layout(~{::body/content()})}">
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{views/layout/app :: layout(~{::body/content()})}">
 <head>
 </head>
 <body>
     <p>
-      <span th:text="${test}"></span>!!!
+        <span th:text="${test}"></span>!!!
     </p>
+    <h2 th:if="${flush != null}" id="flush_message" th:text="${flush}"></h2>
+
     <div class="btn_circle">
-        <a th:href="@{/}">Demo Battle</a>
-        <a th:href="@{/}">Pc_Dice</a>
-        <a th:href="@{/}">Character Sheet</a>
+        <a th:href="@{/}">Demo Battle</a> <a th:href="@{/}">Pc_Dice</a> <a
+            th:href="@{/}">Character Sheet</a>
     </div>
+
+    <!-- サインインフォーム -->
+     <form method="POST" th:action="@{/signup}">
+        <div th:replace="~{views/form/signup::registForm(${signup})}"></div>
+    </form>
+    <br />
+    <br />
+
+    <!-- サインアップフォーム -->
+    <form method="POST" th:action="@{/signin}">
+        <div th:replace="~{views/form/signin::registForm(${signin})}"></div>
+    </form>
 </body>
 </html>

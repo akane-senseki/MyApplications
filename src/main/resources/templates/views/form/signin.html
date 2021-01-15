@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="registForm(signin)">
+                    <label for="signin_name">表示名</label><br />
+                    <input type="text"id="signin_name" name="signin_name" />
+                <br />
+                <br />
+                <label for="signin_mail">メールアドレス</label><br />
+                <input type="text"id="signin_mail" name="signin_mail" />
+                <br />
+                <br />
+                <label for="signin_password">パスワード</label><br />
+                <input type="password" id="signin_password" name="signin_password" /> <br /> <br />
+                <label for="re_password">パスワードの再入力</label><br />
+                    <input type="password" id="re_password" name="re_password" /> <br /> <br />
+                <button type="submit" onclick="return check_signin()">登録</button>
+                <br/>
+                <a href="#">利用規約</a>
+                <a href="#">プライバシーポリシー</a>
+</div>
+</body>
+</html>

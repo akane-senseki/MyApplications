@@ -14,8 +14,14 @@
                     <h1>MyApplications</h1>
                 </div>
                 <div class="header_item">
-                    <button type="button">ログイン</button>
-                    <button type="button">新規登録</button>
+                    <th:block th:if="${session.login_user == null}">
+                        <button type="button" onclick="show_login()">ログイン</button>
+                        <button type="button" onclick="show_signup()">新規登録</button>
+                    </th:block>
+                    <th:block th:unless="${session.login_user == null}">
+                        <p th:text="${session.login_user.name}+'さん'"></p>
+                        <button type="button">ログアウト</button>
+                    </th:block>
                 </div>
             </div>
             <ul class="header_nav">
