@@ -53,7 +53,12 @@ public class SigninupController {
 
             userForm.setToken(session.getId());
             mv.addObject("user",userForm);
-            mv.setViewName("/");
+            mv = new ModelAndView("redirect:/"); // リダイレクト
+
+            System.out.println(u.getName());
+            System.out.println(u.getMail());
+            System.out.println(u.getPassword());
+            System.out.println(u.getAdmin_flag());
 
             session.setAttribute("flush", "登録が完了しました");
             session.setAttribute("login_user", userForm);
@@ -62,7 +67,7 @@ public class SigninupController {
             System.out.println("tokenをキャッチ出来ず……");
             System.out.println(userForm.getToken());
             System.out.println(userForm.getName());
-            mv.setViewName("/");
+            mv = new ModelAndView("redirect:/"); // リダイレクト
             session.setAttribute("flush", "登録に失敗しました");
         }
         return mv;
