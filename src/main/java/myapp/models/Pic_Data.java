@@ -45,6 +45,86 @@ public class Pic_Data {
     @Column(name = "release_flag") //公開可否
     private int release_flag;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDefa() {
+        return defa;
+    }
+
+    public void setDefa(String defa) {
+        this.defa = defa;
+    }
+
+    public String getLoad_img() {
+        return load_img;
+    }
+
+    public void setLoad_img(String load_img) {
+        this.load_img = load_img;
+    }
+
+    public String getCritical_img() {
+        return critical_img;
+    }
+
+    public void setCritical_img(String critical_img) {
+        this.critical_img = critical_img;
+    }
+
+    public String getFumble_img() {
+        return fumble_img;
+    }
+
+    public void setFumble_img(String fumble_img) {
+        this.fumble_img = fumble_img;
+    }
+
+    public String getHover_img() {
+        return hover_img;
+    }
+
+    public void setHover_img(String hover_img) {
+        this.hover_img = hover_img;
+    }
+
+    public String getActive_img() {
+        return active_img;
+    }
+
+    public void setActive_img(String active_img) {
+        this.active_img = active_img;
+    }
+
+    public int getRelease_flag() {
+        return release_flag;
+    }
+
+    public void setRelease_flag(int release_flag) {
+        this.release_flag = release_flag;
+    }
+
 
 
 }

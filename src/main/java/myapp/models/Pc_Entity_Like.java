@@ -24,4 +24,30 @@ public class Pc_Entity_Like {
     @ManyToOne
     @JoinColumn(name = "pc_entity_id",nullable = false)
     private Pc_Entity pc_entity;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Pc_Entity getPc_entity() {
+        return pc_entity;
+    }
+
+    public void setPc_entity(Pc_Entity pc_entity) {
+        this.pc_entity = pc_entity;
+    }
+
+
 }

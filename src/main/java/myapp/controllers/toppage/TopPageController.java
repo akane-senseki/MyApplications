@@ -20,9 +20,7 @@ public class TopPageController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index(ModelAndView mv) {
 
-        String test = "てすと";
-
-        mv.addObject("test" , test);
+        mv.addObject("token" , session.getId());
         mv.setViewName("views/toppage/index");
         System.out.println("topcontroller起動");
 

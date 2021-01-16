@@ -24,4 +24,30 @@ public class Pic_Data_Like {
     @ManyToOne
     @JoinColumn(name = "pic_data_id",nullable = false)
     private Pic_Data pic_data;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Pic_Data getPic_data() {
+        return pic_data;
+    }
+
+    public void setPic_data(Pic_Data pic_data) {
+        this.pic_data = pic_data;
+    }
+
+
 }

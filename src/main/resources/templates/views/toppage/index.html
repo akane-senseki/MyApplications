@@ -15,15 +15,15 @@
     </div>
 
     <!-- サインインフォーム -->
-     <form method="POST" th:action="@{/signup}">
-        <div th:replace="~{views/form/signup::registForm(${signup})}"></div>
+     <form method="POST" th:action="@{/signin}">
+        <div th:replace="~{views/form/signin::registForm(${signin})}"></div>
     </form>
     <br />
     <br />
 
     <!-- サインアップフォーム -->
-    <form method="POST" th:action="@{/signin}">
-        <div th:replace="~{views/form/signin::registForm(${signin})}"></div>
+    <form method="POST" th:action="@{/signup}">
+        <div th:replace="~{views/form/signup::registForm(${signup})}"></div>
     </form>
 </body>
 </html>

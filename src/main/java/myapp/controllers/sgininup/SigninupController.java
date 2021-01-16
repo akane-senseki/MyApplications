@@ -46,13 +46,13 @@ public class SigninupController {
 
             userForm.setToken(session.getId());
             mv.addObject("user",userForm);
-            mv.setViewName("/");
+            mv.setViewName("views/toppage/index");
 
             session.setAttribute("flush", "登録が完了しました");
             session.setAttribute("login_user", userForm);
 
         }else {
-            mv.setViewName("/");
+            mv.setViewName("views/toppage/index");
             session.setAttribute("flush", "登録に失敗しました");
         }
         return mv;
