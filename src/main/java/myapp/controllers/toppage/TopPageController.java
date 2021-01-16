@@ -9,24 +9,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 //@Controller+@ResponseBody=@RestController?
-@Controller  //下記参照
+@Controller //下記参照
 public class TopPageController {
 
-    @Autowired  //インスタンス化せずにメソッドを使用できる
+    @Autowired //インスタンス化せずにメソッドを使用できる
     HttpSession session; // セッション
 
-
-  //@RequestMapping……"/"にアクセスするとindexメソッドを実行する
+    //@RequestMapping……"/"にアクセスするとindexメソッドを実行する
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index(ModelAndView mv) {
 
-        mv.addObject("token" , session.getId());
-        mv.setViewName("views/toppage/index");
-        System.out.println("topcontroller起動");
+        System.out.println("toppageController通過");
 
-        return mv;
+            mv.addObject("token", session.getId());
+
+            if(session.getAttribute("flush") != null) {
+            mv.addObject("flush",session.getAttribute("flush"));
+            session.removeAttribute("flush");
+            }
+
+            mv.setViewName("views/toppage/index");
+
+            return mv;
+
     }
-
 }
 
 //参考

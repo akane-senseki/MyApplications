@@ -4,23 +4,23 @@
 </head>
 <body>
 <div th:fragment="registForm(signin)">
-                    <label for="signin_name">表示名</label><br />
-                    <input type="text"id="signin_name" name="signin_name" />
+                    <label for="name">表示名</label><br />
+                    <input type="text" id="signin_name" name="name" />
                 <br />
                 <br />
-                <label for="signin_mail">メールアドレス</label><br />
-                <input type="text"id="signin_mail" name="signin_mail" />
+                <label for="mail">メールアドレス</label><br />
+                <input type="text"id="signin_mail" name="mail" />
                 <br />
                 <br />
-                <label for="signin_password">パスワード</label><br />
-                <input type="password" id="signin_password" name="signin_password" /> <br /> <br />
+                <label for="password">パスワード</label><br />
+                <input type="password" id="signin_password" name="password" /> <br /> <br />
                 <label for="re_password">パスワードの再入力</label><br />
                 <input type="password" id="re_password" name="re_password" /> <br /> <br />
                 <label for="admin_flag">権限</label><br />
-<!--                 <select name="admin_flag">
-                    <option value="0" th:selected="${user.admin_flag == 0}">一般</option>
-                    <option value="1" th:selected="${user.admin_flag == 1}">管理人</option>
-                </select> -->
+                 <select name="admin_flag">
+                    <option value="0" th:selected="${admin_flag == 0}">一般</option>
+                    <option value="1" th:selected="${admin_flag == 1}">管理人</option>
+                </select>
 
                 <input type="hidden" name="token" th:value="${token}" />
                 <button type="submit" onclick="return check_signin()">登録</button>

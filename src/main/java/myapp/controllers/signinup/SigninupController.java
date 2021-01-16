@@ -1,4 +1,4 @@
-package myapp.controllers.sgininup;
+package myapp.controllers.signinup;
 
 import javax.servlet.http.HttpSession;
 
@@ -33,7 +33,14 @@ public class SigninupController {
     @Transactional // メソッド開始時にトランザクションを開始、終了時にコミットする
     public ModelAndView userCreate(@ModelAttribute UserForm userForm , ModelAndView mv) {
 
+        System.out.println("サインインアップcontroller通過");
+        System.out.println(userForm.getToken());
+
         if(userForm.getToken() != null && userForm.getToken().equals(session.getId())) {
+            System.out.println("tokenをキャッチ");
+            System.out.println(userForm.getToken());
+
+
             User u = new User();
 
             u.setName(userForm.getName());
@@ -46,13 +53,16 @@ public class SigninupController {
 
             userForm.setToken(session.getId());
             mv.addObject("user",userForm);
-            mv.setViewName("views/toppage/index");
+            mv.setViewName("/");
 
             session.setAttribute("flush", "登録が完了しました");
             session.setAttribute("login_user", userForm);
 
         }else {
-            mv.setViewName("views/toppage/index");
+            System.out.println("tokenをキャッチ出来ず……");
+            System.out.println(userForm.getToken());
+            System.out.println(userForm.getName());
+            mv.setViewName("/");
             session.setAttribute("flush", "登録に失敗しました");
         }
         return mv;
