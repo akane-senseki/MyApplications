@@ -17,3 +17,5 @@ public interface UserRepository extends JpaRepository<User, String>{
 
 //JpaRepositoryはデータ検索を行う為の仕組み。
 //public interface 名前 extends JpaRepository <エンティティ , IDタイプ> IDタイプは基本型の場合はラッパークラスを指定する。
+
+//POSTメソッドではデータをDBに保存する役割りも持つ。

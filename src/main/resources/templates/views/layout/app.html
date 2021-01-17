@@ -20,7 +20,7 @@
                     </th:block>
                     <th:block th:unless="${session.login_user == null}">
                         <p th:text="${session.login_user.name}+'さん'"></p>
-                        <button type="button">ログアウト</button>
+                        <a th:href="@{/logout}">ログアウト</a>
                     </th:block>
                 </div>
             </div>
