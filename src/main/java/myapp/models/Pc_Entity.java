@@ -30,6 +30,9 @@ public class Pc_Entity {
     @Column(name = "release_flag") //公開可否
     private int release_flag;
 
+    @Column(name = "img_path") //画像パス
+    private String img_path;
+
     //能力値-------------------------------------------------------------------
 
     @Column(name="str")
@@ -132,6 +135,17 @@ public class Pc_Entity {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getImg() {
+        return img_path;
+    }
+
+
+    public void setImg(String img_path) {
+        this.img_path = img_path;
+    }
+
+
     public int getStr() {                //STR-------------------------------
         return str;
     }

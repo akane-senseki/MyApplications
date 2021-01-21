@@ -4,46 +4,11 @@
 <head>
 </head>
 <body>
-<h2>画像アップロードお試しページ</h2>
+<h2>本当はクリエイトページ</h2>
 <form id="cs_pic_upload_form" name="cs_pic_upload_form" enctype="multipart/form-data" method="post" th:action="@{/cs/upload}">
 <!-- enctypeはmethodがPOSTの時に使うエンコードタイプを指定する属性 -->
 <!-- multipart/form-dataはフォームにファイルを送信する機能がある場合に指定する。必須 -->
-<label for="cs_select_filetype">＊ファイルの種類:</label>
-<input type="file" id="sample" name="sample" accept=".png,.jpg,.jpeg">
-
-<div id="preview"></div>
-<script type="text/javascript">
-//画像をプレビューする
-    function previewFile(file){
-        const preview = document.getElementById('preview');
-        const reader = new FileReader();
-
-        reader.onload = function(e){
-            const imageUrl = e.target.result; //画像のurlの呼び出し
-            const img = document.createElement("img"); //img要素を作成
-            img.src = imageUrl; //urlをimgにセット
-            preview.appendChild(img); //#previewの中に追加
-        }
-        //ファイルを読み込む
-        reader.readAsDataURL(file);
-    }
-
-    //<input>でファイルが選択されたときの処理
-    const fileInput = document.getElementById('sample');
-    const handleFileSelect = () => {
-        const files = fileInput.files;
-        for(let i = 0 ; i < files.length; i++){
-            previewFile(files[i]);
-        }
-    }
-    fileInput.addEventListener('change', handleFileSelect);
-
-</script>
-
-<button type="submit">アップロード</button>
-
-
-
+<div th:replace="~{views/form/charactersheet::registForm(${charactersheet})}"></div>
 </form>
 </body>
 </html>
