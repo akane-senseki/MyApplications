@@ -5,7 +5,7 @@
 </head>
 <body>
 <h2>画像アップロードお試しページ</h2>
-<form id="cs_pic_upload_form" enctype="multipart/form-data" method="post" th:action="@{/cs/upload}">
+<form id="cs_pic_upload_form" name="cs_pic_upload_form" enctype="multipart/form-data" method="post" th:action="@{/cs/upload}">
 <!-- enctypeはmethodがPOSTの時に使うエンコードタイプを指定する属性 -->
 <!-- multipart/form-dataはフォームにファイルを送信する機能がある場合に指定する。必須 -->
 <label for="cs_select_filetype">＊ファイルの種類:</label>
