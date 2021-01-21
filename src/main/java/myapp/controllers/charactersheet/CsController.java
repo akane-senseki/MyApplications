@@ -36,7 +36,7 @@ public class CsController {
     }
 
     @RequestMapping(value = "/cs/upload", method = RequestMethod.POST)
-    public ModelAndView upload(@RequestParam("sample") MultipartFile sample  , ModelAndView mv) throws IOException {
+    public ModelAndView upload(@RequestParam("cs_img") MultipartFile sample  , ModelAndView mv) throws IOException {
         System.out.println("csuploadController通過");
         System.out.println(sample);
 
@@ -47,7 +47,7 @@ public class CsController {
         BufferedInputStream reader = new BufferedInputStream(sample1);
 
         try (
-            FileOutputStream img = new FileOutputStream("C:/pleiades/workspace/MyApplications/src/main/resources/images/img.png");
+            FileOutputStream img = new FileOutputStream("C:/pleiades/workspace/MyApplications/src/main/resources/images/img.jpg");
             BufferedOutputStream writer = new BufferedOutputStream(img);
         ){
             int data;

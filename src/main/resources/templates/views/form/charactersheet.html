@@ -4,8 +4,8 @@
 </head>
 <body>
 <div th:fragment="registForm(charactersheet)">
-<label for="img">画像をアップロード</label><br />
-<input type="file" name="img" accept=".png,.jpg,.jpeg">
+<label for="cs_img">画像をアップロード</label><br />
+<input type="file" name="cs_img" id="cs_img" accept=".png,.jpg,.jpeg">
 
 <div id="preview"></div>
 <script type="text/javascript">
@@ -25,7 +25,7 @@
     }
 
     //<input>でファイルが選択されたときの処理
-    const fileInput = document.getElementById('sample');
+    const fileInput = document.getElementById('cs_img');
     const handleFileSelect = () => {
         const files = fileInput.files;
         for(let i = 0 ; i < files.length; i++){
