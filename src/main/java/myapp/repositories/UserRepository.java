@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import myapp.models.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, String>{
+public interface UserRepository extends JpaRepository<User, Integer>{
     public Long countByMailEquals(String mail);
     //メールアドレスが一致する件数を調べる(0じゃなければエラーをバリデーションで返す)
 
