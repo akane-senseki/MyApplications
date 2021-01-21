@@ -21,3 +21,5 @@ public class ServletInitializer extends SpringBootServletInitializer {
 //し、spring-boot-starter-tomcatでtoncatの設定もしてある。
 
 //ここを設定してもencodingFilter was not registeredのエラーは無くならず
+
+//無くてもいい。一応。が、フィルターやサーブレッドを動かすために必要。
