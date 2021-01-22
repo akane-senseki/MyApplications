@@ -31,6 +31,26 @@ main .btn_circle {
   main .btn_circle a:hover {
     background-image: linear-gradient(#FFEDF3 0%, #b0c4de 100%); }
 
+.cs_form {
+  margin: auto 150px; }
+  .cs_form .cs_form_container {
+    display: flex;
+    text-align: center;
+    justify-content: center; }
+    .cs_form .cs_form_container .right {
+      margin-left: 150px; }
+  .cs_form .ability_form input, .cs_form .skill_form input {
+    width: 120px;
+    height: 36px; }
+  .cs_form .ability_form input[type="number"]::-webkit-outer-spin-button, .cs_form .skill_form input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0; }
+  .cs_form .ability_form input[type="number"]::-webkit-inner-spin-button, .cs_form .skill_form input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; }
+  .cs_form .ability_form input[type="number"], .cs_form .skill_form input[type="number"] {
+    -moz-appearance: textfield; }
+
 footer {
   background-color: #b0c4de;
   margin: 330px auto;
