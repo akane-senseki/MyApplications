@@ -2,6 +2,7 @@ package myapp.controllers.charactersheet;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -69,6 +70,19 @@ public class CsController {
 
         }
 
+      //以下息抜きに調べたディレクトリ作成方法メモ。
+        String user_id = peForm.getUser() + "";
+        String img_id =  peForm.getId() + "" ;
+
+
+         File images = new File("C:/pleiades/workspace/MyApplications/src/main/resources/images/" + user_id + "/" + img_id);
+         if(images.mkdirs()) { //フォルダ作成に成功するとtrue、失敗するとfalseを返す。もう存在している場合はfalse
+            System.out.println("イメージフォルダの作成に成功しました");
+        }else {
+            System.out.println("イメージフォルダの作成に失敗しました");
+        }
+
+
         //MultipartFile型をInputStream型にキャストしてる(入出力出来るように)
         InputStream image = peForm.getCs_img().getInputStream();
         BufferedInputStream reader = new BufferedInputStream(image);
@@ -100,11 +114,3 @@ public class CsController {
 }
 
 
-//以下息抜きに調べたディレクトリ作成方法メモ。
-/*
- File images = new File("C:/pleiades/workspace/MyApplications/src/main/resources/images");
- if(images.mkdir()) { //フォルダ作成に成功するとtrue、失敗するとfalseを返す。もう存在している場合はfalse
-    System.out.println("イメージフォルダの作成に成功しました");
-}else {
-    System.out.println("イメージフォルダの作成に失敗しました");
-}*/

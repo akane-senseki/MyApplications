@@ -6,12 +6,14 @@ import java.util.Collection;
 
 import javax.servlet.http.Part;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import myapp.models.Pc_Entity;
 
 public class Pc_EntityForm extends Pc_Entity implements Part {
     private String token;
 
-    private Part cs_img;
+    private MultipartFile cs_img;
 
     private int hp ;
 
@@ -36,10 +38,10 @@ public class Pc_EntityForm extends Pc_Entity implements Part {
         this.token = token;
     }
 
-    public Part getCs_img() {
+    public MultipartFile getCs_img() {
         return cs_img;
     }
-    public void setCs_img(Part cs_img) {
+    public void setCs_img(MultipartFile cs_img) {
         this.cs_img = cs_img;
     }
 
