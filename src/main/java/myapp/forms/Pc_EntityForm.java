@@ -1,10 +1,14 @@
 package myapp.forms;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collection;
+
 import javax.servlet.http.Part;
 
 import myapp.models.Pc_Entity;
 
-public class Pc_EntityForm extends Pc_Entity {
+public class Pc_EntityForm extends Pc_Entity implements Part {
     private String token;
 
     private Part cs_img;
@@ -140,6 +144,51 @@ public class Pc_EntityForm extends Pc_Entity {
             attack = (int)((Math.ceil(Math.random()*4)));
             return attack;
         }
+    }
+    @Override
+    public InputStream getInputStream() throws IOException {
+        // TODO 自動生成されたメソッド・スタブ
+        return null;
+    }
+    @Override
+    public String getContentType() {
+        // TODO 自動生成されたメソッド・スタブ
+        return null;
+    }
+    @Override
+    public String getSubmittedFileName() {
+        // TODO 自動生成されたメソッド・スタブ
+        return null;
+    }
+    @Override
+    public long getSize() {
+        // TODO 自動生成されたメソッド・スタブ
+        return 0;
+    }
+    @Override
+    public void write(String fileName) throws IOException {
+        // TODO 自動生成されたメソッド・スタブ
+
+    }
+    @Override
+    public void delete() throws IOException {
+        // TODO 自動生成されたメソッド・スタブ
+
+    }
+    @Override
+    public String getHeader(String name) {
+        // TODO 自動生成されたメソッド・スタブ
+        return null;
+    }
+    @Override
+    public Collection<String> getHeaders(String name) {
+        // TODO 自動生成されたメソッド・スタブ
+        return null;
+    }
+    @Override
+    public Collection<String> getHeaderNames() {
+        // TODO 自動生成されたメソッド・スタブ
+        return null;
     }
 
 

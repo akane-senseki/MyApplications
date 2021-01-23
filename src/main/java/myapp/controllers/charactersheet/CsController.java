@@ -2,7 +2,6 @@ package myapp.controllers.charactersheet;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,11 +11,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import myapp.forms.Pc_EntityForm;
+import myapp.models.Pc_Entity;
+import myapp.models.User;
 
 @Controller
 public class CsController {
@@ -36,18 +38,43 @@ public class CsController {
     }
 
     @RequestMapping(value = "/cs/upload", method = RequestMethod.POST)
-    public ModelAndView upload(@RequestParam("cs_img") MultipartFile sample  , ModelAndView mv) throws IOException {
+    public ModelAndView upload(@ModelAttribute Pc_EntityForm peForm , ModelAndView mv) throws IOException {
         System.out.println("csuploadController通過");
-        System.out.println(sample);
+
+        if(peForm.getToken() != null && peForm.getToken().equals(session.getId())) {
+            Pc_Entity p = new Pc_Entity();
+
+            p.setUser((User)session.getAttribute("login_user"));
+            p.setName(peForm.getName());
+            p.setName_ruby(peForm.getName_ruby());
+            p.setRelease_flag(peForm.getRelease_flag());
+
+            p.setStr(peForm.getStr());
+            p.setCon(peForm.getCon());
+            p.setDex(peForm.getDex());
+            p.setSiz(peForm.getSiz());
+
+            p.setAvoidance_add(peForm.getAvoidance_add());
+            p.setKick_add(peForm.getKick_add());
+            p.setFist_add(peForm.getFist_add());
+            p.setHeadbutt_add(peForm.getHeadbutt_add());
+
+            p.setImg_path("");
+
+            peForm.setToken(session.getId());
+            mv.addObject("pc" , peForm);
+            mv = new ModelAndView("redirect:/"); // リダイレクト
+            System.out.println("登録出来た！");
+
+
+        }
 
         //MultipartFile型をInputStream型にキャストしてる(入出力出来るように)
-        byte [] byteArr = sample.getBytes();
-        InputStream sample1 = new ByteArrayInputStream(byteArr);
-
-        BufferedInputStream reader = new BufferedInputStream(sample1);
+        InputStream image = peForm.getCs_img().getInputStream();
+        BufferedInputStream reader = new BufferedInputStream(image);
 
         try (
-            FileOutputStream img = new FileOutputStream("C:/pleiades/workspace/MyApplications/src/main/resources/images/img.jpg");
+            FileOutputStream img = new FileOutputStream("C:/Users/81806/git/MyApplications/src/main/resources/images/img.jpg");
             BufferedOutputStream writer = new BufferedOutputStream(img);
         ){
             int data;
@@ -65,6 +92,7 @@ public class CsController {
 
 
             mv.setViewName("views/charactersheet/index");
+            System.out.println("登録できず");
 
             return mv;
 

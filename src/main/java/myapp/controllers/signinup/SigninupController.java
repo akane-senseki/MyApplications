@@ -37,8 +37,6 @@ public class SigninupController {
         System.out.println(userForm.getToken());
 
         if (userForm.getToken() != null && userForm.getToken().equals(session.getId())) {
-            System.out.println("tokenをキャッチ");
-            System.out.println(userForm.getToken());
 
             User u = new User();
 
@@ -55,19 +53,11 @@ public class SigninupController {
             mv.addObject("user", userForm);
             mv = new ModelAndView("redirect:/"); // リダイレクト
 
-            System.out.println(u.getName());
-            System.out.println(u.getMail());
-            System.out.println(u.getPassword());
-            System.out.println(u.getAdmin_flag());
-
             userRepository.save(u); //DBに保存
             session.setAttribute("flush", "登録が完了しました");
             session.setAttribute("login_user", userForm);
 
         } else {
-            System.out.println("tokenをキャッチ出来ず……");
-            System.out.println(userForm.getToken());
-            System.out.println(userForm.getName());
             mv = new ModelAndView("redirect:/"); // リダイレクト
             session.setAttribute("flush", "登録に失敗しました");
         }
