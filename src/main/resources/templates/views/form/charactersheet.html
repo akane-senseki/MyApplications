@@ -89,7 +89,7 @@
                         <td id="dex_2"></td>
                         <td><input type="number" name="avoidance_add"
                             id="avoidance_add" class="input_min" onkeyup="show()"
-                            value="${pc_entity.avoidance_add}" /></td>
+                            value="${pc.avoidance_add}" /></td>
                         <td id="avoidance"></td>
                     </tr>
                     <tr>
@@ -97,7 +97,7 @@
                         <td>25</td>
                         <td><input type="number" name="kick_add" id="kick_add"
                             class="input_min" onkeyup="show_kick()"
-                            value="${pc_entity.kick_add}" /></td>
+                            value="${pc.kick_add}" /></td>
                         <td id="kick"></td>
                     </tr>
                     <tr>
@@ -105,7 +105,7 @@
                         <td>50</td>
                         <td><input type="number" name="fist_add" id="fist_add"
                             class="input_min" onkeyup="show_fist()"
-                            value="${pc_entity.fist_add}" /></td>
+                            value="${pc.fist_add}" /></td>
                         <td id="fist"></td>
                     </tr>
                     <tr>
@@ -113,7 +113,7 @@
                         <td>10</td>
                         <td><input type="number" name="headbutt_add"
                             id="headbutt_add" class="input_min" onkeyup="show_headbutt()"
-                            value="${pc_entity.headbutt_add}" /></td>
+                            value="${pc.headbutt_add}" /></td>
                         <td id="headbutt"></td>
                     </tr>
                 </tbody>
@@ -121,6 +121,7 @@
         </div>
         <input type="radio" name="release_flag" value="0"/>公開
         <input type="radio" name="release_flag" value="1"/>非公開
+        <input type="hidden" name="token" th:value="${pc.token}" />
         <button type="submit">アップロード</button>
     </div>
 </body>

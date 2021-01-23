@@ -2,6 +2,7 @@ package myapp.controllers.charactersheet;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -32,20 +33,32 @@ public class CsController {
 
         System.out.println("csindexController通過");
 
-            mv.setViewName("views/charactersheet/index");
+        mv.setViewName("views/charactersheet/index");
 
-            return mv;
+        return mv;
+
+    }
+
+    @RequestMapping(value = "/cs/new", method = RequestMethod.GET)
+    public ModelAndView edit(@ModelAttribute Pc_EntityForm peForm, ModelAndView mv) {
+
+        System.out.println("cseditController通過");
+        peForm.setToken(session.getId());
+        mv.addObject("pc", peForm);
+        mv.setViewName("views/charactersheet/new");
+
+        return mv;
 
     }
 
     @RequestMapping(value = "/cs/upload", method = RequestMethod.POST)
-    public ModelAndView upload(@ModelAttribute Pc_EntityForm peForm , ModelAndView mv) throws IOException {
+    public ModelAndView upload(@ModelAttribute Pc_EntityForm peForm, ModelAndView mv) throws IOException {
         System.out.println("csuploadController通過");
 
-        if(peForm.getToken() != null && peForm.getToken().equals(session.getId())) {
+        if (peForm.getToken() != null && peForm.getToken().equals(session.getId())) {
             Pc_Entity p = new Pc_Entity();
 
-            p.setUser((User)session.getAttribute("login_user"));
+            p.setUser((User) session.getAttribute("login_user"));
             p.setName(peForm.getName());
             p.setName_ruby(peForm.getName_ruby());
             p.setRelease_flag(peForm.getRelease_flag());
@@ -60,57 +73,57 @@ public class CsController {
             p.setFist_add(peForm.getFist_add());
             p.setHeadbutt_add(peForm.getHeadbutt_add());
 
-            p.setImg_path("");
-
-            peForm.setToken(session.getId());
-            mv.addObject("pc" , peForm);
-            mv = new ModelAndView("redirect:/"); // リダイレクト
             System.out.println("登録出来た！");
 
+            User u = (User)session.getAttribute("login_user");
 
-        }
+            String user_id = u.getId()+"";
+            String img_path = Math.random()*1000 + "";
+            p.setImg_path(img_path);
 
-      //以下息抜きに調べたディレクトリ作成方法メモ。
-        String user_id = peForm.getUser() + "";
-        String img_id =  peForm.getId() + "" ;
+            String img_url = "C:/pleiades/workspace/MyApplications/src/main/resources/images/" + user_id;
 
-
-         File images = new File("C:/pleiades/workspace/MyApplications/src/main/resources/images/" + user_id + "/" + img_id);
-         if(images.mkdirs()) { //フォルダ作成に成功するとtrue、失敗するとfalseを返す。もう存在している場合はfalse
-            System.out.println("イメージフォルダの作成に成功しました");
-        }else {
-            System.out.println("イメージフォルダの作成に失敗しました");
-        }
-
-
-        //MultipartFile型をInputStream型にキャストしてる(入出力出来るように)
-        InputStream image = peForm.getCs_img().getInputStream();
-        BufferedInputStream reader = new BufferedInputStream(image);
-
-        try (
-            FileOutputStream img = new FileOutputStream("C:/Users/81806/git/MyApplications/src/main/resources/images/img.jpg");
-            BufferedOutputStream writer = new BufferedOutputStream(img);
-        ){
-            int data;
-            while((data = reader.read()) != -1) {
-                writer.write(data);
+            File images = new File(img_url);
+            if (images.mkdirs()) { //フォルダ作成に成功するとtrue、失敗するとfalseを返す。もう存在している場合はfalse
+                System.out.println("イメージフォルダの作成に成功しました");
+            } else {
+                System.out.println("イメージフォルダの作成に失敗しました");
             }
 
-        }catch (FileNotFoundException e) {
-            // TODO 自動生成された catch ブロック
-            e.printStackTrace();
-        } catch (IOException e1) {
-            // TODO 自動生成された catch ブロック
-            e1.printStackTrace();
-        }
+            //MultipartFile型をInputStream型にキャストしてる(入出力出来るように)
+            byte[] byteArr = peForm.getCs_img().getBytes();
+            InputStream image = new ByteArrayInputStream(byteArr);
+            BufferedInputStream reader = new BufferedInputStream(image);
 
+            try (
+                    FileOutputStream img = new FileOutputStream(img_url + "/" + img_path + ".png");
+                    BufferedOutputStream writer = new BufferedOutputStream(img);) {
+                int data;
+                while ((data = reader.read()) != -1) {
+                    writer.write(data);
+                }
+
+            } catch (FileNotFoundException e) {
+                // TODO 自動生成された catch ブロック
+                e.printStackTrace();
+            } catch (IOException e1) {
+                // TODO 自動生成された catch ブロック
+                e1.printStackTrace();
+            }
+
+
+            peForm.setToken(session.getId());
+            mv.addObject("pc", peForm);
+            mv = new ModelAndView("redirect:/"); // リダイレクト
+            return mv;
+
+        } else {
 
             mv.setViewName("views/charactersheet/index");
             System.out.println("登録できず");
 
             return mv;
 
+        }
     }
 }
-
-
