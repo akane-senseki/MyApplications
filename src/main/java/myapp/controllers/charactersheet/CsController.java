@@ -21,12 +21,16 @@ import org.springframework.web.servlet.ModelAndView;
 import myapp.forms.Pc_EntityForm;
 import myapp.models.Pc_Entity;
 import myapp.models.User;
+import myapp.repositories.PcRepository;
 
 @Controller
 public class CsController {
 
     @Autowired
     HttpSession session; // セッション
+
+    @Autowired
+    PcRepository pcrepository;
 
     @RequestMapping(value = "/cs/index", method = RequestMethod.GET)
     public ModelAndView index(ModelAndView mv) {
@@ -76,10 +80,10 @@ public class CsController {
             System.out.println("登録出来た！");
 
             User u = (User)session.getAttribute("login_user");
-
             String user_id = u.getId()+"";
-            String img_path = Math.random()*1000 + "";
+            String img_path = (int)(Math.floor(Math.random()*100000)) + "";
             p.setImg_path(img_path);
+            System.out.println(u.getId());
 
             String img_url = "C:/pleiades/workspace/MyApplications/src/main/resources/images/" + user_id;
 
@@ -113,7 +117,9 @@ public class CsController {
 
 
             peForm.setToken(session.getId());
+
             mv.addObject("pc", peForm);
+            pcrepository.save(p);
             mv = new ModelAndView("redirect:/"); // リダイレクト
             return mv;
 
