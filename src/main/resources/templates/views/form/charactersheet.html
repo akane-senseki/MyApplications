@@ -6,8 +6,8 @@
     <div class="cs_form" th:fragment="registForm(charactersheet)">
         <div class="cs_form_container">
             <div class="cs_form_item">
-                <label for="cs_img">画像をアップロード</label><br /> <input type="file"
-                    name="cs_img" id="cs_img" accept=".png,.jpg,.jpeg">
+                <label for="cs_img">画像をアップロード</label><br />
+                <input type="file" name="cs_img" id="cs_img" accept=".png,.jpg,.jpeg" required onchange="check();">
                 <div id="preview"></div>
                 <script type="text/javascript">
 //画像をプレビューする
@@ -35,7 +35,15 @@
     }
     fileInput.addEventListener('change', handleFileSelect);
 
-
+    //二枚以上選択でアラートを出したい。現状出せていない。
+    function check(){
+        var fileList = document.getElementById("cs_img").files;
+        if(fileList.length > 1){
+            document.getElementById("cs_submit").disabled = true ;
+            //↑disabledでsubmit無効化
+            alert("アップロードは一枚のみです");
+        }
+    }
 
 
 </script>
@@ -122,7 +130,7 @@
         <input type="radio" name="release_flag" value="0"/>公開
         <input type="radio" name="release_flag" value="1"/>非公開
         <input type="hidden" name="token" th:value="${pc.token}" />
-        <button type="submit">アップロード</button>
+        <button type="submit" id="cs_submit">アップロード</button>
     </div>
 </body>
 </html>

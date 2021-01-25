@@ -50,12 +50,16 @@ main {
     }
 
 
-
 }
 
     //CSのフォーム--------------------------------------
     .cs_form{
         margin:auto 150px;
+
+        #preview img{
+            width:200px;
+            }
+
         .cs_form_container{
             display:flex;
             text-align:center;

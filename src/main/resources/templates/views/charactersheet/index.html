@@ -5,6 +5,9 @@
 </head>
 <body>
 <h2>インデックスページ</h2>
+<div class="cs_index_list" th:each="pc , ${pc}" th:object="${pc}">
+    <p th:text="*{pc.name}"></p>
+</div>
 <br />
 <br />
 <a th:href="@{/cs/new}">登録ページへ</a>

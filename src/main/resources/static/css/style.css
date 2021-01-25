@@ -33,6 +33,8 @@ main .btn_circle {
 
 .cs_form {
   margin: auto 150px; }
+  .cs_form #preview img {
+    width: 200px; }
   .cs_form .cs_form_container {
     display: flex;
     text-align: center;

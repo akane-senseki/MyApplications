@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -34,8 +35,11 @@ public class CsController {
 
     @RequestMapping(value = "/cs/index", method = RequestMethod.GET)
     public ModelAndView index(ModelAndView mv) {
-
         System.out.println("csindexController通過");
+
+        List<Pc_Entity> pc = pcrepository.findAll();
+        System.out.println(pc.get(0).getName());
+        mv.addObject("pc" , pc);
 
         mv.setViewName("views/charactersheet/index");
 
@@ -81,7 +85,7 @@ public class CsController {
 
             User u = (User)session.getAttribute("login_user");
             String user_id = u.getId()+"";
-            String img_path = (int)(Math.floor(Math.random()*100000)) + "";
+            String img_path = (int)(Math.floor(Math.random()*1000000000)) + "";
             p.setImg_path(img_path);
             System.out.println(u.getId());
 
