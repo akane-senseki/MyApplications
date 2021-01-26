@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
 
 import javax.servlet.http.HttpSession;
 
@@ -77,6 +78,9 @@ public class CsController {
             p.setName(peForm.getName());
             p.setName_ruby(peForm.getName_ruby());
             p.setRelease_flag(peForm.getRelease_flag());
+
+            Date update_date = new Date(System.currentTimeMillis());
+            p.setUpdate_at(update_date);
 
             p.setStr(peForm.getStr());
             p.setCon(peForm.getCon());

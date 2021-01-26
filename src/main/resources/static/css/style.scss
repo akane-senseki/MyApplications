@@ -1,3 +1,13 @@
+//基本設定
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+
 header {
     background-color: #b0c4de;
     padding: 30px auto;
@@ -6,9 +16,11 @@ header {
         display: flex;
         justify-content: space-around;
     }
-        .header_nav {
-            text-align:center;
-            li{
+
+    .header_nav {
+        text-align: center;
+
+        li {
             display: inline-block;
 
         }
@@ -16,81 +28,141 @@ header {
 }
 
 main {
-    .btn_circle{
+    width: 80%;
+    margin: auto;
+
+    .btn_circle {
+        text-align: center;
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
             text-align: center;
 
-        a{
-            display:inline-block;
-            text-decoration:none;
-            color:#fff;
-            width:150px;
-            height:150px;
-            border-radius:50%;
-            text-align:center;
-
-            line-height:150px;
-            overflow:hidden;
+            line-height: 150px;
+            overflow: hidden;
 
 
             background-image: linear-gradient(#fed6e3 0%, #b0c4de 100%);
             text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
             box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
 
-            margin:auto 30px;
+            margin: auto 30px;
 
 
         }
-        a:active{
+
+        a:active {
             box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.32);
             background-image: linear-gradient(#fed6e3 0%, #7B94B5 100%);
         }
-        a:hover{
+
+        a:hover {
             background-image: linear-gradient(#FFEDF3 0%, #b0c4de 100%);
-            }
+        }
     }
 
 
 }
 
-    //CSのフォーム--------------------------------------
-    .cs_form{
-        margin:auto 150px;
+//CSのフォーム--------------------------------------
+.cs_form {
 
-        #preview img{
-            width:200px;
-            }
+    #preview img {
+        width: 200px;
+    }
 
-        .cs_form_container{
-            display:flex;
-            text-align:center;
-            justify-content:center;
+    .cs_form_container {
+        display: flex;
+        text-align: center;
+        justify-content: center;
 
-            .right{
-                margin-left:150px;
-                }
-
+        .right {
+            margin-left: 150px;
         }
-    .ability_form , .skill_form{
-        input{
+
+    }
+
+    .ability_form,
+    .skill_form {
+        input {
             width: 120px;
             height: 36px;
         }
+
         input[type="number"]::-webkit-outer-spin-button {
             -webkit-appearance: none;
             margin: 0;
-     }
+        }
+
         input[type="number"]::-webkit-inner-spin-button {
             -webkit-appearance: none;
             margin: 0;
         }
 
 
-     input[type="number"] {
-      -moz-appearance:textfield;
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+    }
+
+}
+
+//CSのindexページ--------------------------------------
+.cs_index_wrapper {
+    text-align: center;
+
+    .cs_new{
+            display: inline-block;
+    text-align: center;
+    margin: 50px auto 30px auto;
+    text-decoration: none;
+    border: solid 2px;
+    padding: 7px 40px;
+    }
+    .cs_index_list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .cs_index_container {
+            display: flex;
+            width: 35vw;
+            max-width: 380px;
+            padding: 20px 20px 20px 0px;
+            margin: 20px;
+            border: solid 2px #555;
+            border-radius: 5px;
+            position: relative;
+
+            .item {
+                margin-left: 15px;
+                text-align: left;
+
+                img {
+                    width: 150px;
+                }
+            .cs_edit{
+                text-decoration: none;
+                border: solid 1px #555;
+                padding: 1px 15px;
+                margin: 10px;
+                border-radius: 3px;
+                color: #333;
+                position: absolute;
+                right: 0px;
+                bottom: 10px;
+            }
+            }
+        }
     }
 }
 
-}
+
 
 footer {
     background-color: #b0c4de;

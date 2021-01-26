@@ -1,5 +1,7 @@
 package myapp.models;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,6 +34,9 @@ public class Pc_Entity {
 
     @Column(name = "img_path") //画像パス
     private String img_path;
+
+    @Column(name = "update_date")
+    private Date update_date;
 
     //能力値-------------------------------------------------------------------
 
@@ -88,7 +93,12 @@ public class Pc_Entity {
         this.release_flag = release_flag;
     }
 
-
+    public Date getUpdate_date() {
+        return update_date;
+    }
+    public void setUpdate_at(Date update_date) {
+        this.update_date = update_date;
+    }
     public int getStr() {                //STR-------------------------------
         return str;
     }

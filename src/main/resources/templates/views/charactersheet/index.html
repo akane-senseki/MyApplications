@@ -4,19 +4,24 @@
 <head>
 </head>
 <body>
-    <h2>インデックスページ</h2>
-    <th:block th:if="${pc == null}">
-        <p>まだ登録されていません</p>
-    </th:block>
-    <th:block th:if="${pc != null}">
-    <p>登録データはある……？</p>
-         <div class="cs_index_list" th:each="pc : ${pc}" th:object="${pc}"><!-- th:objectを指定しておくことで*{}で中身を取り出すことが出来る。 -->
-            <img th:src="@{/images/{id}/{img_path}.png(id=*{user.id},img_path=*{img_path})}" />
-            <p th:text="*{name}"></p>
-        </div>
-    </th:block>
-    <br />
-    <br />
-    <a th:href="@{/cs/new}">登録ページへ</a>
+    <div class="cs_index_wrapper">
+         <a class="cs_new" th:href="@{/cs/new}">新規登録</a>
+        <th:block th:if="${pc != null}">
+            <div class="cs_index_list">
+                <div class="cs_index_container" th:each="pc : ${pc}" th:object="${pc}"><!-- ここも繰り返される -->
+                    <!-- th:objectを指定しておくことで*{}で中身を取り出すことが出来る。 -->
+                    <div class="item">
+                        <img
+                            th:src="@{/images/{id}/{img_path}.png(id=*{user.id},img_path=*{img_path})}" />
+                    </div>
+                    <div class="item">
+                        <p th:text="*{name}"></p>
+                        <p th:text="*{#dates.format(update_date , 'yyyy-MM-dd')}"></p>
+                        <a class="cs_edit" th:href="@{/cs/show(id=*{id})}">編集</a>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+    </div>
 </body>
 </html>
