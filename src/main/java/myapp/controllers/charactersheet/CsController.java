@@ -8,15 +8,18 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import myapp.forms.Pc_EntityForm;
@@ -34,13 +37,17 @@ public class CsController {
     PcRepository pcrepository;
 
     @RequestMapping(value = "/cs/index", method = RequestMethod.GET)
-    public ModelAndView index(ModelAndView mv) {
+    public ModelAndView index(@RequestParam(name = "page" , required = false) Integer page ,  ModelAndView mv) {
         System.out.println("csindexController通過");
+        if(page == null) {
+            page = 1;
+        }
 
-        List<Pc_Entity> pc = pcrepository.findAll();
-        System.out.println(pc.get(0).getName());
+        Page<Pc_Entity> pc = pcrepository.findAll(PageRequest.of(20 * (page - 1), 20, Sort.by("id").descending()));
+        System.out.println("全件検索");
         mv.addObject("pc" , pc);
-
+        mv.addObject("page" , page);
+        System.out.println("pcデータを詰めた");
         mv.setViewName("views/charactersheet/index");
 
         return mv;
@@ -89,7 +96,7 @@ public class CsController {
             p.setImg_path(img_path);
             System.out.println(u.getId());
 
-            String img_url = "C:/pleiades/workspace/MyApplications/src/main/resources/images/" + user_id;
+            String img_url = "C:/pleiades/workspace/MyApplications/src/main/resources/static/images/" + user_id;
 
             File images = new File(img_url);
             if (images.mkdirs()) { //フォルダ作成に成功するとtrue、失敗するとfalseを返す。もう存在している場合はfalse

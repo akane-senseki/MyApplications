@@ -4,12 +4,19 @@
 <head>
 </head>
 <body>
-<h2>インデックスページ</h2>
-<div class="cs_index_list" th:each="pc , ${pc}" th:object="${pc}">
-    <p th:text="*{pc.name}"></p>
-</div>
-<br />
-<br />
-<a th:href="@{/cs/new}">登録ページへ</a>
+    <h2>インデックスページ</h2>
+    <th:block th:if="${pc == null}">
+        <p>まだ登録されていません</p>
+    </th:block>
+    <th:block th:if="${pc != null}">
+    <p>登録データはある……？</p>
+         <div class="cs_index_list" th:each="pc : ${pc}" th:object="${pc}"><!-- th:objectを指定しておくことで*{}で中身を取り出すことが出来る。 -->
+            <img th:src="@{/images/{id}/{img_path}.png(id=*{user.id},img_path=*{img_path})}" />
+            <p th:text="*{name}"></p>
+        </div>
+    </th:block>
+    <br />
+    <br />
+    <a th:href="@{/cs/new}">登録ページへ</a>
 </body>
 </html>
