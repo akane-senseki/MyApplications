@@ -72,9 +72,8 @@ public class CsController {
 
     }
 
-    @RequestMapping(value = "/cs/upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/cs/create", method = RequestMethod.POST)
     public ModelAndView upload(@ModelAttribute Pc_EntityForm peForm, ModelAndView mv) throws IOException {
-        System.out.println("csuploadController通過");
 
         if (peForm.getToken() != null && peForm.getToken().equals(session.getId())) {
             Pc_Entity p = new Pc_Entity();
@@ -110,15 +109,20 @@ public class CsController {
 
             String img_name = peForm.getCs_img().getOriginalFilename();
             String extension = img_name.substring(img_name.lastIndexOf("."));//最後の.より右側の文字(拡張子)を取得
-            String img_path = (int)(Math.floor(Math.random()*1000000000)) + "." + extension;
-            List<Pc_Entity> pc = pcrepository.findByUser_id(u);
-            //画像名が既存のものと被っていた場合変更する
+            String img_path = (int)(Math.floor(Math.random()*1000000000)) + extension;
+            List<Pc_Entity> pc = pcrepository.findByUser(u);
+            System.out.println(pc.get(0).getName());
+            //画像名が既存のものと被っていた場合変更する(変更後はもう一度確認する)
             for(int i = 0 ; i < pc.size() ; i ++) {
                 if(img_path.equals(pc.get(i).getImg_path())) {
-                    img_path = "9966" + img_path;
+                    img_path = "96" + img_path;
+                    for(int n = 0 ; n < pc.size() ; n ++) {
+                        if(img_path.equals(pc.get(n).getImg_path())) {
+                            img_path = "96" + img_path;
+                        }
+                    }
                 }
             }
-
             p.setImg_path(img_path);
 
             //MultipartFile型をInputStream型にキャストしてる(入出力出来るように)

@@ -10,7 +10,7 @@ import myapp.models.User;
 
 @Repository
 public interface PcRepository extends JpaRepository<Pc_Entity, Integer>{
-    public List<Pc_Entity> findByUser_id(User user_id);
+    public List<Pc_Entity> findByUser(User user);
 
 
 
