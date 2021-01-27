@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import myapp.config.SecurityData;
 import myapp.forms.Pc_EntityForm;
 import myapp.models.Pc_Entity;
 import myapp.models.User;
@@ -36,6 +38,9 @@ public class CsController {
 
     @Autowired
     PcRepository pcrepository;
+
+    @Autowired
+    SecurityData securitydate;
 
     @RequestMapping(value = "/cs/index", method = RequestMethod.GET)
     public ModelAndView index(@RequestParam(name = "page" , required = false) Integer page ,  ModelAndView mv) {
@@ -91,23 +96,30 @@ public class CsController {
             p.setKick_add(peForm.getKick_add());
             p.setFist_add(peForm.getFist_add());
             p.setHeadbutt_add(peForm.getHeadbutt_add());
-
             System.out.println("登録出来た！");
 
             User u = (User)session.getAttribute("login_user");
-            String user_id = u.getId()+"";
-            String img_path = (int)(Math.floor(Math.random()*1000000000)) + "";
-            p.setImg_path(img_path);
-            System.out.println(u.getId());
 
-            String img_url = "C:/pleiades/workspace/MyApplications/src/main/resources/static/images/" + user_id;
 
-            File images = new File(img_url);
-            if (images.mkdirs()) { //フォルダ作成に成功するとtrue、失敗するとfalseを返す。もう存在している場合はfalse
-                System.out.println("イメージフォルダの作成に成功しました");
-            } else {
-                System.out.println("イメージフォルダの作成に失敗しました");
+
+          //ここから画像のパス作成------------------------------------
+
+            //画像保存場所+ログインユーザーIDでフォルダの作成
+            File images = new File(securitydate.getImg_path() + u.getId());
+            images.mkdirs();
+
+            String img_name = peForm.getCs_img().getOriginalFilename();
+            String extension = img_name.substring(img_name.lastIndexOf("."));//最後の.より右側の文字(拡張子)を取得
+            String img_path = (int)(Math.floor(Math.random()*1000000000)) + "." + extension;
+            List<Pc_Entity> pc = pcrepository.findByUser_id(u);
+            //画像名が既存のものと被っていた場合変更する
+            for(int i = 0 ; i < pc.size() ; i ++) {
+                if(img_path.equals(pc.get(i).getImg_path())) {
+                    img_path = "9966" + img_path;
+                }
             }
+
+            p.setImg_path(img_path);
 
             //MultipartFile型をInputStream型にキャストしてる(入出力出来るように)
             byte[] byteArr = peForm.getCs_img().getBytes();
@@ -115,7 +127,7 @@ public class CsController {
             BufferedInputStream reader = new BufferedInputStream(image);
 
             try (
-                    FileOutputStream img = new FileOutputStream(img_url + "/" + img_path + ".png");
+                    FileOutputStream img = new FileOutputStream(securitydate.getImg_path() + u.getId() + "/" + img_path);
                     BufferedOutputStream writer = new BufferedOutputStream(img);) {
                 int data;
                 while ((data = reader.read()) != -1) {

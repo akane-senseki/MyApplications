@@ -1,12 +1,19 @@
 package myapp.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import myapp.models.Pc_Entity;
+import myapp.models.User;
 
 @Repository
 public interface PcRepository extends JpaRepository<Pc_Entity, Integer>{
+    public List<Pc_Entity> findByUser_id(User user_id);
+
+
+
 }
 
 //JpaRepositoryはデータ検索を行う為の仕組み。
