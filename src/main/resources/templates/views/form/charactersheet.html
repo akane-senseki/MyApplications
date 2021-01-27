@@ -7,8 +7,9 @@
         <div class="cs_form_container">
             <div class="cs_form_item">
                 <label for="cs_img">画像をアップロード</label><br />
-                <input type="file" name="cs_img" id="cs_img" accept=".png,.jpg,.jpeg" required onchange="check();">
+                <input type="file" name="cs_img" id="cs_img" accept=".png,.jpg,.jpeg" required>
                 <div id="preview"></div>
+                <img src="/myapplications/images/defo/noimage.png" alt="cs_img"/>
                 <script type="text/javascript">
 //画像をプレビューする
     function previewFile(file){
@@ -29,21 +30,13 @@
     const fileInput = document.getElementById('cs_img');
     const handleFileSelect = () => {
         const files = fileInput.files;
-        for(let i = 0 ; i < files.length; i++){
+        previewFile(files[0]);
+/*         for(let i = 0 ; i < files.length; i++){
             previewFile(files[i]);
-        }
+        } */
     }
     fileInput.addEventListener('change', handleFileSelect);
 
-    //二枚以上選択でアラートを出したい。現状出せていない。
-    function check(){
-        var fileList = document.getElementById("cs_img").files;
-        if(fileList.length > 1){
-            document.getElementById("cs_submit").disabled = true ;
-            //↑disabledでsubmit無効化
-            alert("アップロードは一枚のみです");
-        }
-    }
 
 
 </script>

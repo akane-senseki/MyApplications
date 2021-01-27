@@ -46,16 +46,13 @@ public class CsController {
 
     @RequestMapping(value = "/cs/index", method = RequestMethod.GET)
     public ModelAndView csIndex(@RequestParam(name = "page" , required = false) Integer page ,  ModelAndView mv) {
-        System.out.println("csindexController通過");
         if(page == null) {
             page = 1;
         }
 
         Page<Pc_Entity> pc = pcrepository.findAll(PageRequest.of(20 * (page - 1), 20, Sort.by("id").descending()));
-        System.out.println("全件検索");
         mv.addObject("pc" , pc);
         mv.addObject("page" , page);
-        System.out.println("pcデータを詰めた");
         mv.setViewName("views/charactersheet/index");
 
         return mv;
@@ -97,9 +94,9 @@ public class CsController {
             p.setKick_add(peForm.getKick_add());
             p.setFist_add(peForm.getFist_add());
             p.setHeadbutt_add(peForm.getHeadbutt_add());
-            System.out.println("登録出来た！");
 
             User u = (User)session.getAttribute("login_user");
+
 
 
 
@@ -108,12 +105,12 @@ public class CsController {
             //画像保存場所+ログインユーザーIDでフォルダの作成
             File images = new File(securitydate.getImg_path() + u.getId());
             images.mkdirs();
+            System.out.println("フォルダは作った");
 
             String img_name = peForm.getCs_img().getOriginalFilename();
             String extension = img_name.substring(img_name.lastIndexOf("."));//最後の.より右側の文字(拡張子)を取得
             String img_path = (int)(Math.floor(Math.random()*1000000000)) + extension;
             List<Pc_Entity> pc = pcrepository.findByUser(u);
-            System.out.println(pc.get(0).getName());
             //画像名が既存のものと被っていた場合変更する(変更後はもう一度確認する)
             for(int i = 0 ; i < pc.size() ; i ++) {
                 if(img_path.equals(pc.get(i).getImg_path())) {
@@ -126,6 +123,7 @@ public class CsController {
                 }
             }
             p.setImg_path(img_path);
+            System.out.println("img_pathの登録完了");
 
             //MultipartFile型をInputStream型にキャストしてる(入出力出来るように)
             byte[] byteArr = peForm.getCs_img().getBytes();
@@ -153,6 +151,7 @@ public class CsController {
 
             mv.addObject("pc", peForm);
             pcrepository.save(p);
+            System.out.println("登録出来た！");
             mv = new ModelAndView("redirect:/"); // リダイレクト
             return mv;
 
