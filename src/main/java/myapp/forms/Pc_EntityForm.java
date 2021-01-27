@@ -3,6 +3,7 @@ package myapp.forms;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.http.Part;
 
@@ -13,7 +14,7 @@ import myapp.models.Pc_Entity;
 public class Pc_EntityForm extends Pc_Entity implements Part {
     private String token;
 
-    private MultipartFile cs_img;
+    private List<MultipartFile> cs_img;
 
     private int hp ;
 
@@ -38,10 +39,10 @@ public class Pc_EntityForm extends Pc_Entity implements Part {
         this.token = token;
     }
 
-    public MultipartFile getCs_img() {
+    public List<MultipartFile> getCs_img() {
         return cs_img;
     }
-    public void setCs_img(MultipartFile cs_img) {
+    public void setCs_img(List<MultipartFile> cs_img) {
         this.cs_img = cs_img;
     }
 

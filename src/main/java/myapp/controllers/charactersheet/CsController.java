@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import myapp.config.SecurityData;
@@ -107,7 +108,9 @@ public class CsController {
             images.mkdirs();
             System.out.println("フォルダは作った");
 
-            String img_name = peForm.getCs_img().getOriginalFilename();
+            MultipartFile img_file = peForm.getCs_img().get(peForm.getCs_img().size() - 1 );
+
+            String img_name = img_file.getOriginalFilename();
             String extension = img_name.substring(img_name.lastIndexOf("."));//最後の.より右側の文字(拡張子)を取得
             String img_path = (int)(Math.floor(Math.random()*1000000000)) + extension;
             List<Pc_Entity> pc = pcrepository.findByUser(u);
@@ -126,7 +129,7 @@ public class CsController {
             System.out.println("img_pathの登録完了");
 
             //MultipartFile型をInputStream型にキャストしてる(入出力出来るように)
-            byte[] byteArr = peForm.getCs_img().getBytes();
+            byte[] byteArr = img_file.getBytes();
             InputStream image = new ByteArrayInputStream(byteArr);
             BufferedInputStream reader = new BufferedInputStream(image);
 
