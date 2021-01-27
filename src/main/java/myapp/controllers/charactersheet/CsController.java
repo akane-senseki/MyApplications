@@ -10,9 +10,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -43,7 +45,7 @@ public class CsController {
     SecurityData securitydate;
 
     @RequestMapping(value = "/cs/index", method = RequestMethod.GET)
-    public ModelAndView index(@RequestParam(name = "page" , required = false) Integer page ,  ModelAndView mv) {
+    public ModelAndView csIndex(@RequestParam(name = "page" , required = false) Integer page ,  ModelAndView mv) {
         System.out.println("csindexController通過");
         if(page == null) {
             page = 1;
@@ -61,7 +63,7 @@ public class CsController {
     }
 
     @RequestMapping(value = "/cs/new", method = RequestMethod.GET)
-    public ModelAndView edit(@ModelAttribute Pc_EntityForm peForm, ModelAndView mv) {
+    public ModelAndView csNew(@ModelAttribute Pc_EntityForm peForm, ModelAndView mv) {
 
         System.out.println("cseditController通過");
         peForm.setToken(session.getId());
@@ -73,7 +75,7 @@ public class CsController {
     }
 
     @RequestMapping(value = "/cs/create", method = RequestMethod.POST)
-    public ModelAndView upload(@ModelAttribute Pc_EntityForm peForm, ModelAndView mv) throws IOException {
+    public ModelAndView csCerate(@ModelAttribute Pc_EntityForm peForm, ModelAndView mv) throws IOException {
 
         if (peForm.getToken() != null && peForm.getToken().equals(session.getId())) {
             Pc_Entity p = new Pc_Entity();
@@ -162,5 +164,38 @@ public class CsController {
             return mv;
 
         }
+    }
+
+    @RequestMapping(path = "/cs/show" , method = RequestMethod.GET)
+    public ModelAndView csShow(@ModelAttribute Pc_EntityForm peForm , ModelAndView mv) {
+
+        //Optional<> はその値がnullかも知れないことをあらわしている(nullチェックが必要ない)
+        Optional<Pc_Entity> p = pcrepository.findById(peForm.getId());
+
+        //ModelMapperでEntity→Formオブジェクトへマッピングする。
+        ModelMapper modelMapper = new ModelMapper();
+        peForm = modelMapper.map(p.orElse(new Pc_Entity()), Pc_EntityForm.class);
+
+        mv.addObject("pc" , peForm);
+        mv.setViewName("views/charactersheet/show");
+
+        return mv;
+
+    }
+
+    @RequestMapping(path = "/cs/edit" , method = RequestMethod.GET)
+    public ModelAndView csEdit(@ModelAttribute Pc_EntityForm peForm , ModelAndView mv) {
+
+        Optional<Pc_Entity> p = pcrepository.findById(peForm.getId());
+        //ModelMapperでEntity→Formオブジェクトへマッピングする。(変換する)
+        ModelMapper modelMapper = new ModelMapper();
+        peForm = modelMapper.map(p.orElse(new Pc_Entity()), Pc_EntityForm.class);
+        peForm.setToken(session.getId());
+
+        mv.addObject("pc" , peForm );
+        mv.setViewName("views/charactersheet/edit");
+
+        return mv;
+
     }
 }
