@@ -8,19 +8,20 @@
             <div class="cs_form_item">
                 <label for="cs_img">画像をアップロード</label><br />
                 <input type="file" name="cs_img" id="cs_img" accept=".png,.jpg,.jpeg" required>
-                <div id="preview"></div>
-                <img src="/myapplications/images/defo/noimage.png" alt="cs_img"/>
+                <div id="preview-"></div>
+                <img id="preview" src="/myapplications/images/defo/noimage.png" alt="cs_img"/>
                 <script type="text/javascript">
 //画像をプレビューする
     function previewFile(file){
-        const preview = document.getElementById('preview');
+        //const preview = document.getElementById('');
         const reader = new FileReader();
 
         reader.onload = function(e){
             const imageUrl = e.target.result; //画像のurlの呼び出し
-            const img = document.createElement("img"); //img要素を作成
-            img.src = imageUrl; //urlをimgにセット
-            preview.appendChild(img); //#previewの中に追加
+            document.getElementById('preview').src = imageUrl;
+           // const img = document.createElement("img"); //img要素を作成
+           // img.src = imageUrl; //urlをimgにセット
+           // preview.appendChild(img); //#previewの中に追加
         }
         //ファイルを読み込む
         reader.readAsDataURL(file);
