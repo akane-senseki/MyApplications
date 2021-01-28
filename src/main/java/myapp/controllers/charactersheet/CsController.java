@@ -20,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,14 +47,14 @@ public class CsController {
     SecurityData securitydate;
 
     @RequestMapping(value = "/cs/index", method = RequestMethod.GET)
-    public ModelAndView csIndex(@RequestParam(name = "page" , required = false) Integer page ,  ModelAndView mv) {
-        if(page == null) {
+    public ModelAndView csIndex(@RequestParam(name = "page", required = false) Integer page, ModelAndView mv) {
+        if (page == null) {
             page = 1;
         }
 
         Page<Pc_Entity> pc = pcrepository.findAll(PageRequest.of(20 * (page - 1), 20, Sort.by("id").descending()));
-        mv.addObject("pc" , pc);
-        mv.addObject("page" , page);
+        mv.addObject("pc", pc);
+        mv.addObject("page", page);
         mv.setViewName("views/charactersheet/index");
 
         return mv;
@@ -73,6 +74,7 @@ public class CsController {
     }
 
     @RequestMapping(value = "/cs/create", method = RequestMethod.POST)
+    @Transactional // メソッド開始時にトランザクションを開始、終了時にコミットする
     public ModelAndView csCerate(@ModelAttribute Pc_EntityForm peForm, ModelAndView mv) throws IOException {
 
         if (peForm.getToken() != null && peForm.getToken().equals(session.getId())) {
@@ -96,59 +98,62 @@ public class CsController {
             p.setFist_add(peForm.getFist_add());
             p.setHeadbutt_add(peForm.getHeadbutt_add());
 
-            User u = (User)session.getAttribute("login_user");
+            User u = (User) session.getAttribute("login_user");
 
-
-
-
-          //ここから画像のパス作成------------------------------------
+            //ここから画像のパス作成------------------------------------
 
             //画像保存場所+ログインユーザーIDでフォルダの作成
             File images = new File(securitydate.getImg_path() + u.getId());
             images.mkdirs();
-            System.out.println("フォルダは作った");
 
-            MultipartFile img_file = peForm.getCs_img().get(peForm.getCs_img().size() - 1 );
+            //画像がアップロードされていたら
+            if (!peForm.getCs_img().get(0).getOriginalFilename().equals("")) {
 
-            String img_name = img_file.getOriginalFilename();
-            String extension = img_name.substring(img_name.lastIndexOf("."));//最後の.より右側の文字(拡張子)を取得
-            String img_path = (int)(Math.floor(Math.random()*1000000000)) + extension;
-            List<Pc_Entity> pc = pcrepository.findByUser(u);
-            //画像名が既存のものと被っていた場合変更する(変更後はもう一度確認する)
-            for(int i = 0 ; i < pc.size() ; i ++) {
-                if(img_path.equals(pc.get(i).getImg_path())) {
-                    img_path = "96" + img_path;
-                    for(int n = 0 ; n < pc.size() ; n ++) {
-                        if(img_path.equals(pc.get(n).getImg_path())) {
-                            img_path = "96" + img_path;
+                MultipartFile img_file = peForm.getCs_img().get(peForm.getCs_img().size() - 1);
+
+                String img_name = img_file.getOriginalFilename();
+                String extension = img_name.substring(img_name.lastIndexOf("."));//最後の.より右側の文字(拡張子)を取得
+                String img_path = (int) (Math.floor(Math.random() * 1000000000)) + extension;
+                List<Pc_Entity> pc = pcrepository.findByUser(u);
+                //画像名が既存のものと被っていた場合変更する(変更後はもう一度確認する)
+                for (int i = 0; i < pc.size(); i++) {
+                    if (img_path.equals(pc.get(i).getImg_path())) {
+                        img_path = "96" + img_path;
+                        for (int n = 0; n < pc.size(); n++) {
+                            if (img_path.equals(pc.get(n).getImg_path())) {
+                                img_path = "96" + img_path;
+                            }
                         }
                     }
                 }
-            }
-            p.setImg_path(img_path);
-            System.out.println("img_pathの登録完了");
+                p.setImg_path(img_path);
+                System.out.println("img_pathの登録完了");
 
-            //MultipartFile型をInputStream型にキャストしてる(入出力出来るように)
-            byte[] byteArr = img_file.getBytes();
-            InputStream image = new ByteArrayInputStream(byteArr);
-            BufferedInputStream reader = new BufferedInputStream(image);
+                //MultipartFile型をInputStream型にキャストしてる(入出力出来るように)
+                byte[] byteArr = img_file.getBytes();
+                InputStream image = new ByteArrayInputStream(byteArr);
+                BufferedInputStream reader = new BufferedInputStream(image);
 
-            try (
-                    FileOutputStream img = new FileOutputStream(securitydate.getImg_path() + u.getId() + "/" + img_path);
-                    BufferedOutputStream writer = new BufferedOutputStream(img);) {
-                int data;
-                while ((data = reader.read()) != -1) {
-                    writer.write(data);
+                try (
+                        FileOutputStream img = new FileOutputStream(
+                                securitydate.getImg_path() + u.getId() + "/" + img_path);
+                        BufferedOutputStream writer = new BufferedOutputStream(img);) {
+                    int data;
+                    while ((data = reader.read()) != -1) {
+                        writer.write(data);
+                    }
+
+                } catch (FileNotFoundException e) {
+                    // TODO 自動生成された catch ブロック
+                    e.printStackTrace();
+                } catch (IOException e1) {
+                    // TODO 自動生成された catch ブロック
+                    e1.printStackTrace();
                 }
-
-            } catch (FileNotFoundException e) {
-                // TODO 自動生成された catch ブロック
-                e.printStackTrace();
-            } catch (IOException e1) {
-                // TODO 自動生成された catch ブロック
-                e1.printStackTrace();
+            } else {
+                p.setImg_path(null);
+                System.out.println("0枚より少ない");
             }
-
 
             peForm.setToken(session.getId());
 
@@ -168,8 +173,8 @@ public class CsController {
         }
     }
 
-    @RequestMapping(path = "/cs/show" , method = RequestMethod.GET)
-    public ModelAndView csShow(@ModelAttribute Pc_EntityForm peForm , ModelAndView mv) {
+    @RequestMapping(path = "/cs/show", method = RequestMethod.GET)
+    public ModelAndView csShow(@ModelAttribute Pc_EntityForm peForm, ModelAndView mv) {
 
         //Optional<> はその値がnullかも知れないことをあらわしている(nullチェックが必要ない)
         Optional<Pc_Entity> p = pcrepository.findById(peForm.getId());
@@ -178,15 +183,16 @@ public class CsController {
         ModelMapper modelMapper = new ModelMapper();
         peForm = modelMapper.map(p.orElse(new Pc_Entity()), Pc_EntityForm.class);
 
-        mv.addObject("pc" , peForm);
+        mv.addObject("pc", peForm);
         mv.setViewName("views/charactersheet/show");
 
         return mv;
 
     }
 
-    @RequestMapping(path = "/cs/edit" , method = RequestMethod.GET)
-    public ModelAndView csEdit(@ModelAttribute Pc_EntityForm peForm , ModelAndView mv) {
+    @RequestMapping(path = "/cs/edit", method = RequestMethod.GET)
+    public ModelAndView csEdit(@ModelAttribute Pc_EntityForm peForm, ModelAndView mv) {
+        System.out.println("editcontroller通過");
 
         Optional<Pc_Entity> p = pcrepository.findById(peForm.getId());
         //ModelMapperでEntity→Formオブジェクトへマッピングする。(変換する)
@@ -194,10 +200,105 @@ public class CsController {
         peForm = modelMapper.map(p.orElse(new Pc_Entity()), Pc_EntityForm.class);
         peForm.setToken(session.getId());
 
-        mv.addObject("pc" , peForm );
+        mv.addObject("pc", peForm);
+        session.setAttribute("pc_id", peForm.getId());
         mv.setViewName("views/charactersheet/edit");
-
         return mv;
 
+    }
+
+    @RequestMapping(path = "/cs/update", method = RequestMethod.POST)
+    @Transactional
+    public ModelAndView csUpdate(@ModelAttribute Pc_EntityForm peForm, ModelAndView mv) throws IOException {
+        if (peForm.getToken() != null && peForm.getToken().equals(session.getId())) {
+            Optional<Pc_Entity> opp = pcrepository.findById((Integer) session.getAttribute("pc_id"));
+            Pc_Entity p = opp.orElse(null);
+            //orElse……存在しない場合はother(この場合はnull)を返却する。
+
+            p.setName(peForm.getName());
+            p.setName_ruby(peForm.getName_ruby());
+            p.setRelease_flag(peForm.getRelease_flag());
+
+            Date update_date = new Date(System.currentTimeMillis());
+            p.setUpdate_at(update_date);
+
+            p.setStr(peForm.getStr());
+            p.setCon(peForm.getCon());
+            p.setDex(peForm.getDex());
+            p.setSiz(peForm.getSiz());
+
+            p.setAvoidance_add(peForm.getAvoidance_add());
+            p.setKick_add(peForm.getKick_add());
+            p.setFist_add(peForm.getFist_add());
+            p.setHeadbutt_add(peForm.getHeadbutt_add());
+
+            User u = (User) session.getAttribute("login_user");
+
+            //ここから画像のパス作成------------------------------------
+
+            //画像がアップロードされていたら更新。無かったら何もしない。
+            if (!peForm.getCs_img().get(0).getOriginalFilename().equals("")) {
+
+                //登録されていた画像の削除
+                File delete_images = new File(securitydate.getImg_path() + u.getId() + "/" + p.getImg_path());
+                delete_images.delete();
+
+                //ここからcreate時と同様の処理
+                MultipartFile img_file = peForm.getCs_img().get(peForm.getCs_img().size() - 1);
+
+                String img_name = img_file.getOriginalFilename();
+                String extension = img_name.substring(img_name.lastIndexOf("."));//最後の.より右側の文字(拡張子)を取得
+                String img_path = (int) (Math.floor(Math.random() * 1000000000)) + extension;
+                List<Pc_Entity> pc = pcrepository.findByUser(u);
+                //画像名が既存のものと被っていた場合変更する(変更後はもう一度確認する)
+                for (int i = 0; i < pc.size(); i++) {
+                    if (img_path.equals(pc.get(i).getImg_path())) {
+                        img_path = "96" + img_path;
+                        for (int n = 0; n < pc.size(); n++) {
+                            if (img_path.equals(pc.get(n).getImg_path())) {
+                                img_path = "96" + img_path;
+                            }
+                        }
+                    }
+                }
+                p.setImg_path(img_path);
+                System.out.println("img_pathの登録完了");
+
+                //MultipartFile型をInputStream型にキャストしてる(入出力出来るように)
+                byte[] byteArr = img_file.getBytes();
+                InputStream image = new ByteArrayInputStream(byteArr);
+                BufferedInputStream reader = new BufferedInputStream(image);
+
+                try (
+                        FileOutputStream img = new FileOutputStream(
+                                securitydate.getImg_path() + u.getId() + "/" + img_path);
+                        BufferedOutputStream writer = new BufferedOutputStream(img);) {
+                    int data;
+                    while ((data = reader.read()) != -1) {
+                        writer.write(data);
+                    }
+
+                } catch (FileNotFoundException e) {
+                    // TODO 自動生成された catch ブロック
+                    e.printStackTrace();
+                } catch (IOException e1) {
+                    // TODO 自動生成された catch ブロック
+                    e1.printStackTrace();
+                }
+            }
+
+            peForm.setToken(session.getId());
+
+            mv.addObject("pc", peForm);
+            pcrepository.save(p);
+            System.out.println("更新出来た！");
+            mv = new ModelAndView("redirect:/"); // リダイレクト
+            return mv;
+
+        } else {
+            System.out.println("更新できず……");
+            mv = new ModelAndView("redirect:/"); // リダイレクト
+            return mv;
+        }
     }
 }

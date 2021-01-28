@@ -7,21 +7,21 @@
         <div class="cs_form_container">
             <div class="cs_form_item">
                 <label for="cs_img">画像をアップロード</label><br />
-                <input type="file" name="cs_img" id="cs_img" accept=".png,.jpg,.jpeg" required>
-                <div id="preview-"></div>
+                <input type="file" name="cs_img" id="cs_img" accept=".png,.jpg,.jpeg">
+                <th:block th:if="${pc.img_path == null}">
                 <img id="preview" src="/myapplications/images/defo/noimage.png" alt="cs_img"/>
+                </th:block>
+                <th:block th:unless="${pc.img_path == null}">
+                <img id="preview" th:src="@{/images/{id}/{img_path}(id=${pc.user.id},img_path=${pc.img_path})}" alt="cs_img"/>
+                </th:block>
                 <script type="text/javascript">
 //画像をプレビューする
     function previewFile(file){
-        //const preview = document.getElementById('');
         const reader = new FileReader();
 
         reader.onload = function(e){
             const imageUrl = e.target.result; //画像のurlの呼び出し
             document.getElementById('preview').src = imageUrl;
-           // const img = document.createElement("img"); //img要素を作成
-           // img.src = imageUrl; //urlをimgにセット
-           // preview.appendChild(img); //#previewの中に追加
         }
         //ファイルを読み込む
         reader.readAsDataURL(file);
@@ -32,9 +32,6 @@
     const handleFileSelect = () => {
         const files = fileInput.files;
         previewFile(files[0]);
-/*         for(let i = 0 ; i < files.length; i++){
-            previewFile(files[i]);
-        } */
     }
     fileInput.addEventListener('change', handleFileSelect);
 
@@ -43,10 +40,10 @@
 </script>
             </div>
             <div class="cs_form_item right">
-                <br /> <br /> <label for="name">名前</label><br /> <input
-                    type="text" id="cs_name" name="name" /> <br /> <br /> <label
-                    for="name_ruby">ふりがな</label><br /> <input type="text"
-                    id="cs_name_ruby" name="name_ruby" /> <br /> <br />
+                <br /> <br /> <label for="name">名前</label><br />
+                <input type="text" id="cs_name" name="name" th:value="${pc.name}"/> <br /> <br />
+                <label for="name_ruby">ふりがな</label><br />
+                <input type="text" id="cs_name_ruby" name="name_ruby" th:value="${pc.name_ruby}" /> <br /> <br />
             </div>
         </div>
         <div class="ability_form">
@@ -62,10 +59,10 @@
                         <th>DB</th>
                     </tr>
                     <tr>
-                        <td><input type="number" name="str" id="str" onkeyup="show()" /></td>
-                        <td><input type="number" name="con" id="con" onkeyup="show()" /></td>
-                        <td><input type="number" name="dex" id="dex" onkeyup="show()" /></td>
-                        <td><input type="number" name="siz" id="siz" onkeyup="show()" /></td>
+                        <td><input type="number" name="str" id="str" onkeyup="show()" th:value="${pc.str}"/></td>
+                        <td><input type="number" name="con" id="con" onkeyup="show()" th:value="${pc.con}"/></td>
+                        <td><input type="number" name="dex" id="dex" onkeyup="show()" th:value="${pc.dex}"/></td>
+                        <td><input type="number" name="siz" id="siz" onkeyup="show()" th:value="${pc.siz}"/></td>
                         <td id="hp">--</td>
                         <td id="db">--</td>
                     </tr>
@@ -89,33 +86,25 @@
                     <tr>
                         <th>回避</th>
                         <td id="dex_2"></td>
-                        <td><input type="number" name="avoidance_add"
-                            id="avoidance_add" class="input_min" onkeyup="show()"
-                            value="${pc.avoidance_add}" /></td>
+                        <td><input type="number" name="avoidance_add" id="avoidance_add" class="input_min" onkeyup="show()" th:value="${pc.avoidance_add}" /></td>
                         <td id="avoidance"></td>
                     </tr>
                     <tr>
                         <th>キック</th>
                         <td>25</td>
-                        <td><input type="number" name="kick_add" id="kick_add"
-                            class="input_min" onkeyup="show_kick()"
-                            value="${pc.kick_add}" /></td>
+                        <td><input type="number" name="kick_add" id="kick_add" class="input_min" onkeyup="show_kick()" th:value="${pc.kick_add}" /></td>
                         <td id="kick"></td>
                     </tr>
                     <tr>
                         <th>こぶし</th>
                         <td>50</td>
-                        <td><input type="number" name="fist_add" id="fist_add"
-                            class="input_min" onkeyup="show_fist()"
-                            value="${pc.fist_add}" /></td>
+                        <td><input type="number" name="fist_add" id="fist_add" class="input_min" onkeyup="show_fist()" th:value="${pc.fist_add}" /></td>
                         <td id="fist"></td>
                     </tr>
                     <tr>
                         <th>頭突き</th>
                         <td>10</td>
-                        <td><input type="number" name="headbutt_add"
-                            id="headbutt_add" class="input_min" onkeyup="show_headbutt()"
-                            value="${pc.headbutt_add}" /></td>
+                        <td><input type="number" name="headbutt_add" id="headbutt_add" class="input_min" onkeyup="show_headbutt()" th:value="${pc.headbutt_add}" /></td>
                         <td id="headbutt"></td>
                     </tr>
                 </tbody>
