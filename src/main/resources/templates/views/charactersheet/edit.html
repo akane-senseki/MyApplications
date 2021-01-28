@@ -9,5 +9,6 @@
 <!-- multipart/form-dataはフォームにファイルを送信する機能がある場合に指定する。必須 -->
 <div th:replace="~{views/form/charactersheet::registForm(${charactersheet})}"></div>
 </form>
+<a th:href="@{/cs/destroy}" ></a>
 </body>
 </html>

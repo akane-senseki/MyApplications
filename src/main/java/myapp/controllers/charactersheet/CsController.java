@@ -57,6 +57,11 @@ public class CsController {
         mv.addObject("page", page);
         mv.setViewName("views/charactersheet/index");
 
+        if(session.getAttribute("flush") != null){
+            mv.addObject("flush" , session.getAttribute("flush"));
+            session.removeAttribute("flush");
+        }
+
         return mv;
 
     }
@@ -159,14 +164,14 @@ public class CsController {
 
             mv.addObject("pc", peForm);
             pcrepository.save(p);
-            System.out.println("登録出来た！");
-            mv = new ModelAndView("redirect:/"); // リダイレクト
+            session.setAttribute("flush", "登録しました");
+            mv = new ModelAndView("redirect:/cs/index"); // リダイレクト
             return mv;
 
         } else {
 
-            mv.setViewName("views/charactersheet/index");
-            System.out.println("登録できず");
+            mv = new ModelAndView("redirect:/cs/index"); // リダイレクト
+            session.setAttribute("flush", "登録に失敗しました");
 
             return mv;
 
@@ -291,13 +296,14 @@ public class CsController {
 
             mv.addObject("pc", peForm);
             pcrepository.save(p);
-            System.out.println("更新出来た！");
-            mv = new ModelAndView("redirect:/"); // リダイレクト
+            session.setAttribute("flush", "更新しました");
+            session.removeAttribute("pc_id");
+            mv = new ModelAndView("redirect:/cs/index"); // リダイレクト
             return mv;
 
         } else {
-            System.out.println("更新できず……");
-            mv = new ModelAndView("redirect:/"); // リダイレクト
+            session.setAttribute("flush", "更新に失敗しました");
+            mv = new ModelAndView("redirect:/cs/index"); // リダイレクト
             return mv;
         }
     }
