@@ -27,19 +27,19 @@ public class Pc_Entity {
     private String name;
 
     @Column(name = "name_ruby") //ふりがな
-    private String name_ruby;
+    private String nameRuby;
 
     @Column(name = "release_flag") //公開可否
-    private Integer release_flag;
+    private Integer releaseFlag;
 
     @Column(name = "img_path") //画像パス
-    private String img_path;
+    private String imgPath;
 
     @Column(name = "update_date")
-    private Date update_date;
+    private Date updateDate;
 
     @Column(name = "delete_flag" , nullable = false)
-    private Integer delete_flag;
+    private Integer deleteFlag;
 
     //能力値-------------------------------------------------------------------
 
@@ -57,17 +57,17 @@ public class Pc_Entity {
 
     //技能値--------------------------------------------------------------------
     @Column(name = "avoidance_add")
-    private int avoidance_add ;  //回避上乗せ分
+    private int avoidanceAdd ;  //回避上乗せ分
 
     @Column(name = "kick_add")
-    private int kick_add; //キック上乗せ分
+    private int kickAdd; //キック上乗せ分
 
     @Column(name="fist_add")
-    private int fist_add;
+    private int fistAdd;
 
 
     @Column(name="headbutt_add")
-    private int headbutt_add;
+    private int headbuttAdd;
 
 
 
@@ -79,35 +79,34 @@ public class Pc_Entity {
         this.name = name;
     }
 
-    public String getImg_path() {
-        return img_path;
+    public String getImgPath() {
+        return imgPath;
     }
 
 
-    public void setImg_path(String img_path) {
-        this.img_path = img_path;
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
     }
-    public Integer getRelease_flag() {
-        return release_flag;
-    }
-
-
-    public void setRelease_flag(Integer release_flag) {
-        this.release_flag = release_flag;
+    public Integer getReleaseFlag() {
+        return releaseFlag;
     }
 
-    public Date getUpdate_date() {
-        return update_date;
-    }
-    public void setUpdate_at(Date update_date) {
-        this.update_date = update_date;
+    public void setReleaseFlag(Integer releaseFlag) {
+        this.releaseFlag = releaseFlag;
     }
 
-    public Integer getDelete_flag() {
-        return delete_flag;
+    public Date getUpdateDate() {
+        return updateDate;
     }
-    public void setDelete_flag(Integer delete_flag) {
-        this.delete_flag = delete_flag;
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public Integer getDeleteFlag() {
+        return deleteFlag;
+    }
+    public void setDeleteFlag(Integer deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 
 
@@ -141,37 +140,36 @@ public class Pc_Entity {
         this.siz = siz;
     }
 
-    public void setAvoidance_add(int avoidance_add) {   //回避の追加分-----------------
-        this.avoidance_add = avoidance_add;
+    public void setAvoidanceAdd(int avoidanceAdd) {   //回避の追加分-----------------
+        this.avoidanceAdd = avoidanceAdd;
     }
-    public int getAvoidance_add(){
-        return  avoidance_add;
-    }
-
-    public int getKick_add() {       //キック-----------------------------
-        return kick_add;
-    }
-    public void setKick_add(int kick_add) {
-        this.kick_add = kick_add;
+    public int getAvoidanceAdd(){
+        return  avoidanceAdd;
     }
 
-
-    public int getFist_add() {        //こぶし----------------------------
-        return fist_add ;
+    public int getKickAdd() {       //キック-----------------------------
+        return kickAdd;
     }
-    public void setFist_add(int fist_add) {
-        this.fist_add = fist_add;
+    public void setKickAdd(int kickAdd) {
+        this.kickAdd = kickAdd;
     }
 
 
-
-    public int getHeadbutt_add() {         //頭突き-----------------------------
-        return headbutt_add;
+    public int getFistAdd() {        //こぶし----------------------------
+        return fistAdd ;
     }
-    public void setHeadbutt_add(int headbutt_add) {
-        this.headbutt_add = headbutt_add;
+    public void setFistAdd(int fistAdd) {
+        this.fistAdd = fistAdd;
     }
 
+
+
+    public int getHeadbuttAdd() {         //頭突き-----------------------------
+        return headbuttAdd;
+    }
+    public void setHeadbuttAdd(int headbuttAdd) {
+        this.headbuttAdd = headbuttAdd;
+    }
 
     public Integer getId() {
         return id;
@@ -188,11 +186,11 @@ public class Pc_Entity {
     }
 
 
-    public String getName_ruby() {
-        return name_ruby;
+    public String getNameRuby() {
+        return nameRuby;
     }
-   public void setName_ruby(String name_ruby) {
-        this.name_ruby = name_ruby;
+   public void setNameRuby(String nameRuby) {
+        this.nameRuby = nameRuby;
     }
 
 //ここまでgetter/setter---------------------------------------------------------------------

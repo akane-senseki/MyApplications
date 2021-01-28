@@ -52,9 +52,8 @@ public class CsController {
             page = 1;
         }
 
-      //Page<Pc_Entity> pc = pcrepository.findByDelete_flag( 0 , (PageRequest.of(20 * (page - 1), 20, Sort.by("id").descending())));
+        Page<Pc_Entity> pc = pcrepository.findByDeleteFlag( 0 , (PageRequest.of(20 * (page - 1), 20, Sort.by("id").descending())));
 
-        Page<Pc_Entity> pc = pcrepository.findAll(PageRequest.of(20 * (page - 1), 20, Sort.by("id").descending()));
         mv.addObject("pc", pc);
         mv.addObject("page", page);
         mv.setViewName("views/charactersheet/index");
@@ -89,22 +88,22 @@ public class CsController {
 
             p.setUser((User) session.getAttribute("login_user"));
             p.setName(peForm.getName());
-            p.setName_ruby(peForm.getName_ruby());
-            p.setRelease_flag(peForm.getRelease_flag());
-            p.setDelete_flag(0);
+            p.setNameRuby(peForm.getNameRuby());
+            p.setReleaseFlag(peForm.getReleaseFlag());
+            p.setDeleteFlag(0);
 
             Date update_date = new Date(System.currentTimeMillis());
-            p.setUpdate_at(update_date);
+            p.setUpdateDate(update_date);
 
             p.setStr(peForm.getStr());
             p.setCon(peForm.getCon());
             p.setDex(peForm.getDex());
             p.setSiz(peForm.getSiz());
 
-            p.setAvoidance_add(peForm.getAvoidance_add());
-            p.setKick_add(peForm.getKick_add());
-            p.setFist_add(peForm.getFist_add());
-            p.setHeadbutt_add(peForm.getHeadbutt_add());
+            p.setAvoidanceAdd(peForm.getAvoidanceAdd());
+            p.setKickAdd(peForm.getKickAdd());
+            p.setFistAdd(peForm.getFistAdd());
+            p.setHeadbuttAdd(peForm.getHeadbuttAdd());
 
             User u = (User) session.getAttribute("login_user");
 
@@ -115,7 +114,7 @@ public class CsController {
             images.mkdirs();
 
             //画像がアップロードされていたら
-            if (!peForm.getCs_img().get(0).getOriginalFilename().equals("")) {
+            if (!peForm.getCs_img().get(0).getOriginalFilename().equals("") && peForm.getCs_img().get(0).getOriginalFilename() != null) {
 
                 MultipartFile img_file = peForm.getCs_img().get(peForm.getCs_img().size() - 1);
 
@@ -125,16 +124,16 @@ public class CsController {
                 List<Pc_Entity> pc = pcrepository.findByUser(u);
                 //画像名が既存のものと被っていた場合変更する(変更後はもう一度確認する)
                 for (int i = 0; i < pc.size(); i++) {
-                    if (img_path.equals(pc.get(i).getImg_path())) {
+                    if (img_path.equals(pc.get(i).getImgPath())) {
                         img_path = "96" + img_path;
                         for (int n = 0; n < pc.size(); n++) {
-                            if (img_path.equals(pc.get(n).getImg_path())) {
+                            if (img_path.equals(pc.get(n).getImgPath())) {
                                 img_path = "96" + img_path;
                             }
                         }
                     }
                 }
-                p.setImg_path(img_path);
+                p.setImgPath(img_path);
                 System.out.println("img_pathの登録完了");
 
                 //MultipartFile型をInputStream型にキャストしてる(入出力出来るように)
@@ -159,7 +158,7 @@ public class CsController {
                     e1.printStackTrace();
                 }
             } else {
-                p.setImg_path(null);
+                p.setImgPath(null);
                 System.out.println("0枚より少ない");
             }
 
@@ -224,31 +223,31 @@ public class CsController {
             //orElse……存在しない場合はother(この場合はnull)を返却する。
 
             p.setName(peForm.getName());
-            p.setName_ruby(peForm.getName_ruby());
-            p.setRelease_flag(peForm.getRelease_flag());
+            p.setNameRuby(peForm.getNameRuby());
+            p.setReleaseFlag(peForm.getReleaseFlag());
 
             Date update_date = new Date(System.currentTimeMillis());
-            p.setUpdate_at(update_date);
+            p.setUpdateDate(update_date);
 
             p.setStr(peForm.getStr());
             p.setCon(peForm.getCon());
             p.setDex(peForm.getDex());
             p.setSiz(peForm.getSiz());
 
-            p.setAvoidance_add(peForm.getAvoidance_add());
-            p.setKick_add(peForm.getKick_add());
-            p.setFist_add(peForm.getFist_add());
-            p.setHeadbutt_add(peForm.getHeadbutt_add());
+            p.setAvoidanceAdd(peForm.getAvoidanceAdd());
+            p.setKickAdd(peForm.getKickAdd());
+            p.setFistAdd(peForm.getFistAdd());
+            p.setHeadbuttAdd(peForm.getHeadbuttAdd());
 
             User u = (User) session.getAttribute("login_user");
 
             //ここから画像のパス作成------------------------------------
 
             //画像がアップロードされていたら更新。無かったら何もしない。
-            if (!peForm.getCs_img().get(0).getOriginalFilename().equals("")) {
+            if (!peForm.getCs_img().get(0).getOriginalFilename().equals("") && peForm.getCs_img().get(0).getOriginalFilename() != null) {
 
                 //登録されていた画像の削除
-                File delete_images = new File(securitydate.getImg_path() + u.getId() + "/" + p.getImg_path());
+                File delete_images = new File(securitydate.getImg_path() + u.getId() + "/" + p.getImgPath());
                 delete_images.delete();
 
                 //ここからcreate時と同様の処理
@@ -260,16 +259,16 @@ public class CsController {
                 List<Pc_Entity> pc = pcrepository.findByUser(u);
                 //画像名が既存のものと被っていた場合変更する(変更後はもう一度確認する)
                 for (int i = 0; i < pc.size(); i++) {
-                    if (img_path.equals(pc.get(i).getImg_path())) {
+                    if (img_path.equals(pc.get(i).getImgPath())) {
                         img_path = "96" + img_path;
                         for (int n = 0; n < pc.size(); n++) {
-                            if (img_path.equals(pc.get(n).getImg_path())) {
+                            if (img_path.equals(pc.get(n).getImgPath())) {
                                 img_path = "96" + img_path;
                             }
                         }
                     }
                 }
-                p.setImg_path(img_path);
+                p.setImgPath(img_path);
                 System.out.println("img_pathの登録完了");
 
                 //MultipartFile型をInputStream型にキャストしてる(入出力出来るように)
@@ -320,11 +319,11 @@ public class CsController {
             Optional<Pc_Entity> opp = pcrepository.findById((Integer) session.getAttribute("pc_id"));
             Pc_Entity p = opp.orElse(null);
 
-            p.setDelete_flag(1);
+            p.setDeleteFlag(1);
 
             //保存している画像の削除
             User u = (User) session.getAttribute("login_user");
-            File delete_images = new File(securitydate.getImg_path() + u.getId() + "/" + p.getImg_path());
+            File delete_images = new File(securitydate.getImg_path() + u.getId() + "/" + p.getImgPath());
             delete_images.delete();
 
             pcrepository.save(p);

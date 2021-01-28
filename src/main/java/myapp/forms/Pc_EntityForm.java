@@ -105,7 +105,7 @@ public class Pc_EntityForm extends Pc_Entity implements Part {
     }
 
     public int getKick() {
-        return this.getKick_add() + 25;
+        return this.getKickAdd() + 25;
     }
 
     public int getHeadbutt() {
@@ -113,11 +113,11 @@ public class Pc_EntityForm extends Pc_Entity implements Part {
     }
 
     public int getFist() {
-        return this.getFist_add() + 50;
+        return this.getFistAdd() + 50;
     }
 
     public int getAvoidance() {                          //回避そのもの
-        this.avoidance = (int)(Math.ceil(this.getDex() * 2) + this.getAvoidance_add()) ;
+        this.avoidance = (int)(Math.ceil(this.getDex() * 2) + this.getAvoidanceAdd()) ;
         return avoidance;
     }
 
