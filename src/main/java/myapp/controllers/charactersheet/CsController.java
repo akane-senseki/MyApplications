@@ -52,6 +52,8 @@ public class CsController {
             page = 1;
         }
 
+      //Page<Pc_Entity> pc = pcrepository.findByDelete_flag( 0 , (PageRequest.of(20 * (page - 1), 20, Sort.by("id").descending())));
+
         Page<Pc_Entity> pc = pcrepository.findAll(PageRequest.of(20 * (page - 1), 20, Sort.by("id").descending()));
         mv.addObject("pc", pc);
         mv.addObject("page", page);
@@ -89,6 +91,7 @@ public class CsController {
             p.setName(peForm.getName());
             p.setName_ruby(peForm.getName_ruby());
             p.setRelease_flag(peForm.getRelease_flag());
+            p.setDelete_flag(0);
 
             Date update_date = new Date(System.currentTimeMillis());
             p.setUpdate_at(update_date);
@@ -303,6 +306,35 @@ public class CsController {
 
         } else {
             session.setAttribute("flush", "更新に失敗しました");
+            mv = new ModelAndView("redirect:/cs/index"); // リダイレクト
+            return mv;
+        }
+    }
+
+    @RequestMapping(path = "/cs/destroy" , method = RequestMethod.POST)
+    @Transactional
+    public ModelAndView csDestroy(@ModelAttribute Pc_EntityForm peForm , ModelAndView mv) {
+
+        if(peForm.getToken() != null && peForm.getToken().equals(session.getId())) {
+
+            Optional<Pc_Entity> opp = pcrepository.findById((Integer) session.getAttribute("pc_id"));
+            Pc_Entity p = opp.orElse(null);
+
+            p.setDelete_flag(1);
+
+            //保存している画像の削除
+            User u = (User) session.getAttribute("login_user");
+            File delete_images = new File(securitydate.getImg_path() + u.getId() + "/" + p.getImg_path());
+            delete_images.delete();
+
+            pcrepository.save(p);
+            session.removeAttribute("pc_id");
+            session.setAttribute("flush", "削除しました");
+            mv = new ModelAndView("redirect:/cs/index"); // リダイレクト
+
+            return mv;
+        }else {
+            session.setAttribute("flush", "削除に失敗しました");
             mv = new ModelAndView("redirect:/cs/index"); // リダイレクト
             return mv;
         }

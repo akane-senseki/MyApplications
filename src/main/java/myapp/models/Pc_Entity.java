@@ -38,6 +38,9 @@ public class Pc_Entity {
     @Column(name = "update_date")
     private Date update_date;
 
+    @Column(name = "delete_flag" , nullable = false)
+    private Integer delete_flag;
+
     //能力値-------------------------------------------------------------------
 
     @Column(name="str")
@@ -99,6 +102,15 @@ public class Pc_Entity {
     public void setUpdate_at(Date update_date) {
         this.update_date = update_date;
     }
+
+    public Integer getDelete_flag() {
+        return delete_flag;
+    }
+    public void setDelete_flag(Integer delete_flag) {
+        this.delete_flag = delete_flag;
+    }
+
+
     public int getStr() {                //STR-------------------------------
         return str;
     }
