@@ -11,7 +11,12 @@
                 <div class="cs_index_container" th:each="pc : ${pc}" th:object="${pc}"><!-- ここも繰り返される -->
                     <!-- th:objectを指定しておくことで*{}で中身を取り出すことが出来る。 -->
                     <div class="item">
+                    <th:block th:if="*{img_path != null}">
                         <img th:src="@{/images/{id}/{img_path}(id=*{user.id},img_path=*{img_path})}" />
+                    </th:block>
+                     <th:block th:unless="*{img_path != null}">
+                        <img src="/myapplications/images/defo/noimage.png" />
+                    </th:block>
                     </div>
                     <div class="item">
                         <p th:text="*{name}"></p>
