@@ -46,6 +46,8 @@ public class CsController {
     @Autowired
     SecurityData securitydate;
 
+
+
     @RequestMapping(value = "/cs/index", method = RequestMethod.GET)
     public ModelAndView csIndex(@RequestParam(name = "page", required = false) Integer page, ModelAndView mv) {
         if (page == null) {
@@ -114,12 +116,12 @@ public class CsController {
             images.mkdirs();
 
             //画像がアップロードされていたら
-            if (!peForm.getCs_img().get(0).getOriginalFilename().equals("") && peForm.getCs_img().get(0).getOriginalFilename() != null) {
+            if (!peForm.getCsImg().get(0).getOriginalFilename().equals("") && peForm.getCsImg().get(0).getOriginalFilename() != null) {
 
-                MultipartFile img_file = peForm.getCs_img().get(peForm.getCs_img().size() - 1);
+                MultipartFile imgFile = peForm.getCsImg().get(peForm.getCsImg().size() - 1);
 
-                String img_name = img_file.getOriginalFilename();
-                String extension = img_name.substring(img_name.lastIndexOf("."));//最後の.より右側の文字(拡張子)を取得
+                String imgName = imgFile.getOriginalFilename();
+                String extension = imgName.substring(imgName.lastIndexOf("."));//最後の.より右側の文字(拡張子)を取得
                 String img_path = (int) (Math.floor(Math.random() * 1000000000)) + extension;
                 List<Pc_Entity> pc = pcrepository.findByUser(u);
                 //画像名が既存のものと被っていた場合変更する(変更後はもう一度確認する)
@@ -137,7 +139,7 @@ public class CsController {
                 System.out.println("img_pathの登録完了");
 
                 //MultipartFile型をInputStream型にキャストしてる(入出力出来るように)
-                byte[] byteArr = img_file.getBytes();
+                byte[] byteArr = imgFile.getBytes();
                 InputStream image = new ByteArrayInputStream(byteArr);
                 BufferedInputStream reader = new BufferedInputStream(image);
 
@@ -202,6 +204,7 @@ public class CsController {
         System.out.println("editcontroller通過");
 
         Optional<Pc_Entity> p = pcrepository.findById(peForm.getId());
+
         //ModelMapperでEntity→Formオブジェクトへマッピングする。(変換する)
         ModelMapper modelMapper = new ModelMapper();
         peForm = modelMapper.map(p.orElse(new Pc_Entity()), Pc_EntityForm.class);
@@ -244,14 +247,14 @@ public class CsController {
             //ここから画像のパス作成------------------------------------
 
             //画像がアップロードされていたら更新。無かったら何もしない。
-            if (!peForm.getCs_img().get(0).getOriginalFilename().equals("") && peForm.getCs_img().get(0).getOriginalFilename() != null) {
+            if (!peForm.getCsImg().get(0).getOriginalFilename().equals("") && peForm.getCsImg().get(0).getOriginalFilename() != null) {
 
                 //登録されていた画像の削除
                 File delete_images = new File(securitydate.getImg_path() + u.getId() + "/" + p.getImgPath());
                 delete_images.delete();
 
                 //ここからcreate時と同様の処理
-                MultipartFile img_file = peForm.getCs_img().get(peForm.getCs_img().size() - 1);
+                MultipartFile img_file = peForm.getCsImg().get(peForm.getCsImg().size() - 1);
 
                 String img_name = img_file.getOriginalFilename();
                 String extension = img_name.substring(img_name.lastIndexOf("."));//最後の.より右側の文字(拡張子)を取得
@@ -313,6 +316,7 @@ public class CsController {
     @RequestMapping(path = "/cs/destroy" , method = RequestMethod.POST)
     @Transactional
     public ModelAndView csDestroy(@ModelAttribute Pc_EntityForm peForm , ModelAndView mv) {
+        System.out.println("destroy通過");
 
         if(peForm.getToken() != null && peForm.getToken().equals(session.getId())) {
 

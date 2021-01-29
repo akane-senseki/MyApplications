@@ -55,7 +55,7 @@ public class SigninupController {
 
             userRepository.save(u); //DBに保存
             session.setAttribute("flush", "登録が完了しました");
-            session.setAttribute("login_user", userForm);
+            session.setAttribute("login_user", u);
 
         } else {
             mv = new ModelAndView("redirect:/"); // リダイレクト

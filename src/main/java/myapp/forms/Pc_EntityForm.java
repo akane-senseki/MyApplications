@@ -1,26 +1,21 @@
 package myapp.forms;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collection;
 import java.util.List;
-
-import javax.servlet.http.Part;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import myapp.models.Pc_Entity;
 
-public class Pc_EntityForm extends Pc_Entity implements Part {
+public class Pc_EntityForm extends Pc_Entity{
     private String token;
 
-    private List<MultipartFile> cs_img;
+    private List<MultipartFile> csImg;
 
     private int hp ;
 
     private String db;
 
-    private int db_roll ;
+    private int dbRoll ;
 
     private int avoidance ;
 
@@ -39,11 +34,11 @@ public class Pc_EntityForm extends Pc_Entity implements Part {
         this.token = token;
     }
 
-    public List<MultipartFile> getCs_img() {
-        return cs_img;
+    public List<MultipartFile> getCsImg() {
+        return csImg;
     }
-    public void setCs_img(List<MultipartFile> cs_img) {
-        this.cs_img = cs_img;
+    public void setCsImg(List<MultipartFile> csImg) {
+        this.csImg = csImg;
     }
 
     public int getHp() {
@@ -81,26 +76,26 @@ public class Pc_EntityForm extends Pc_Entity implements Part {
         int dbnum = this.getStr() + this.getSiz();
 
         if(dbnum > 2 && dbnum < 13){
-            db_roll = -(int)((Math.ceil(Math.random()*6)));
-            return db_roll;
+            dbRoll = -(int)((Math.ceil(Math.random()*6)));
+            return dbRoll;
         }else if(dbnum < 17){
-            db_roll = -(int)((Math.ceil(Math.random()*4)));
-            return db_roll;
+            dbRoll = -(int)((Math.ceil(Math.random()*4)));
+            return dbRoll;
         }else if(dbnum < 25){
-            db_roll = 0;
-            return db_roll;
+            dbRoll = 0;
+            return dbRoll;
         }else if(dbnum < 33){
-            db_roll = (int)((Math.ceil(Math.random()*4)));
-            return db_roll;
+            dbRoll = (int)((Math.ceil(Math.random()*4)));
+            return dbRoll;
         }else if(dbnum < 41){
-            db_roll = (int)((Math.ceil(Math.random()*6)));
-            return db_roll;
+            dbRoll = (int)((Math.ceil(Math.random()*6)));
+            return dbRoll;
         }else if(dbnum < 57){
-            db_roll = (int)((Math.ceil(Math.random()*12)));
-            return db_roll;
+            dbRoll = (int)((Math.ceil(Math.random()*12)));
+            return dbRoll;
         }else{
-            db_roll = 0;
-            return db_roll;
+            dbRoll = 0;
+            return dbRoll;
         }
     }
 
@@ -147,51 +142,6 @@ public class Pc_EntityForm extends Pc_Entity implements Part {
             attack = (int)((Math.ceil(Math.random()*4)));
             return attack;
         }
-    }
-    @Override
-    public InputStream getInputStream() throws IOException {
-        // TODO 自動生成されたメソッド・スタブ
-        return null;
-    }
-    @Override
-    public String getContentType() {
-        // TODO 自動生成されたメソッド・スタブ
-        return null;
-    }
-    @Override
-    public String getSubmittedFileName() {
-        // TODO 自動生成されたメソッド・スタブ
-        return null;
-    }
-    @Override
-    public long getSize() {
-        // TODO 自動生成されたメソッド・スタブ
-        return 0;
-    }
-    @Override
-    public void write(String fileName) throws IOException {
-        // TODO 自動生成されたメソッド・スタブ
-
-    }
-    @Override
-    public void delete() throws IOException {
-        // TODO 自動生成されたメソッド・スタブ
-
-    }
-    @Override
-    public String getHeader(String name) {
-        // TODO 自動生成されたメソッド・スタブ
-        return null;
-    }
-    @Override
-    public Collection<String> getHeaders(String name) {
-        // TODO 自動生成されたメソッド・スタブ
-        return null;
-    }
-    @Override
-    public Collection<String> getHeaderNames() {
-        // TODO 自動生成されたメソッド・スタブ
-        return null;
     }
 
 
