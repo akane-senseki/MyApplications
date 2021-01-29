@@ -101,6 +101,13 @@ main {
           right: 0px;
           bottom: 10px; }
 
+.dbSelect .dbSelectContainer {
+  display: flex; }
+  .dbSelect .dbSelectContainer img {
+    width: 200px; }
+  .dbSelect .dbSelectContainer .selectList img {
+    width: 50px; }
+
 footer {
   background-color: #b0c4de;
   margin: 330px auto;

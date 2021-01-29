@@ -162,7 +162,21 @@ main {
     }
 }
 
+//demobattle selectPage-------------------------------------------------------
 
+.dbSelect{
+    .dbSelectContainer{
+        img{
+            width:200px;
+        }
+        display:flex;
+        .selectList{
+            img{
+                width:50px;
+            }
+        }
+    }
+}
 
 footer {
     background-color: #b0c4de;
