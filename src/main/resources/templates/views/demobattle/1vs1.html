@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{views/layout/app :: layout(~{::body/content()})}">
+<head>
+</head>
+<body>
+    <h2>1vs1ページ</h2>
+    <p id="selectpc1">選択されていません</p>
+    <div th:each="pc : ${pc}" th:object="${pc}">
+        <div onclick="select1();">
+            <p th:text="*{id}"></p>
+            <p th:text="*{name}"></p>
+        </div>
+    </div>
+</body>
+</html>

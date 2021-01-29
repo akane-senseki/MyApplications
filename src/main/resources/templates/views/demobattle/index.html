@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{views/layout/app :: layout(~{::body/content()})}">
+<head>
+</head>
+<body>
+    <h2>デモバトルインデックスページ</h2>
+    <a th:href="@{/db/1vs1}">取り敢えず1VS1</a>
+</body>
+</html>

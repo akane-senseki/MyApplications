@@ -14,8 +14,10 @@ import myapp.models.User;
 @Repository
 public interface PcRepository extends JpaRepository<Pc_Entity, Integer>{
     public List<Pc_Entity> findByUser(User user);
-    public Page<Pc_Entity> findByDeleteFlag(Integer deleteFlag, Pageable pageable);
+    public List<Pc_Entity> findByDeleteFlagAndReleaseFlag(Integer deleteFlag, Integer releaseFlag);
+
     public Page<Pc_Entity> findByUser(User user, Pageable pageable);
+    public Page<Pc_Entity> findByDeleteFlagAndReleaseFlag(Integer deleteFlag, Integer releaseFlag , Pageable pageable);
 
 
 

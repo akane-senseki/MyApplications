@@ -6,14 +6,8 @@
 <body>
     <div class="cs_index_wrapper">
     <h2 th:if="${flush != null}" id="flush_message" th:text="${flush}"></h2>
-         <th:block th:if="${session.login_user != null}">
             <a class="cs_new" th:href="@{/cs/new}">新規登録</a>
-            <a class="cs_new" th:href="@{/cs/user}">自分のキャラシを見る</a>
-         </th:block>
-         <th:block th:unless="${session.login_user != null}">
-            <a class="cs_new" href="#">ログインして登録する</a>
-            <a class="cs_new" href="#">アカウントを作成して登録する</a>
-         </th:block>
+            <a class="cs_new" th:href="@{/cs/index}">公開されているキャラシを見る</a>
         <th:block th:if="${pc != null}">
             <div class="cs_index_list">
                 <div class="cs_index_container" th:each="pc : ${pc}" th:object="${pc}"><!-- ここも繰り返される -->

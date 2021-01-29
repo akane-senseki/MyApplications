@@ -58,7 +58,7 @@ public class CsController {
 
         mv.addObject("pc", pc);
         mv.addObject("page", page);
-        mv.setViewName("views/charactersheet/index");
+        mv.setViewName("views/charactersheet/user");
 
         if(session.getAttribute("flush") != null){
             mv.addObject("flush" , session.getAttribute("flush"));
@@ -80,7 +80,7 @@ public class CsController {
             page = 1;
         }
 
-        Page<Pc_Entity> pc = pcrepository.findByDeleteFlag( 0 , (PageRequest.of(20 * (page - 1), 20, Sort.by("id").descending())));
+        Page<Pc_Entity> pc = pcrepository.findByDeleteFlagAndReleaseFlag( 0 , 0 ,(PageRequest.of(20 * (page - 1), 20, Sort.by("id").descending())));
 
         mv.addObject("pc", pc);
         mv.addObject("page", page);
