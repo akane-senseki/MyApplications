@@ -5,12 +5,20 @@
 </head>
 <body>
     <h2>1vs1ページ</h2>
-    <p id="selectpc1">選択されていません</p>
-    <div th:each="pc : ${pc}" th:object="${pc}">
-        <div onclick="select1();">
+    <p id="selectPc1">選択されていません</p>
+    <div  th:each="pc : ${pc}" th:object="${pc}">
+        <div th:id="*{id}" onclick="select1(this);">
             <p th:text="*{id}"></p>
             <p th:text="*{name}"></p>
         </div>
     </div>
+    <script type="text/javascript">
+        function select1(e){
+            var id = e.id;
+           // alert(id);
+
+           selectPc1.innerHTML = id ;
+        }
+    </script>
 </body>
 </html>
