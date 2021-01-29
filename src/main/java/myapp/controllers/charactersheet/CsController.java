@@ -46,6 +46,32 @@ public class CsController {
     @Autowired
     SecurityData securitydate;
 
+    @RequestMapping(value = "/cs/user", method = RequestMethod.GET)
+    public ModelAndView csUsserIndex(@RequestParam(name = "page", required = false) Integer page, ModelAndView mv) {
+        if(session.getAttribute("login_user") != null) {
+
+        if (page == null) {
+            page = 1;
+        }
+
+        Page<Pc_Entity> pc = pcrepository.findByUser((User)session.getAttribute("login_user") , (PageRequest.of(20 * (page - 1), 20, Sort.by("id").descending())));
+
+        mv.addObject("pc", pc);
+        mv.addObject("page", page);
+        mv.setViewName("views/charactersheet/index");
+
+        if(session.getAttribute("flush") != null){
+            mv.addObject("flush" , session.getAttribute("flush"));
+            session.removeAttribute("flush");
+        }
+
+        }else {
+            //ログインしていないなら通常のindexへ
+            mv = new ModelAndView("redirect:/cs/index"); // リダイレクト
+        }
+        return mv;
+
+    }
 
 
     @RequestMapping(value = "/cs/index", method = RequestMethod.GET)
