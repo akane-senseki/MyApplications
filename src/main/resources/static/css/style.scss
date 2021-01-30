@@ -164,18 +164,28 @@ main {
 
 //demobattle selectPage-------------------------------------------------------
 
-.dbSelect{
+.dbSelectWarapper{
+    .dbSelect{
+        display:flex;
+        justify-content: space-between;
     .dbSelectContainer{
+            display:flex;
+            justify-content: inherit;
+            width: 600px;
         img{
             width:200px;
         }
-        display:flex;
         .selectList{
+                height: 500px;
+            width: 250px;
+            overflow: scroll;
+
             img{
-                width:50px;
+                width:60px;
             }
         }
     }
+}
 }
 
 footer {

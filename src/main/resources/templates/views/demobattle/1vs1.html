@@ -4,41 +4,97 @@
 <head>
 </head>
 <body>
-    <div class="dbSelect">
+    <div class="dbSelectWarapper">
         <h2>1vs1ページ</h2>
-        <div class="dbSelectContainer">
-            <div class="item">
-                <div id="selectPc1">
-                    <img src="/myapplications/images/defo/noimage.png" />
-                    <p>選択されていません</p>
+        <div class="dbSelect">
+            <div class="dbSelectContainer">
+                <div class="item">
+                    <div id="selectPc1">
+                        <img src="/myapplications/images/defo/noimage.png" />
+                        <p>選択されていません</p>
+                    </div>
+                </div>
+                <div class="item selectList">
+                    <div th:each="pc , status : ${pc}" th:object="${pc}">
+                        <div th:id="*{id}" onclick="select1(this);">
+                            <th:block th:if="*{imgPath != null}">
+                                <img
+                                    th:src="@{/images/{id}/{img_path}(id=*{user.id},img_path=*{imgPath})}" />
+                            </th:block>
+                            <th:block th:unless="*{imgPath != null}">
+                                <img src="/myapplications/images/defo/noimage.png" />
+                            </th:block>
+                            <span th:id="*{name} + *{id}" th:text="*{name}"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="item selectList">
-                <div th:each="pc , status : ${pc}" th:object="${pc}">
-                    <div th:id="${status.index}" onclick="select1(this);">
-                        <th:block th:if="*{imgPath != null}">
-                            <img th:src="@{/images/{id}/{img_path}(id=*{user.id},img_path=*{imgPath})}" />
-                        </th:block>
-                        <th:block th:unless="*{imgPath != null}">
-                            <img src="/myapplications/images/defo/noimage.png" />
-                        </th:block>
-                        <span th:id="*{name} + *{id}" th:text="*{name}"></span>
+            <div class="dbSelectContainer">
+                <div class="item">
+                    <div id="selectPc2">
+                        <img src="/myapplications/images/defo/noimage.png" />
+                        <p>選択されていません</p>
+                    </div>
+                </div>
+                <div class="item selectList">
+                    <div th:each="pc , status : ${pc}" th:object="${pc}">
+                        <div th:id="*{id}" onclick="select2(this);">
+                            <th:block th:if="*{imgPath != null}">
+                                <img
+                                    th:src="@{/images/{id}/{img_path}(id=*{user.id},img_path=*{imgPath})}" />
+                            </th:block>
+                            <th:block th:unless="*{imgPath != null}">
+                                <img src="/myapplications/images/defo/noimage.png" />
+                            </th:block>
+                            <span th:id="*{name} + *{id}" th:text="*{name}"></span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <script type="text/javascript">
-            function select1(e) {
-                var index = e.id;
-                selectPc1.innerHTML = document.getElementById(index).innerHTML;
-                // alert(id);
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var id1;
+            var id2;
 
-                //selectPc1.innerHTML = index ;
-                //selectPc1.innerHTML = "<p th:text='${pc[" + index + "].name}'></p>" ;
-                //selectPc1.innerHTML = "<p id='33'>これと</p>" + index +"<p>それ</p>" ;
+            function select1(e) {
+                id1 = e.id;
+                selectPc1.innerHTML = document.getElementById(id1).innerHTML;
 
             }
+            function select2(e) {
+                id2 = e.id;
+                selectPc2.innerHTML = document.getElementById(id2).innerHTML;
+
+            }
+
+            function submit() {
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = /*[[ @{/db/log} ]]*/'';
+
+                var select1 = document.createElement('input');
+                select1.type = 'hidden';
+                select1.name = 'pc1';
+                select1.value = id1;
+
+                form.appendChild(select1);
+
+                var select2 = document.createElement('input');
+                select2.type = 'hidden';
+                select2.name = 'pc2';
+                select2.value = id2;
+
+                form.appendChild(select2);
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+
+            /*]]>*/
         </script>
+
     </div>
+    <a href="#" onclick="submit();">実行する</a>
 </body>
 </html>

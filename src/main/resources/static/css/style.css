@@ -101,12 +101,21 @@ main {
           right: 0px;
           bottom: 10px; }
 
-.dbSelect .dbSelectContainer {
-  display: flex; }
-  .dbSelect .dbSelectContainer img {
-    width: 200px; }
-  .dbSelect .dbSelectContainer .selectList img {
-    width: 50px; }
+.dbSelectWarapper .dbSelect {
+  display: flex;
+  justify-content: space-between; }
+  .dbSelectWarapper .dbSelect .dbSelectContainer {
+    display: flex;
+    justify-content: inherit;
+    width: 600px; }
+    .dbSelectWarapper .dbSelect .dbSelectContainer img {
+      width: 200px; }
+    .dbSelectWarapper .dbSelect .dbSelectContainer .selectList {
+      height: 500px;
+      width: 250px;
+      overflow: scroll; }
+      .dbSelectWarapper .dbSelect .dbSelectContainer .selectList img {
+        width: 60px; }
 
 footer {
   background-color: #b0c4de;
