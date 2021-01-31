@@ -42,8 +42,11 @@ public class Pc_EntityForm extends Pc_Entity{
     }
 
     public int getHp() {
-        hp = this.getCon() + this.getSiz()/2;
         return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
     }
 
     public String getDb(int str , int siz)  {
@@ -56,7 +59,7 @@ public class Pc_EntityForm extends Pc_Entity{
             String db = "-1d4";
             return db;
         }else if(dbnum < 25){
-            String db = "0";
+            String db = "+0";
             return db;
         }else if(dbnum < 33){
             String db = "+1d4";
@@ -104,7 +107,7 @@ public class Pc_EntityForm extends Pc_Entity{
     }
 
     public int getHeadbutt() {
-        return headbutt + 30;
+        return this.getHeadbuttAdd() + 30;
     }
 
     public int getFist() {
@@ -117,30 +120,41 @@ public class Pc_EntityForm extends Pc_Entity{
     }
 
 
-    public String pc_attack(){     //一番技能値が高い戦闘技能---------------------
-        String attack ;
-        if(kick > fist && kick > headbutt){
-            attack = "キック";
-            return attack;
-        }else if(fist > headbutt){ //等しい場合は頭突きに-----------------------
-            attack = "こぶし";
-            return attack;
+    public String attackName(){     //一番技能値が高い戦闘技能---------------------
+        if(this.getKick() > this.getFist() && this.getKick() > this.getHeadbutt()){
+            return "キック";
+        }else if(this.getFist() > this.getHeadbutt()){ //等しい場合は頭突きに-----------------------
+            return "こぶし";
         }else{
-            attack = "頭突き";
-            return attack;
+            return "頭突き";
         }
     }
-    public int pc_attack_roll(){    //↑の数値
-        int attack ;
-        if(kick > fist && kick > headbutt){
-            attack = (int)((Math.ceil(Math.random()*6)));
-            return attack;
-        }else if(fist > headbutt){ //等しい場合は頭突きに-----------------------
-            attack = (int)((Math.ceil(Math.random()*3)));
-            return attack;
+    public int attack_roll(){    //↑の数値
+        if(this.getKick() > this.getFist() && this.getKick() > this.getHeadbutt()){
+            return (int)((Math.ceil(Math.random()*6)));
+        }else if(this.getFist() > this.getHeadbutt()){ //等しい場合は頭突きに--------------------
+            return (int)((Math.ceil(Math.random()*3)));
         }else{
-            attack = (int)((Math.ceil(Math.random()*4)));
-            return attack;
+            return (int)((Math.ceil(Math.random()*4)));
+        }
+    }
+    public String attack(){     //一番技能値が高い戦闘技能のダイスの値---------------------
+        if(this.getKick() > this.getFist() && this.getKick() > this.getHeadbutt()){
+            return "1D6";
+        }else if(this.getFist() > this.getHeadbutt()){ //等しい場合は頭突きに-----------------------
+            return "1D3";
+        }else{
+            return "1D4";
+        }
+    }
+
+    public int attackSkill(){     //一番技能値が高い戦闘技能のダイスの値---------------------
+        if(this.getKick() > this.getFist() && this.getKick() > this.getHeadbutt()){
+            return getKick();
+        }else if(this.getFist() > this.getHeadbutt()){ //等しい場合は頭突きに-----------------------
+            return getHeadbutt();
+        }else{
+            return getFist();
         }
     }
 

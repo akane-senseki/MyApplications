@@ -54,7 +54,7 @@ public class CsController {
             page = 1;
         }
 
-        Page<Pc_Entity> pc = pcrepository.findByUser((User)session.getAttribute("login_user") , (PageRequest.of(20 * (page - 1), 20, Sort.by("id").descending())));
+        Page<Pc_Entity> pc = pcrepository.findByUserAndDeleteFlag((User)session.getAttribute("login_user") , 0 , (PageRequest.of(20 * (page - 1), 20, Sort.by("id").descending())));
 
         mv.addObject("pc", pc);
         mv.addObject("page", page);
@@ -149,7 +149,7 @@ public class CsController {
                 String imgName = imgFile.getOriginalFilename();
                 String extension = imgName.substring(imgName.lastIndexOf("."));//最後の.より右側の文字(拡張子)を取得
                 String img_path = (int) (Math.floor(Math.random() * 1000000000)) + extension;
-                List<Pc_Entity> pc = pcrepository.findByUser(u);
+                List<Pc_Entity> pc = pcrepository.findByUserAndDeleteFlag(u ,0);
                 //画像名が既存のものと被っていた場合変更する(変更後はもう一度確認する)
                 for (int i = 0; i < pc.size(); i++) {
                     if (img_path.equals(pc.get(i).getImgPath())) {
@@ -285,7 +285,7 @@ public class CsController {
                 String img_name = img_file.getOriginalFilename();
                 String extension = img_name.substring(img_name.lastIndexOf("."));//最後の.より右側の文字(拡張子)を取得
                 String img_path = (int) (Math.floor(Math.random() * 1000000000)) + extension;
-                List<Pc_Entity> pc = pcrepository.findByUser(u);
+                List<Pc_Entity> pc = pcrepository.findByUserAndDeleteFlag(u , 0);
                 //画像名が既存のものと被っていた場合変更する(変更後はもう一度確認する)
                 for (int i = 0; i < pc.size(); i++) {
                     if (img_path.equals(pc.get(i).getImgPath())) {

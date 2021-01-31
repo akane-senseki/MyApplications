@@ -1,10 +1,12 @@
 package myapp.controllers.demobattle;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import myapp.demobattleItems.DemoBattle;
+import myapp.forms.Pc_EntityForm;
 import myapp.models.Pc_Entity;
 import myapp.repositories.PcRepository;
 
@@ -24,32 +28,141 @@ public class DemoBattleController {
     @Autowired
     PcRepository pcrepository;
 
-    @RequestMapping(value="/db/index" , method = RequestMethod.GET)
+    @RequestMapping(value = "/db/index", method = RequestMethod.GET)
     public ModelAndView dbIndex(ModelAndView mv) {
 
         mv.setViewName("views/demobattle/index");
         return mv;
     }
 
-    @RequestMapping(value="/db/1vs1" , method = RequestMethod.GET)
+    @RequestMapping(value = "/db/1vs1", method = RequestMethod.GET)
     public ModelAndView db1vs1Select(ModelAndView mv) {
 
-        List<Pc_Entity> p =  pcrepository.findByDeleteFlagAndReleaseFlag(0, 0);
-        mv.addObject( "pc", p );
+        List<Pc_Entity> p = pcrepository.findByDeleteFlagAndReleaseFlag(0, 0);
+        mv.addObject("pc", p);
         mv.setViewName("views/demobattle/1vs1");
         return mv;
     }
 
-    @RequestMapping(value="db/log" , method = RequestMethod.POST)
-    public ModelAndView dbLog(@RequestParam(name = "pc1") Integer p1 , @RequestParam(name = "pc2") Integer p2 , ModelAndView mv) {
+    @RequestMapping(value = "db/log", method = RequestMethod.POST)
+    public ModelAndView dbLog(@RequestParam(name = "pc1") Integer p1, @RequestParam(name = "pc2") Integer p2, ModelAndView mv) {
         Optional<Pc_Entity> oppc1 = pcrepository.findById(p1);
         Optional<Pc_Entity> oppc2 = pcrepository.findById(p2);
-        Pc_Entity pc1 = oppc1.orElse(null);
-        Pc_Entity pc2 = oppc2.orElse(null);
 
-        mv.addObject("pc1" , pc1);
-        mv.addObject("pc2" , pc2);
+        ModelMapper modelMapper1 = new ModelMapper();
+        ModelMapper modelMapper2 = new ModelMapper();
+        Pc_EntityForm pc1 = modelMapper1.map(oppc1.orElse(new Pc_Entity()), Pc_EntityForm.class);
+        Pc_EntityForm pc2 = modelMapper2.map(oppc2.orElse(new Pc_Entity()), Pc_EntityForm.class);
 
+        Pc_EntityForm first;  //先攻
+        Pc_EntityForm latter; //後攻
+        int roll;
+        int round = 0;
+        pc1.setHp((pc1.getCon() + pc1.getSiz())/2);
+        pc2.setHp((pc2.getCon() + pc2.getSiz())/2);
+
+        List<String> log = new ArrayList<String>();
+
+        if (pc1.getDex() == pc2.getDex()) {
+            first = pc1;
+            latter = pc2;
+        } else if (pc1.getDex() > pc2.getDex()) {
+            first = pc1;
+            latter = pc2;
+        } else {
+            first = pc2;
+            latter = pc1;
+        }
+
+        String firstDb = first.getDb(first.getStr(), first.getSiz());
+        String latterDb = latter.getDb(latter.getStr(), latter.getSiz());
+
+        while (first.getHp() > 0 && latter.getHp() > 0) {
+            log.add("▼"+first.getName() + "の行動");
+            roll = (int) Math.ceil(Math.random() * 100);
+
+            if (roll < 6) {   //5以下で攻撃に成功した場合(クリティカルだった場合)-------------------------------------
+                log.add(first.getName() + " : " + "1D100<=" + first.attackSkill() +"【 " + first.attackName() +" 】" + "(1D100<=" + first.attackSkill() + ")＞ " + roll + " ＞ " +"<span style='color:#4682b4;'>クリティカル！</span>");
+                log.add(latter.getName() + "は回避出来ない");
+
+                //攻撃～気絶判定--------------------------------------------------------
+                DemoBattle.attake(first, latter, firstDb , log);
+
+            } else if (first.attackSkill() >= roll) { //攻撃通常成功----------------
+                log.add(first.getName() + " : " + "1D100<=" + first.attackSkill() +"【 " + first.attackName() +" 】" + "(1D100<=" + first.attackSkill() + ")＞ " + roll + " ＞ " + "成功！");
+
+                log.add("▽"+latter.getName() + "の回避");
+                roll = (int) Math.ceil(Math.random() * 100);
+
+                //回避
+                if (latter.getAvoidance() >= roll) {
+                    log.add(latter.getName()+ " : " + "1D100<=" + latter.getAvoidance() + "【 回避 】(1D100<=" + latter.getAvoidance() + ")＞ " + roll + " ＞ " + "回避成功！");
+                } else {
+                    log.add(latter.getName()+ " : " + "1D100<=" + latter.getAvoidance() + "【 回避 】(1D100<=" + latter.getAvoidance() + ")＞ " + roll + " ＞ " + "回避失敗");
+                    //攻撃～気絶判定--------------------------------------------------------
+                    DemoBattle.attake(first, latter, firstDb,log);
+                }
+
+            } else if (roll > 95) { //攻撃が96以上(ファンブル)の場合---------------------------------------
+                log.add(first.getName() + " : " + "1D100<=" + first.attackSkill() +"【 " + first.attackName() +" 】" + "(1D100<=" + first.attackSkill() + ")＞ " + roll + " ＞ " + "<span style='color:#dc143c;'>ファンブル！</span>");
+                log.add("▽"+latter.getName() + "の反撃！");
+                //攻撃～気絶判定--------------------------------------------------------
+                DemoBattle.attake(latter, first, latterDb,log);
+            } else { //通常失敗
+                log.add(first.getName() + " : " + "1D100<=" + first.attackSkill() +"【 " + first.attackName() +" 】" + "(1D100<=" + first.attackSkill() + ")＞ " + roll + " ＞ " + "<span>失敗</span>");
+ }
+
+            //後攻の攻撃へ----------------------------------------------------------
+            if (first.getHp() > 0 && latter.getHp() > 0) {
+                log.add("▼"+latter.getName() + "の行動");
+                roll = (int) Math.ceil(Math.random() * 100);
+
+                if (roll < 6) { //5以下で攻撃に成功した場合(クリティカルだった場合)-------------------------------------
+                    log.add(latter.getName() + "1D100<=" + latter.attackSkill() +"【 " + latter.attackName() +" 】" + "(1D100<=" + latter.attackSkill() + ")＞ " + roll + " ＞ " + "<span style='color:#4682b4;'>クリティカル！</span>");
+                    log.add(first.getName() + "は回避出来ない");
+
+                    //攻撃～気絶判定--------------------------------------------------------
+                    DemoBattle.attake(latter, first, latterDb,log);
+                } else if (latter.attackSkill() >= roll) { //攻撃通常成功----------------
+                    log.add(latter.getName() + "1D100<=" + latter.attackSkill() +"【 " + latter.attackName() +" 】" + "(1D100<=" + latter.attackSkill() + ")＞ " + roll + " ＞ " + "<span>成功！</span>");
+
+                    log.add("▽"+first.getName() + "の回避");
+                    roll = (int) Math.ceil(Math.random() * 100);
+
+                    //回避
+                    if (first.getAvoidance() >= roll) {
+                        log.add(first.getName()+ " : " + "1D100<=" + first.getAvoidance() + "【 回避 】(1D100<=" + first.getAvoidance() + ")＞ " + roll + " ＞ " + "回避成功！");
+
+                    } else {
+                        log.add(first.getName()+ " : " + "1D100<=" + first.getAvoidance() + "【 回避 】(1D100<=" + first.getAvoidance() + ")＞ " + roll + " ＞ " + "回避失敗");
+
+                        //攻撃～気絶判定--------------------------------------------------------
+                        DemoBattle.attake(latter, first, latterDb,log);
+                    }
+                } else if (roll > 95) { //攻撃が96以上(ファンブル)の場合---------------------------------------
+                    log.add(latter.getName() + "1D100<=" + latter.attackSkill() +"【 " + latter.attackName() +" 】" + "(1D100<=" + latter.attackSkill() + ")＞ " + roll + " ＞ " + "<span style='color:#dc143c;'>ファンブル！</span>");
+
+                    log.add("▽"+first.getName() + "の反撃！");
+                    //攻撃～気絶判定
+                    DemoBattle.attake(first, latter, firstDb,log);
+                } else { //通常失敗----------------------------------------------------------------
+                    log.add(latter.getName() + "1D100<=" + latter.attackSkill() +"【 " + latter.attackName() +" 】" + "(1D100<=" + latter.attackSkill() + ")＞ " + roll + " ＞ " + "<span>失敗</span>");
+                }
+
+            }
+            round++;
+            log.add("&nbsp;");
+            log.add("<h2>---------------" + round +"ラウンド目終了---------------</h2>");
+            log.add("&nbsp;");
+        }
+
+        if (first.getHp() < 3) {
+            log.add("勝者：" + latter.getName());
+        } else {
+            log.add("勝者：" + first.getName());
+        }
+
+        mv.addObject("log" , log);
         mv.setViewName("/views/demobattle/log");
 
         return mv;
