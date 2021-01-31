@@ -4,9 +4,35 @@
 <head>
 </head>
 <body>
-    <div class="log_line" th:each="log , status : ${log}">
-        <p th:id="${status.count}" th:utext="${log}"></p>
+    <div class="logWarraper">
+        <div class="log_line" th:each="log , status : ${log}">
+            <p th:id="${status.count}" class="none" th:utext="${log}"></p>
+        </div>
+        <a href="#" onclick="sumple();">一括表示</a>
+        <script th:inline="javascript">
+    　　　　 /*<![CDATA[*/
+         var time ;
+         var id = 1;
+         var show = setInterval(function(){
+             document.getElementById(id).style.display = "block" ;
+             id ++ ;
+             if(id > [[${log}]].length){
+                 clearInterval(show);
+             }
+         },400);
+
+
+         function 　sumple(){
+             var show = setInterval(function(){
+                 document.getElementById(id).style.display = "block" ;
+                 id ++ ;
+                 if(id > [[${log}]].length){
+                     clearInterval(show);
+                 }
+             },0);
+             }
+          /*]]>*/
+    </script>
     </div>
-    <!-- <p th:text="${pc2.name}"></p> -->
 </body>
 </html>

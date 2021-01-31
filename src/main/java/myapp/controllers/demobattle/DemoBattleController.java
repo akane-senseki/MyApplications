@@ -152,7 +152,7 @@ public class DemoBattleController {
             }
             round++;
             log.add("&nbsp;");
-            log.add("<h2>---------------" + round +"ラウンド目終了---------------</h2>");
+            log.add("---------------" + round +"ラウンド目終了---------------");
             log.add("&nbsp;");
         }
 
