@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{views/layout/app :: layout(~{::body/content()})}">
+<head>
+</head>
+<body>
+    <h2>PcDiceNewページ</h2>
+    <form id="picDataForm" name="picDataForm" enctype="multpart/form-data" method="post" th:action="@{/pd/create}">
+        <div th:replace="~{views/form/picdata::registForm(${picdata})}"></div>
+    </form>
+    <a th:href="@{/pd/create}">登録</a>
+</body>
+</html>

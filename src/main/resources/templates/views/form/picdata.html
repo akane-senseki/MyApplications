@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+ <div class="pd_form" th:fragment="registForm(picdata)">
+  <label for="name" class="name">表示名</label>
+  <input type="text" name="name" />
+  <div class="pd_form_container">
+   <div class="pd_form_item">
+    <label for="csImg">デフォルト画像</label><br />
+    <input type="file" name="pcImg" id="pd_img" accept=".png,.jpg,.jpeg" required>
+    <img id="preview" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+   </div>
+  </div>
+  <input type="radio" name="releaseFlag" value="0" />公開
+  <input type="radio" name="releaseFlag" value="1" />非公開
+  <input type="hidden" name="token" th:value="${pd.token}" />
+  <button type="submit" id="pd_submit">アップロード</button>
+ </div>
+</body>
+</html>

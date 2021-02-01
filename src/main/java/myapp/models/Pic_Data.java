@@ -24,26 +24,32 @@ public class Pic_Data {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "defa")
-    private String defa;
+    @Column(name = "defaImg")
+    private String defaImg;
 
-    @Column(name = "load_img")
-    private String load_img;
+    @Column(name = "loadImg")
+    private String loadImg;
 
-    @Column(name = "critical_img")
-    private String critical_img;
+    @Column(name = "criticalImg")
+    private String criticalImg;
 
-    @Column(name = "fumble_img")
-    private String fumble_img;
+    @Column(name = "fumbleImg")
+    private String fumbleImg;
 
-    @Column(name = "hover_img")
-    private String hover_img;
+    @Column(name = "hoverImg")
+    private String hoverImg;
 
-    @Column(name = "active_img")
-    private String active_img;
+    @Column(name = "activeImg")
+    private String activeImg;
 
-    @Column(name = "release_flag") //公開可否
-    private int release_flag;
+    @Column(name = "releaseFlag") //公開可否
+    private int releaseFlag;
+
+    @Column(name = "xAxis" , nullable = false)
+    private Integer xAxis;
+
+    @Column(name = "yAxis" , nullable = false)
+    private Integer yAxis;
 
     public Integer getId() {
         return id;
@@ -69,60 +75,76 @@ public class Pic_Data {
         this.name = name;
     }
 
-    public String getDefa() {
-        return defa;
+    public String getDefaImg() {
+        return defaImg;
     }
 
-    public void setDefa(String defa) {
-        this.defa = defa;
+    public void setDefaImg(String defaImg) {
+        this.defaImg = defaImg;
     }
 
-    public String getLoad_img() {
-        return load_img;
+    public String getLoadImg() {
+        return loadImg;
     }
 
-    public void setLoad_img(String load_img) {
-        this.load_img = load_img;
+    public void setLoadImg(String loadImg) {
+        this.loadImg = loadImg;
     }
 
-    public String getCritical_img() {
-        return critical_img;
+    public String getCriticalImg() {
+        return criticalImg;
     }
 
-    public void setCritical_img(String critical_img) {
-        this.critical_img = critical_img;
+    public void setCriticalImg(String criticalImg) {
+        this.criticalImg = criticalImg;
     }
 
-    public String getFumble_img() {
-        return fumble_img;
+    public String getFumbleImg() {
+        return fumbleImg;
     }
 
-    public void setFumble_img(String fumble_img) {
-        this.fumble_img = fumble_img;
+    public void setFumbleImg(String fumbleImg) {
+        this.fumbleImg = fumbleImg;
     }
 
-    public String getHover_img() {
-        return hover_img;
+    public String getHoverImg() {
+        return hoverImg;
     }
 
-    public void setHover_img(String hover_img) {
-        this.hover_img = hover_img;
+    public void setHoverImg(String hoverImg) {
+        this.hoverImg = hoverImg;
     }
 
-    public String getActive_img() {
-        return active_img;
+    public String getActiveImg() {
+        return activeImg;
     }
 
-    public void setActive_img(String active_img) {
-        this.active_img = active_img;
+    public void setActiveImg(String activeImg) {
+        this.activeImg = activeImg;
     }
 
-    public int getRelease_flag() {
-        return release_flag;
+    public int getReleaseFlag() {
+        return releaseFlag;
     }
 
-    public void setRelease_flag(int release_flag) {
-        this.release_flag = release_flag;
+    public void setReleaseFlag(int releaseFlag) {
+        this.releaseFlag = releaseFlag;
+    }
+
+    public Integer getxAxis() {
+        return xAxis;
+    }
+
+    public void setxAxis(Integer xAxis) {
+        this.xAxis = xAxis;
+    }
+
+    public Integer getyAxis() {
+        return yAxis;
+    }
+
+    public void setyAxis(Integer yAxis) {
+        this.yAxis = yAxis;
     }
 
 

@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{views/layout/app :: layout(~{::body/content()})}">
+<head>
+</head>
+<body>
+    <h2>PcDiceインデックスページ</h2>
+    <a th:href="@{/pd/new}">新規登録</a>
+</body>
+</html>

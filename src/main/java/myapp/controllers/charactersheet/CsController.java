@@ -98,7 +98,6 @@ public class CsController {
     @RequestMapping(value = "/cs/new", method = RequestMethod.GET)
     public ModelAndView csNew(@ModelAttribute Pc_EntityForm peForm, ModelAndView mv) {
 
-        System.out.println("cseditController通過");
         peForm.setToken(session.getId());
         mv.addObject("pc", peForm);
         mv.setViewName("views/charactersheet/new");
