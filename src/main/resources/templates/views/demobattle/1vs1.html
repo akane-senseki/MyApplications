@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    th:replace="~{views/layout/app :: layout(~{::body/content()})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{views/layout/app :: layout(~{::body/content()})}">
 <head>
 </head>
 <body>
@@ -18,8 +17,7 @@
                     <div th:each="pc , status : ${pc}" th:object="${pc}">
                         <div th:id="*{id}" onclick="select1(this);">
                             <th:block th:if="*{imgPath != null}">
-                                <img
-                                    th:src="@{/images/{id}/{img_path}(id=*{user.id},img_path=*{imgPath})}" />
+                                <img th:src="@{/images/{id}/{img_path}(id=*{user.id},img_path=*{imgPath})}" />
                             </th:block>
                             <th:block th:unless="*{imgPath != null}">
                                 <img src="/myapplications/images/defo/noimage.png" />
@@ -40,8 +38,7 @@
                     <div th:each="pc , status : ${pc}" th:object="${pc}">
                         <div th:id="*{id}" onclick="select2(this);">
                             <th:block th:if="*{imgPath != null}">
-                                <img
-                                    th:src="@{/images/{id}/{img_path}(id=*{user.id},img_path=*{imgPath})}" />
+                                <img th:src="@{/images/{id}/{img_path}(id=*{user.id},img_path=*{imgPath})}" />
                             </th:block>
                             <th:block th:unless="*{imgPath != null}">
                                 <img src="/myapplications/images/defo/noimage.png" />
