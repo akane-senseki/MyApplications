@@ -161,7 +161,6 @@ public class CsController {
                     }
                 }
                 p.setImgPath(img_path);
-                System.out.println("img_pathの登録完了");
 
                 //MultipartFile型をInputStream型にキャストしてる(入出力出来るように)
                 byte[] byteArr = imgFile.getBytes();
@@ -186,7 +185,6 @@ public class CsController {
                 }
             } else {
                 p.setImgPath(null);
-                System.out.println("0枚より少ない");
             }
 
             peForm.setToken(session.getId());

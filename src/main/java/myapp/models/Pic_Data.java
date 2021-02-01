@@ -45,6 +45,9 @@ public class Pic_Data {
     @Column(name = "releaseFlag") //公開可否
     private int releaseFlag;
 
+    @Column(name = "deleteFlag") //公開可否
+    private int deleteFlag;
+
     @Column(name = "xAxis" , nullable = false)
     private Integer xAxis;
 
@@ -129,6 +132,14 @@ public class Pic_Data {
 
     public void setReleaseFlag(int releaseFlag) {
         this.releaseFlag = releaseFlag;
+    }
+
+    public int getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(int deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 
     public Integer getxAxis() {
