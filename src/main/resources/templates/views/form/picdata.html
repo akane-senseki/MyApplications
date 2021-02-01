@@ -4,13 +4,40 @@
 </head>
 <body>
  <div class="pd_form" th:fragment="registForm(picdata)">
-  <label for="name" class="name">表示名</label>
-  <input type="text" name="name" />
+    <label for="name" class="name">表示名</label> <br />
+    <input type="text" name="name" /><br/><br/>
   <div class="pd_form_container">
    <div class="pd_form_item">
-    <label for="csImg">デフォルト画像</label><br />
-    <input type="file" name="pcImg" id="pd_img" accept=".png,.jpg,.jpeg" required>
-    <img id="preview" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+        <label for="defaImg">デフォルト画像</label><br />
+        <input type="file" name="defaImg" id="defaImg" accept=".png,.jpg,.jpeg" required>
+        <img id="preview1" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+   </div>
+   <div class="pd_form_item">
+        <label for="criticalImg">クリティカル差分</label><br />
+        <input type="file" name="criticalImg" id="criticalImg" accept=".png,.jpg,.jpeg">
+        <img id="preview2" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+   </div>
+   <div class="pd_form_item">
+        <label for="fumbleImg">ファンブル差分</label><br />
+        <input type="file" name="fumbleImg" id="fumbleImg" accept=".png,.jpg,.jpeg">
+        <img id="preview3" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+   </div>
+  </div>
+    <div class="pd_form_container">
+   <div class="pd_form_item">
+        <label for="loadImg">読み込み中差分</label><br />
+        <input type="file" name="loadImg" id="loadImg" accept=".png,.jpg,.jpeg">
+        <img id="preview4" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+   </div>
+   <div class="pd_form_item">
+        <label for="hoverImg">ホバー時差分</label><br />
+        <input type="file" name="hoverImg" id="hoverImg" accept=".png,.jpg,.jpeg">
+        <img id="preview5" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+   </div>
+   <div class="pd_form_item">
+        <label for="activeImg">クリック時差分</label><br />
+        <input type="file" name="activeImg" id="activeImg" accept=".png,.jpg,.jpeg">
+        <img id="preview6" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
    </div>
   </div>
   <input type="radio" name="releaseFlag" value="0" />公開
