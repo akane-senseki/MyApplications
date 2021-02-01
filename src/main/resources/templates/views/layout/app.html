@@ -3,52 +3,81 @@
 <head>
 <meta charset="utf-8">
 <link th:href="@{/css/reset.css}" rel="stylesheet">
+<!-- jQuery本体 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- jQuery UI(スライドバー用) -->
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/hot-sneaks/jquery-ui.css">
 <link th:href="@{/css/style.css}" rel="stylesheet">
 <title>MyApplications</title>
 </head>
 <body>
-    <div class="wrapper">
-        <header>
-            <div class="header_container">
-                <div class="header_item">
-                    <h1>MyApplications</h1>
-                </div>
-                <div class="header_item">
-                    <th:block th:if="${session.login_user == null}">
-                        <button type="button" onclick="show_login()">ログイン</button>
-                        <button type="button" onclick="show_signup()">新規登録</button>
-                    </th:block>
-                    <th:block th:unless="${session.login_user == null}">
-                        <p th:text="${session.login_user.name}+'さん'"></p>
-                        <a th:href="@{/logout}">ログアウト</a>
-                    </th:block>
-                </div>
-            </div>
-            <ul class="header_nav">
-                <li><a th:href="@{/}">Home</a></li>
-                <li><a th:href="@{/}">Demo Battle</a></li>
-                <li><a th:href="@{/}">Pc Dice</a></li>
-                <li><a th:href="@{/}">Characeter Sheet</a></li>
-                <li><a th:href="@{/}">Info</a></li>
-            </ul>
-        </header>
-        <main>
-
-            <div id="content">
-                <div th:replace="${body}"></div>
-            </div>
-
-        </main>
-        <footer>
-            <ul class="footer_nav">
-                <li><a th:href="@{/}">Home</a></li>
-                <li><a th:href="@{/}">Demo Battle</a></li>
-                <li><a th:href="@{/}">Pc Dice</a></li>
-                <li><a th:href="@{/}">Characeter Sheet</a></li>
-                <li><a th:href="@{/}">Info</a></li>
-            </ul>
-            <small>©2021- MyApplicationss</small>
-        </footer>
+ <div class="wrapper">
+  <header>
+   <div class="header_container">
+    <div class="header_item">
+     <h1>MyApplications</h1>
     </div>
+    <div class="header_item">
+     <th:block th:if="${session.login_user == null}">
+      <button type="button" onclick="show_login()">ログイン</button>
+      <button type="button" onclick="show_signup()">新規登録</button>
+     </th:block>
+     <th:block th:unless="${session.login_user == null}">
+      <p th:text="${session.login_user.name}+'さん'"></p>
+      <a th:href="@{/logout}">ログアウト</a>
+     </th:block>
+    </div>
+   </div>
+   <ul class="header_nav">
+    <li><a th:href="@{/}">Home</a></li>
+    <li><a th:href="@{/}">Demo Battle</a></li>
+    <li><a th:href="@{/}">Pc Dice</a></li>
+    <li><a th:href="@{/}">Characeter Sheet</a></li>
+    <li><a th:href="@{/}">Info</a></li>
+   </ul>
+  </header>
+  <main>
+   <div id="content">
+    <div th:replace="${body}"></div>
+   </div>
+  </main>
+  <footer>
+   <div style="background-color: #CCC; padding: 30px 50px;">
+    <div id="wkSlider"></div>
+    <div id="wkValue"></div>
+   </div>
+   <script type="text/javascript">
+            <!--
+                $(function() {
+                    $("#wkSlider").slider({
+                        max:100, //最大値
+                        min: 0, //最小値
+                        value: 50, //初期値
+                        step: 1, //幅
+
+                        slide:function(event , ui){
+                            $("#wkValue").html(ui.value);
+                        },
+                        create:function(event , ui){
+                            $("#wkValue").html($(this).slider("value"));
+                        },
+                        change:function(event , ui){
+                            $("#wkValue").html(ui.value);
+                        }
+                    });
+                });
+            //-->
+            </script>
+   <ul class="footer_nav">
+    <li><a th:href="@{/}">Home</a></li>
+    <li><a th:href="@{/}">Demo Battle</a></li>
+    <li><a th:href="@{/}">Pc Dice</a></li>
+    <li><a th:href="@{/}">Characeter Sheet</a></li>
+    <li><a th:href="@{/}">Info</a></li>
+   </ul>
+   <small>©2021- MyApplicationss</small>
+  </footer>
+ </div>
 </body>
 </html>
