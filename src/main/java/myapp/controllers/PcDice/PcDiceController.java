@@ -63,15 +63,17 @@ public class PcDiceController {
             User u = (User) session.getAttribute("login_user");
 
             //フォルダ作成
-            File images = new File(securitydate.getPicPath() + u.getId());
+            Long count = pdrepository.count() + 1 ;
+            File images = new File(securitydate.getPicPath() + u.getId() + "/" + count);
             images.mkdirs();
+            System.out.println("フォルダ作成");
 
             //画像パス　defaImg---------------------------
             if (!pdForm.getDefa().get(0).getOriginalFilename().equals("") && pdForm.getDefa().get(0).getOriginalFilename() != null) {
                 imgFile = pdForm.getDefa().get(pdForm.getDefa().size() - 1);
-                PicSaveClass.PicSavePath(u,img_path,imgFile);
+                img_path = PicSaveClass.PicSavePath(u,img_path,imgFile,pdrepository);
                 p.setDefaImg(img_path);
-                PicSaveClass.PicSaveFile(u,imgFile,img_path);
+                PicSaveClass.PicSaveFile(u,imgFile,img_path,count,securitydate);
 
             }else {
                 //デフォルトはnullable=falseなのでエラーを起こす。
@@ -80,9 +82,9 @@ public class PcDiceController {
             //画像パス　LoadImg---------------------------
             if (!pdForm.getLoad().get(0).getOriginalFilename().equals("") && pdForm.getLoad().get(0).getOriginalFilename() != null) {
                 imgFile = pdForm.getLoad().get(pdForm.getLoad().size() - 1);
-                PicSaveClass.PicSavePath(u,img_path,imgFile);
+                img_path = PicSaveClass.PicSavePath(u,img_path,imgFile,pdrepository);
                 p.setLoadImg(img_path);
-                PicSaveClass.PicSaveFile(u,imgFile,img_path);
+                PicSaveClass.PicSaveFile(u,imgFile,img_path,count,securitydate);
 
             }else {
                 p.setLoadImg(null);
@@ -91,9 +93,9 @@ public class PcDiceController {
             //画像パス　CriticalImg---------------------------
             if (!pdForm.getCritical().get(0).getOriginalFilename().equals("") && pdForm.getCritical().get(0).getOriginalFilename() != null) {
                 imgFile = pdForm.getCritical().get(pdForm.getCritical().size() - 1);
-                PicSaveClass.PicSavePath(u,img_path,imgFile);
+                img_path = PicSaveClass.PicSavePath(u,img_path,imgFile,pdrepository);
                 p.setCriticalImg(img_path);
-                PicSaveClass.PicSaveFile(u,imgFile,img_path);
+                PicSaveClass.PicSaveFile(u,imgFile,img_path,count,securitydate);
 
             }else {
                 p.setCriticalImg(null);
@@ -102,9 +104,9 @@ public class PcDiceController {
             //画像パス　FumbleImg---------------------------
             if (!pdForm.getFumble().get(0).getOriginalFilename().equals("") && pdForm.getFumble().get(0).getOriginalFilename() != null) {
                 imgFile = pdForm.getFumble().get(pdForm.getFumble().size() - 1);
-                PicSaveClass.PicSavePath(u,img_path,imgFile);
+                img_path = PicSaveClass.PicSavePath(u,img_path,imgFile,pdrepository);
                 p.setFumbleImg(img_path);
-                PicSaveClass.PicSaveFile(u,imgFile,img_path);
+                PicSaveClass.PicSaveFile(u,imgFile,img_path,count,securitydate);
 
             }else {
                 p.setFumbleImg(null);
@@ -113,9 +115,9 @@ public class PcDiceController {
             //画像パス　HoverImg---------------------------
             if (!pdForm.getHover().get(0).getOriginalFilename().equals("") && pdForm.getHover().get(0).getOriginalFilename() != null) {
                 imgFile = pdForm.getHover().get(pdForm.getHover().size() - 1);
-                PicSaveClass.PicSavePath(u,img_path,imgFile);
+                img_path = PicSaveClass.PicSavePath(u,img_path,imgFile,pdrepository);
                 p.setHoverImg(img_path);
-                PicSaveClass.PicSaveFile(u,imgFile,img_path);
+                PicSaveClass.PicSaveFile(u,imgFile,img_path,count,securitydate);
 
             }else {
                 p.setHoverImg(null);
@@ -124,9 +126,9 @@ public class PcDiceController {
             //画像パス　ActiveImg---------------------------
             if (!pdForm.getActive().get(0).getOriginalFilename().equals("") && pdForm.getActive().get(0).getOriginalFilename() != null) {
                 imgFile = pdForm.getActive().get(pdForm.getActive().size() - 1);
-                PicSaveClass.PicSavePath(u,img_path,imgFile);
+                img_path = PicSaveClass.PicSavePath(u,img_path,imgFile,pdrepository);
                 p.setActiveImg(img_path);
-                PicSaveClass.PicSaveFile(u,imgFile,img_path);
+                PicSaveClass.PicSaveFile(u,imgFile,img_path,count,securitydate);
 
             }else {
                 p.setActiveImg(null);
