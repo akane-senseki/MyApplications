@@ -6,8 +6,8 @@
  <div class="pdIndexWrapper">
   <h2 th:if="${flush != null}" id="flush_message" th:text="${flush}"></h2>
   <th:block th:if="${session.login_user != null}">
-   <a class="button" th:href="@{/cs/new}">新規登録</a>
-   <a class="button" th:href="@{/cs/user}">自分の一覧を見る</a>
+   <a class="button" th:href="@{/pd/new}">新規登録</a>
+   <a class="button" th:href="@{/pd/user}">自分の一覧を見る</a>
   </th:block>
   <th:block th:unless="${session.login_user != null}">
    <a class="button" href="#">ログインして登録する</a>

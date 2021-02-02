@@ -1,10 +1,74 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    th:replace="~{views/layout/app :: layout(~{::body/content()})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{views/layout/app :: layout(~{::body/content()})}">
 <head>
 </head>
 <body>
-    <h2>PcDicePlayページ</h2>
-    <p th:text="${pic.name}"></p>
+    <div class="pcDicePlay">
+        <h2>PcDicePlayページ</h2>
+        <a class="button" href="#" onclick="showMenu();">編集</a>
+        <img th:src="@{/images/pd/{userId}/{id}/{defaImg}(userId=${pic.user.id},id=${pic.id},defaImg=${pic.defaImg})}" />
+        <p id="rollNum">PUSH</p>
+        <div id="picMenu" class="picMenu none">
+            <a class="xbutton" href="#" onclick="showMenu();">×</a>
+            <div class="slidebar">
+            <p>上下</p>
+                <div id="wkSlider1" class="wkSlider none"></div>
+                <div id="wkValue1" class="wkValue"></div>
+            </div>
+            <div class="slidebar">
+            <p>左右</p>
+                <div id="wkSlider2" class="wkSlider none"></div>
+                <div id="wkValue2" class="wkValue"></div>
+            </div>
+            <a class="button" href="#" onclick="showMenu();">保存する</a>
+        </div>
+    </div>
+    <script>
+        function showMenu() {
+            document.getElementById("picMenu").classList.toggle("none");
+            document.getElementById("wkSlider1").classList.toggle("none");
+            document.getElementById("wkSlider2").classList.toggle("none");
+            document.getElementById("wkSlider1").getElementsByClassName("ui-slider-handle")[0].classList.toggle("show");
+            document.getElementById("wkSlider2").getElementsByClassName("ui-slider-handle")[0].classList.toggle("show");
+        }
+        <!--
+        $(function() {
+            $("#wkSlider1").slider({
+                max : 100, //最大値
+                min : 0, //最小値
+                value : 50, //初期値
+                step : 1, //幅
+
+                slide : function(event, ui) {
+                    $("#wkValue1").html(ui.value);
+                },
+                create : function(event, ui) {
+                    $("#wkValue1").html($(this).slider("value"));
+                },
+                change : function(event, ui) {
+                    $("#wkValue1").html(ui.value);
+                }
+            });
+        });
+        $(function() {
+            $("#wkSlider2").slider({
+                max : 100, //最大値
+                min : 0, //最小値
+                value : 50, //初期値
+                step : 1, //幅
+
+                slide : function(event, ui) {
+                    $("#wkValue2").html(ui.value);
+                },
+                create : function(event, ui) {
+                    $("#wkValue2").html($(this).slider("value"));
+                },
+                change : function(event, ui) {
+                    $("#wkValue2").html(ui.value);
+                }
+            });
+        });
+    //-->
+    </script>
 </body>
 </html>

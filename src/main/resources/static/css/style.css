@@ -3,6 +3,14 @@
   margin: 0;
   padding: 0; }
 
+.button {
+  display: inline-block;
+  text-align: center;
+  margin: 50px auto 30px auto;
+  text-decoration: none;
+  border: solid 2px;
+  padding: 7px 40px; }
+
 header {
   background-color: #b0c4de;
   padding: 30px auto; }
@@ -133,11 +141,62 @@ main {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap; }
+    .pdIndexWrapper .pdIndexContainer img {
+      max-width: 200px;
+      max-height: 200px; }
 
 .pd_form .pd_form_container {
   display: flex; }
   .pd_form .pd_form_container img {
     width: 200px; }
+
+.pcDicePlay {
+  text-align: center;
+  position: relative; }
+  .pcDicePlay img {
+    width: 800px;
+    filter: drop-shadow(10px 10px 0px #B0CDEF); }
+    .pcDicePlay img:active {
+      filter: drop-shadow(0px 0px 0px #B0CDEF);
+      margin-left: 10px;
+      margin-top: 10px; }
+  .pcDicePlay #rollNum {
+    color: #888;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-size: 2.5rem; }
+  .pcDicePlay .picMenu {
+    position: fixed;
+    width: 400px;
+    height: 100%;
+    right: 0px;
+    top: 0px;
+    background-color: #f5deb3;
+    transition: all 0.3s 0s ease; }
+    .pcDicePlay .picMenu .xbutton {
+      margin-top: 80px;
+      display: block;
+      font-size: 3rem;
+      text-decoration: none;
+      color: #888; }
+    .pcDicePlay .picMenu .slidebar p {
+      margin-left: 11%;
+      text-align: left;
+      margin-top: 50px; }
+    .pcDicePlay .picMenu .slidebar .wkSlider {
+      width: 80%;
+      margin: auto; }
+      .pcDicePlay .picMenu .slidebar .wkSlider .ui-slider-handle {
+        border: none;
+        background: none; }
+      .pcDicePlay .picMenu .slidebar .wkSlider .show {
+        border: 1px solid #93c3cd;
+        background: #93c3cd url(images/ui-bg_diagonals-small_50_93c3cd_40x40.png) 50% 50% repeat; }
+    .pcDicePlay .picMenu .slidebar .wkValue {
+      margin-top: 11px; }
+  .pcDicePlay .none {
+    width: 0px; }
 
 footer {
   background-color: #b0c4de;

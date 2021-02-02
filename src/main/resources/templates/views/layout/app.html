@@ -43,32 +43,6 @@
    </div>
   </main>
   <footer>
-   <div style="background-color: #CCC; padding: 30px 50px;">
-    <div id="wkSlider"></div>
-    <div id="wkValue"></div>
-   </div>
-   <script type="text/javascript">
-            <!--
-                $(function() {
-                    $("#wkSlider").slider({
-                        max:100, //最大値
-                        min: 0, //最小値
-                        value: 50, //初期値
-                        step: 1, //幅
-
-                        slide:function(event , ui){
-                            $("#wkValue").html(ui.value);
-                        },
-                        create:function(event , ui){
-                            $("#wkValue").html($(this).slider("value"));
-                        },
-                        change:function(event , ui){
-                            $("#wkValue").html(ui.value);
-                        }
-                    });
-                });
-            //-->
-            </script>
    <ul class="footer_nav">
     <li><a th:href="@{/}">Home</a></li>
     <li><a th:href="@{/}">Demo Battle</a></li>

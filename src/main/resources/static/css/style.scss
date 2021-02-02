@@ -4,17 +4,21 @@
     margin: 0;
     padding: 0;
 }
+
 $baseColor:#b0c4de;
 $pink:#fed6e3;
 
-@mixin button(){
-            display: inline-block;
-         text-align: center;
-             margin: 50px auto 30px auto;
+@mixin button() {
+    display: inline-block;
+    text-align: center;
+    margin: 50px auto 30px auto;
     text-decoration: none;
-             border: solid 2px;
-            padding: 7px 40px;
-    }
+    border: solid 2px;
+    padding: 7px 40px;
+}
+.button{
+    @include button();
+}
 
 
 
@@ -126,9 +130,10 @@ main {
 .cs_index_wrapper {
     text-align: center;
 
-    .cs_new{
-    @include button();
+    .cs_new {
+        @include button();
     }
+
     .cs_index_list {
         display: flex;
         flex-wrap: wrap;
@@ -151,17 +156,18 @@ main {
                 img {
                     width: 150px;
                 }
-            .cs_edit{
-                text-decoration: none;
-                border: solid 1px #555;
-                padding: 1px 15px;
-                margin: 10px;
-                border-radius: 3px;
-                color: #333;
-                position: absolute;
-                right: 0px;
-                bottom: 10px;
-            }
+
+                .cs_edit {
+                    text-decoration: none;
+                    border: solid 1px #555;
+                    padding: 1px 15px;
+                    margin: 10px;
+                    border-radius: 3px;
+                    color: #333;
+                    position: absolute;
+                    right: 0px;
+                    bottom: 10px;
+                }
             }
         }
     }
@@ -169,65 +175,153 @@ main {
 
 //demobattle selectPage-------------------------------------------------------
 
-.dbSelectWarapper{
-    .dbSelect{
-        display:flex;
+.dbSelectWarapper {
+    .dbSelect {
+        display: flex;
         justify-content: space-between;
-    .dbSelectContainer{
-            display:flex;
+
+        .dbSelectContainer {
+            display: flex;
             justify-content: inherit;
             width: 600px;
-        img{
-            width:200px;
-        }
-        .selectList{
-                height: 500px;
-            width: 250px;
-            overflow: scroll;
 
-            img{
-                width:60px;
+            img {
+                width: 200px;
+            }
+
+            .selectList {
+                height: 500px;
+                width: 250px;
+                overflow: scroll;
+
+                img {
+                    width: 60px;
+                }
             }
         }
     }
 }
-}
 
 //logpage----------------------------------------------------------------------
 
-.logWarraper{
-    .none{
-        display:none;
-        }
+.logWarraper {
+    .none {
+        display: none;
     }
+}
 
 
 //pcDicePage--------------------------------------------------------------------
 
 //pdIndex--------------------
 
-.pdIndexWrapper{
+.pdIndexWrapper {
     text-align: center;
-    .button{
+
+    .button {
         @include button();
     }
-    .pdIndexContainer{
-       display: flex;
-       justify-content: space-around;
-       flex-wrap: wrap;
+
+    .pdIndexContainer {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+
+        img {
+            max-width: 200px;
+            max-height: 200px;
+        }
     }
 }
 
 //pdForm---------------------
 
-.pd_form{
-    .pd_form_container{
-        display:flex;
-        img{
-            width:200px;
+.pd_form {
+    .pd_form_container {
+        display: flex;
+
+        img {
+            width: 200px;
         }
     }
+}
+
+//pdPlay---------------------
+.pcDicePlay {
+    text-align: center;
+    position: relative;
+
+    img {
+        width: 800px;
+        filter: drop-shadow(10px 10px 0px #B0CDEF);
+
+        &:active {
+            filter: drop-shadow(0px 0px 0px #B0CDEF);
+            margin-left: 10px;
+            margin-top: 10px;
+        }
     }
+
+    #rollNum {
+        color: #888;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        font-size: 2.5rem;
+    }
+
+    .picMenu {
+        position: fixed;
+        width: 400px;
+        height: 100%;
+        right: 0px;
+        top: 0px;
+        background-color: #f5deb3;
+        transition: all 0.3s 0s ease;
+
+        .xbutton {
+            margin-top: 80px;
+            display: block;
+            font-size: 3rem;
+            text-decoration: none;
+            color: #888;
+
+        }
+
+        .slidebar {
+            p {
+                margin-left: 11%;
+                text-align: left;
+                margin-top: 50px;
+            }
+
+            .wkSlider {
+                width: 80%;
+                margin: auto;
+
+                .ui-slider-handle {
+                    border: none;
+                    background: none;
+                }
+
+                .show {
+                    border: 1px solid #93c3cd;
+                    background: #93c3cd url(images/ui-bg_diagonals-small_50_93c3cd_40x40.png) 50% 50% repeat;
+                }
+            }
+
+            .wkValue {
+                margin-top: 11px;
+            }
+        }
+    }
+
+    .none {
+        width: 0px;
+    }
+
+
+}
 
 footer {
     background-color: $baseColor;
