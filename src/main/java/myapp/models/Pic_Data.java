@@ -45,7 +45,7 @@ public class Pic_Data {
     @Column(name = "releaseFlag") //公開可否
     private int releaseFlag;
 
-    @Column(name = "deleteFlag") //公開可否
+    @Column(name = "deleteFlag")
     private int deleteFlag;
 
     @Column(name = "xAxis" , nullable = false)

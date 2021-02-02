@@ -12,5 +12,6 @@ import myapp.models.User;
 @Repository
 public interface PicDateRepository extends JpaRepository<Pic_Data, Integer>{
     public List<Pic_Data> findByUserAndDeleteFlag(User user , Integer deleteFlag);
+    public List<Pic_Data> findByDeleteFlagAndReleaseFlag(Integer deleteFlag , Integer releaseFlag);
 
 }

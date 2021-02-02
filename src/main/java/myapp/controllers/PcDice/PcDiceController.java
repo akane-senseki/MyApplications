@@ -2,11 +2,15 @@ package myapp.controllers.PcDice;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,6 +36,15 @@ public class PcDiceController {
 
     @RequestMapping(value = "/pd/index", method = RequestMethod.GET)
     public ModelAndView pdIndex(ModelAndView mv) {
+
+        List<Pic_Data> pic = pdrepository.findByDeleteFlagAndReleaseFlag(0, 0);
+
+        mv.addObject("pic",pic);
+        if(session.getAttribute("flush") != null){
+            mv.addObject("flush" , session.getAttribute("flush"));
+            session.removeAttribute("flush");
+        }
+
         mv.setViewName("views/pcdice/index");
         return mv;
     }
@@ -46,6 +59,7 @@ public class PcDiceController {
     }
 
     @RequestMapping(value = "/pd/create", method = RequestMethod.POST)
+    @Transactional
     public ModelAndView pdCreate(@ModelAttribute Pic_DataForm pdForm, ModelAndView mv) throws IOException {
         System.out.println("createコントローラー通過！");
         if (pdForm.getToken() != null && pdForm.getToken().equals(session.getId())) {
@@ -148,4 +162,15 @@ public class PcDiceController {
         return mv;
     }
 
+    @RequestMapping(path="/pd/play",method = RequestMethod.GET)
+    public ModelAndView pdPlay(@ModelAttribute Pic_DataForm pdForm , ModelAndView mv) {
+
+        Optional<Pic_Data> pic = pdrepository.findById(pdForm.getId());
+        ModelMapper modelMapper = new ModelMapper();
+        pdForm = modelMapper.map(pic.orElse(new Pic_Data()),Pic_DataForm.class);
+
+        mv.addObject("pic",pdForm);
+        mv.setViewName("views/pcdice/play");
+        return mv;
+    }
 }

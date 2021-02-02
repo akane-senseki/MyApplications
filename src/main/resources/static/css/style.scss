@@ -4,12 +4,22 @@
     margin: 0;
     padding: 0;
 }
+$baseColor:#b0c4de;
+$pink:#fed6e3;
 
+@mixin button(){
+            display: inline-block;
+         text-align: center;
+             margin: 50px auto 30px auto;
+    text-decoration: none;
+             border: solid 2px;
+            padding: 7px 40px;
+    }
 
 
 
 header {
-    background-color: #b0c4de;
+    background-color: $baseColor;
     padding: 30px auto;
 
     .header_container {
@@ -47,7 +57,7 @@ main {
             overflow: hidden;
 
 
-            background-image: linear-gradient(#fed6e3 0%, #b0c4de 100%);
+            background-image: linear-gradient($pink 0%, $baseColor 100%);
             text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
             box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
 
@@ -62,7 +72,7 @@ main {
         }
 
         a:hover {
-            background-image: linear-gradient(#FFEDF3 0%, #b0c4de 100%);
+            background-image: linear-gradient(#FFEDF3 0%, $baseColor 100%);
         }
     }
 
@@ -117,12 +127,7 @@ main {
     text-align: center;
 
     .cs_new{
-            display: inline-block;
-    text-align: center;
-    margin: 50px auto 30px auto;
-    text-decoration: none;
-    border: solid 2px;
-    padding: 7px 40px;
+    @include button();
     }
     .cs_index_list {
         display: flex;
@@ -199,6 +204,20 @@ main {
 
 //pcDicePage--------------------------------------------------------------------
 
+//pdIndex--------------------
+
+.pdIndexWrapper{
+    text-align: center;
+    .button{
+        @include button();
+    }
+    .pdIndexContainer{
+       display: flex;
+       justify-content: space-around;
+       flex-wrap: wrap;
+    }
+}
+
 //pdForm---------------------
 
 .pd_form{
@@ -211,7 +230,7 @@ main {
     }
 
 footer {
-    background-color: #b0c4de;
+    background-color: $baseColor;
     margin: 330px auto;
     text-align: center;
 }

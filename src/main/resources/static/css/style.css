@@ -120,6 +120,20 @@ main {
 .logWarraper .none {
   display: none; }
 
+.pdIndexWrapper {
+  text-align: center; }
+  .pdIndexWrapper .button {
+    display: inline-block;
+    text-align: center;
+    margin: 50px auto 30px auto;
+    text-decoration: none;
+    border: solid 2px;
+    padding: 7px 40px; }
+  .pdIndexWrapper .pdIndexContainer {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap; }
+
 .pd_form .pd_form_container {
   display: flex; }
   .pd_form .pd_form_container img {
