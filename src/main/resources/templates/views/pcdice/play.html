@@ -34,16 +34,19 @@
         <!--
         $(function() {
             $("#wkSlider1").slider({
-                max : 100, //最大値
-                min : 0, //最小値
-                value : 50, //初期値
+                max : 50, //最大値
+                min : -50, //最小値
+                value : 0, //初期値
                 step : 1, //幅
 
                 slide : function(event, ui) {
                     $("#wkValue1").html(ui.value);
                 },
                 create : function(event, ui) {
-                    $("#wkValue1").html($(this).slider("value"));
+                    var x = $(this).slider("value");
+                    $("#wkValue1").html(x);
+
+                    document.querySelectors('#rollNum').style.top = x ;
                 },
                 change : function(event, ui) {
                     $("#wkValue1").html(ui.value);
@@ -52,9 +55,9 @@
         });
         $(function() {
             $("#wkSlider2").slider({
-                max : 100, //最大値
-                min : 0, //最小値
-                value : 50, //初期値
+                max : 50, //最大値
+                min : -50, //最小値
+                value : 0, //初期値
                 step : 1, //幅
 
                 slide : function(event, ui) {
