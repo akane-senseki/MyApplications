@@ -29,31 +29,28 @@
                 <div id="wkSlider2" class="wkSlider none"></div>
                 <div id="wkValue2" class="wkValue"></div>
             </div>
-            <label for="colorSelect">文字色</label>
-            <input type="color" id="colorSelect" name="colorSelect" th:value="${pic.color}" />
-            <br />
             <form name="pdDiceTextForm" method="post" th:action="@{/pd/adjustment}">
+            <label for="color">文字色</label>
+            <input type="color" id="colorSelect" name="color" th:value="${pic.color}" />
+            <br />
+
                 <input type="hidden" id="xAxis" name="xAxis" th:value="${pic.xAxis}" />
                 <input type="hidden" id="yAxis" name="yAxis" th:value="${pic.yAxis}" />
+                <input type="hidden" name="token" th:value="${pic.token}" />
             </form>
             <a id="saveButton" class="button opacity" href="#" onclick="adjustmentSubmit();">保存する</a>
         </div>
     </div>
-    <script>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
                     function showMenu() {
-                        document.getElementById("picMenu").classList
-                                .toggle("none");
-                        document.getElementById("saveButton").classList
-                                .toggle("opacity");
-                        document.getElementById("wkSlider1").classList
-                                .toggle("none");
-                        document.getElementById("wkSlider2").classList
-                                .toggle("none");
-                        document.getElementById("wkSlider1")
-                                .getElementsByClassName("ui-slider-handle")[0].classList
+                        document.getElementById("picMenu").classList.toggle("none");
+                        document.getElementById("saveButton").classList.toggle("opacity");
+                        document.getElementById("wkSlider1").classList.toggle("none");
+                        document.getElementById("wkSlider2").classList.toggle("none");
+                        document.getElementById("wkSlider1").getElementsByClassName("ui-slider-handle")[0].classList
                                 .toggle("show");
-                        document.getElementById("wkSlider2")
-                                .getElementsByClassName("ui-slider-handle")[0].classList
+                        document.getElementById("wkSlider2").getElementsByClassName("ui-slider-handle")[0].classList
                                 .toggle("show");
                     }
                     function adjustmentSubmit() {
@@ -61,69 +58,55 @@
                     }
                     <!--
                     $(function() {
-                        $("#colorSelect")
-                                .change(
-                                        function() {
-                                            document.getElementById('rollNum').style.color = $(
-                                                    this).val();
-
+                        $("#colorSelect").ready(function() {
+                            document.getElementById('rollNum').style.color = /*[[ ${pic.color} ]]*/;
+                        });
+                        $("#colorSelect").change(function() {
+                                            document.getElementById('rollNum').style.color = $(this).val();
                                         });
-                        $("#wkSlider1")
-                                .slider(
-                                        {
+                        $("#wkSlider1").slider({
                                             max : 50, //最大値
                                             min : -50, //最小値
-                                            value : 0, //初期値
+                                            value : /*[[ ${pic.xAxis} ]]*/, //初期値
                                             step : 1, //幅
 
                                             slide : function(event, ui) {
                                                 $("#wkValue1").html(ui.value);
                                             },
                                             create : function(event, ui) {
-                                                $("#wkValue1")
-                                                        .html(
-                                                                $(this)
-                                                                        .slider(
-                                                                                "value"));
+                                                $("#wkValue1").html($(this).slider("value"));
+                                                document.getElementById('rollNum').style.top = 50 + $(this).slider("value") + "%";
                                             },
                                             change : function(event, ui) {
                                                 $("#wkValue1").html(ui.value);
                                                 var x = ui.value;
-                                                document
-                                                        .getElementById('rollNum').style.top = 50
-                                                        + x + "%";
-                                                $("#xAxis").val(50 + x + "%");
+                                                document.getElementById('rollNum').style.top = 50 + x + "%";
+                                                $("#xAxis").val(x);
                                             }
                                         });
-                        $("#wkSlider2")
-                                .slider(
-                                        {
+                        $("#wkSlider2").slider({
                                             max : 50, //最大値
                                             min : -50, //最小値
-                                            value : 0, //初期値
+                                            value : /*[[ ${pic.yAxis} ]]*/, //初期値
                                             step : 1, //幅
 
                                             slide : function(event, ui) {
                                                 $("#wkValue2").html(ui.value);
                                             },
                                             create : function(event, ui) {
-                                                $("#wkValue2")
-                                                        .html(
-                                                                $(this)
-                                                                        .slider(
-                                                                                "value"));
+                                                $("#wkValue2").html($(this).slider("value"));
+                                                document.getElementById('rollNum').style.left = 50 + $(this).slider("value") + "%";
                                             },
                                             change : function(event, ui) {
                                                 $("#wkValue2").html(ui.value);
                                                 var y = ui.value;
-                                                document
-                                                        .getElementById('rollNum').style.left = 50
-                                                        + y + "%";
-                                                $("#yAxis").val(50 + y + "%");
+                                                document.getElementById('rollNum').style.left = 50 + y + "%";
+                                                $("#yAxis").val(y);
                                             }
                                         });
                     });
                 //-->
-                </script>
+            /*]]>*/
+        </script>
 </body>
 </html>

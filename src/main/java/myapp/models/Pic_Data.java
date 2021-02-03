@@ -21,7 +21,7 @@ public class Pic_Data {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
     public String getColor() {
