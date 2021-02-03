@@ -7,9 +7,16 @@
         <h2>PcDicePlayページ</h2>
         <a class="button" href="#" onclick="showMenu();">文字の編集</a>
         <div class="imgWrap">
-            <img th:src="@{/images/pd/{userId}/{id}/{defaImg}(userId=${pic.user.id},id=${pic.id},defaImg=${pic.defaImg})}" />
-            <p id="rollNum">PUSH</p>
+            <img id="rollImg" th:src="@{/images/pd/{userId}/{id}/{defaImg}(userId=${pic.user.id},id=${pic.id},defaImg=${pic.defaImg})}" onclick="roll();" />
+            <p id="rollNum" onclick="roll();">PUSH</p>
         </div>
+        <script th:inline="javascript">
+                                    /*<![CDATA[*/
+                                    function roll() {
+                                        document.getElementById('rollImg').src = /*[[ @{/images/pd/{userId}/{id}/{loadImg}(userId=${pic.user.id},id=${pic.id},loadImg=${pic.loadImg})} ]]*/ "";
+                                    }
+                                    /*]]>*/
+                                </script>
         <div id="picMenu" class="picMenu none">
             <a class="xbutton" href="#" onclick="showMenu();">×</a>
             <div class="slidebar">
@@ -27,30 +34,43 @@
             <br />
             <form name="pdDiceTextForm" method="post" th:action="@{/pd/adjustment}">
                 <input type="hidden" id="xAxis" name="xAxis" th:value="${pic.xAxis}" />
-                <input type="hidden" id="yAxis"name="yAxis" th:value="${pic.yAxis}" />
+                <input type="hidden" id="yAxis" name="yAxis" th:value="${pic.yAxis}" />
             </form>
             <a id="saveButton" class="button opacity" href="#" onclick="adjustmentSubmit();">保存する</a>
         </div>
     </div>
     <script>
                     function showMenu() {
-                        document.getElementById("picMenu").classList.toggle("none");
-                        document.getElementById("saveButton").classList.toggle("opacity");
-                        document.getElementById("wkSlider1").classList.toggle("none");
-                        document.getElementById("wkSlider2").classList.toggle("none");
-                        document.getElementById("wkSlider1").getElementsByClassName("ui-slider-handle")[0].classList.toggle("show");
-                        document.getElementById("wkSlider2").getElementsByClassName("ui-slider-handle")[0].classList.toggle("show");
+                        document.getElementById("picMenu").classList
+                                .toggle("none");
+                        document.getElementById("saveButton").classList
+                                .toggle("opacity");
+                        document.getElementById("wkSlider1").classList
+                                .toggle("none");
+                        document.getElementById("wkSlider2").classList
+                                .toggle("none");
+                        document.getElementById("wkSlider1")
+                                .getElementsByClassName("ui-slider-handle")[0].classList
+                                .toggle("show");
+                        document.getElementById("wkSlider2")
+                                .getElementsByClassName("ui-slider-handle")[0].classList
+                                .toggle("show");
                     }
-                    function adjustmentSubmit(){
+                    function adjustmentSubmit() {
                         document.forms[0].submit();
                     }
                     <!--
                     $(function() {
-                        $("#colorSelect").change(function(){
-                            document.getElementById('rollNum').style.color = $(this).val();
+                        $("#colorSelect")
+                                .change(
+                                        function() {
+                                            document.getElementById('rollNum').style.color = $(
+                                                    this).val();
 
-                        });
-                        $("#wkSlider1").slider({
+                                        });
+                        $("#wkSlider1")
+                                .slider(
+                                        {
                                             max : 50, //最大値
                                             min : -50, //最小値
                                             value : 0, //初期値
@@ -60,16 +80,23 @@
                                                 $("#wkValue1").html(ui.value);
                                             },
                                             create : function(event, ui) {
-                                                $("#wkValue1").html($(this).slider("value"));
+                                                $("#wkValue1")
+                                                        .html(
+                                                                $(this)
+                                                                        .slider(
+                                                                                "value"));
                                             },
                                             change : function(event, ui) {
                                                 $("#wkValue1").html(ui.value);
                                                 var x = ui.value;
-                                                document.getElementById('rollNum').style.top = 50 + x + "%";
+                                                document
+                                                        .getElementById('rollNum').style.top = 50
+                                                        + x + "%";
                                                 $("#xAxis").val(50 + x + "%");
                                             }
                                         });
-                        $("#wkSlider2").slider(
+                        $("#wkSlider2")
+                                .slider(
                                         {
                                             max : 50, //最大値
                                             min : -50, //最小値
@@ -80,12 +107,18 @@
                                                 $("#wkValue2").html(ui.value);
                                             },
                                             create : function(event, ui) {
-                                                $("#wkValue2").html($(this).slider("value"));
+                                                $("#wkValue2")
+                                                        .html(
+                                                                $(this)
+                                                                        .slider(
+                                                                                "value"));
                                             },
                                             change : function(event, ui) {
                                                 $("#wkValue2").html(ui.value);
                                                 var y = ui.value;
-                                                document.getElementById('rollNum').style.left = 50 + y + "%";
+                                                document
+                                                        .getElementById('rollNum').style.left = 50
+                                                        + y + "%";
                                                 $("#yAxis").val(50 + y + "%");
                                             }
                                         });
