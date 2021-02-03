@@ -73,6 +73,7 @@ public class PcDiceController {
             p.setDeleteFlag(0);
             p.setyAxis(0);
             p.setxAxis(0);
+            p.setColor("#666666");
 
             User u = (User) session.getAttribute("login_user");
 

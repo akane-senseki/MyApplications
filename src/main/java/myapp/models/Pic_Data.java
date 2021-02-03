@@ -24,6 +24,17 @@ public class Pic_Data {
     @Column(name = "name", nullable = false)
     private String name;
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    @Column(name = "color", nullable = false)
+    private String color;
+
     @Column(name = "defaImg")
     private String defaImg;
 

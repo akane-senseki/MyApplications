@@ -1,29 +1,28 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    th:replace="~{views/layout/app :: layout(~{::body/content()})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{views/layout/app :: layout(~{::body/content()})}">
 <head>
 </head>
 <body>
-<th:block th:if="${pc.name != null}">
-<form id="cs_create_form" name="cs_create_form" enctype="multipart/form-data" method="post" th:action="@{/cs/update}">
-<!-- enctypeはmethodがPOSTの時に使うエンコードタイプを指定する属性 -->
-<!-- multipart/form-dataはフォームにファイルを送信する機能がある場合に指定する。必須 -->
-<div th:replace="~{views/form/charactersheet::registForm(${charactersheet})}"></div>
-</form>
-<a href="#"  onclick="csDestroy();">削除</a>
-<form method="POST" th:action="@{/cs/destroy}">
-    <input type="hidden" name="token" th:value="${pc.token}"/>
-</form>
-<script>
-    function csDestroy(){
-        if(confirm("本当に削除してもよろしいですか？")){
-        document.forms[1].submit();
-    }
-    }
-</script>
-</th:block>
-<th:block th:unless="${pc.name != null}">
-    <p>お探しのキャラクターシートは存在しません</p>
-</th:block>
+    <th:block th:if="${pc.name != null}">
+        <form id="cs_create_form" name="cs_create_form" enctype="multipart/form-data" method="post" th:action="@{/cs/update}">
+            <!-- enctypeはmethodがPOSTの時に使うエンコードタイプを指定する属性 -->
+            <!-- multipart/form-dataはフォームにファイルを送信する機能がある場合に指定する。必須 -->
+            <div th:replace="~{views/form/charactersheet::registForm(${charactersheet})}"></div>
+        </form>
+        <a href="#" onclick="csDestroy();">削除</a>
+        <form method="POST" th:action="@{/cs/destroy}">
+            <input type="hidden" name="token" th:value="${pc.token}" />
+        </form>
+        <script>
+                                    function csDestroy() {
+                                        if (confirm("本当に削除してもよろしいですか？")) {
+                                            document.forms[1].submit();
+                                        }
+                                    }
+                                </script>
+    </th:block>
+    <th:block th:unless="${pc.name != null}">
+        <p>お探しのキャラクターシートは存在しません</p>
+    </th:block>
 </body>
 </html>

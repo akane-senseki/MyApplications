@@ -250,6 +250,7 @@ main {
 .pcDicePlay {
     text-align: center;
     position: relative;
+    .imgWrap{
 
     img {
         width: 800px;
@@ -262,6 +263,7 @@ main {
         }
     }
 
+
     #rollNum {
         color: #888;
         position: absolute;
@@ -269,6 +271,7 @@ main {
         top: 50%;
         font-size: 2.5rem;
     }
+}
 
     .picMenu {
         position: fixed;
@@ -319,7 +322,9 @@ main {
     .none {
         width: 0px;
     }
-
+    .opacity{
+        opacity:0;
+    }
 
 }
 
