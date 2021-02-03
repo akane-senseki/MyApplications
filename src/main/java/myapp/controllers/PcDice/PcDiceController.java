@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -174,4 +175,16 @@ public class PcDiceController {
         mv.setViewName("views/pcdice/play");
         return mv;
     }
+
+    @RequestMapping(value = "/pd/adjustment", method = RequestMethod.POST)
+    @Transactional
+    public ModelAndView pdAdjustment(@RequestParam(name = "colorSelect") Integer color,@RequestParam(name = "xAxis") Integer x,@RequestParam(name = "yAxis") Integer y, ModelAndView mv) {
+        System.out.println(color);
+        System.out.println(x);
+        System.out.println(y);
+        mv.setViewName("views/pcdice/play");
+        return mv;
+
+    }
+
 }
