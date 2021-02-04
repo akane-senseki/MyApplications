@@ -7,26 +7,40 @@
         <label for="name" class="name">表示名</label>
         <br />
         <input type="text" name="name" />
-        <br />
-        <br />
+        <br /> <br />
         <div class="pd_form_container">
             <div class="pd_form_item">
                 <label for="defa">デフォルト画像</label>
                 <br />
                 <input type="file" name="defa" id="defa" accept=".png,.jpg,.jpeg" required onChange="change();" />
-                <img id="defaSrc" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+                <th:block th:if="${pd.defaImg != null}">
+                    <img id="defaSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.defaImg})}" />
+                </th:block>
+                <th:block th:if="${pd.defaImg == null}">
+                    <img id="defaSrc" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+                </th:block>
             </div>
             <div class="pd_form_item">
                 <label for="critical">クリティカル差分</label>
                 <br />
                 <input type="file" name="critical" id="critical" accept=".png,.jpg,.jpeg" onChange="change();" />
-                <img id="criticalSrc" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+                <th:block th:if="${pd.criticalImg != null && pd.criticalImg != pd.defaImg}">
+                    <img id="criticalSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.criticalImg})}" />
+                </th:block>
+                <th:block th:if="${pd.criticalImg == pd.defaImg}">
+                    <img id="criticalSrc" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+                </th:block>
             </div>
             <div class="pd_form_item">
                 <label for="fumble">ファンブル差分</label>
                 <br />
                 <input type="file" name="fumble" id="fumble" accept=".png,.jpg,.jpeg" onChange="change();" />
-                <img id="fumbleSrc" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+                <th:block th:if="${pd.fumbleImg != null && pd.fumbleImg != pd.defaImg}">
+                    <img id="fumbleSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.fumbleImg})}" />
+                </th:block>
+                <th:block th:if="${pd.fumbleImg == pd.defaImg}">
+                    <img id="fumbleSrc" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+                </th:block>
             </div>
         </div>
         <div class="pd_form_container">
@@ -34,23 +48,38 @@
                 <label for="load">読み込み中差分</label>
                 <br />
                 <input type="file" name="load" id="load" accept=".png,.jpg,.jpeg" onChange="change();" />
-                <img id="loadSrc" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
-            </div>
+                <th:block th:if="${pd.loadImg != null && pd.loadImg != pd.defaImg}">
+                    <img id="loadSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.loadImg})}" />
+                </th:block>
+                <th:block th:if="${pd.loadImg == pd.defaImg}">
+                    <img id="loadSrc" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+                </th:block>
+                </div>
             <div class="pd_form_item">
                 <label for="hover">ホバー時差分</label>
                 <br />
                 <input type="file" name="hover" id="hover" accept=".png,.jpg,.jpeg" onChange="change();">
-                <img id="hoverSrc" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+                <th:block th:if="${pd.hoverImg != null && pd.hoverImg != pd.defaImg}">
+                    <img id="hoverSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.hoverImg})}" />
+                </th:block>
+                <th:block th:if="${pd.hoverImg == pd.defaImg}">
+                    <img id="hoverSrc" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+                </th:block>
             </div>
             <div class="pd_form_item">
                 <label for="active">クリック時差分</label>
                 <br />
                 <input type="file" name="active" id="active" accept=".png,.jpg,.jpeg" onChange="change();">
-                <img id="activeSrc" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
-            </div>
+                <th:block th:if="${pd.activeImg != null && pd.activeImg != pd.defaImg}">
+                    <img id="activeSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.activeImg})}" />
+                </th:block>
+                <th:block th:if="${pd.activeImg == pd.defaImg}">
+                    <img id="activeSrc" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+                </th:block>
+                </div>
         </div>
         <script type="text/javascript">
-            function previewFile(file , id) {
+            function previewFile(file, id) {
                 const reader = new FileReader();
 
                 reader.onload = function(ev) {
@@ -61,12 +90,12 @@
             }
 
             function change(e) {
-                  var e = e || window.event;
-                  var elem = e.target || e.srcElement;
-                  var elemId = elem.id;
+                var e = e || window.event;
+                var elem = e.target || e.srcElement;
+                var elemId = elem.id;
                 const fileInput = document.getElementById(elemId);
                 const files = fileInput.files;
-                previewFile(files[0] , elemId);
+                previewFile(files[0], elemId);
             }
         </script>
         <input type="radio" name="releaseFlag" value="0" />

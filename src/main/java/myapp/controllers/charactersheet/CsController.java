@@ -224,7 +224,6 @@ public class CsController {
 
     @RequestMapping(path = "/cs/edit", method = RequestMethod.GET)
     public ModelAndView csEdit(@ModelAttribute Pc_EntityForm peForm, ModelAndView mv) {
-        System.out.println("editcontroller通過");
 
         Optional<Pc_Entity> p = pcrepository.findById(peForm.getId());
 
@@ -295,7 +294,6 @@ public class CsController {
                     }
                 }
                 p.setImgPath(img_path);
-                System.out.println("img_pathの登録完了");
 
                 //MultipartFile型をInputStream型にキャストしてる(入出力出来るように)
                 byte[] byteArr = img_file.getBytes();
@@ -339,7 +337,6 @@ public class CsController {
     @RequestMapping(path = "/cs/destroy" , method = RequestMethod.POST)
     @Transactional
     public ModelAndView csDestroy(@ModelAttribute Pc_EntityForm peForm , ModelAndView mv) {
-        System.out.println("destroy通過");
 
         if(peForm.getToken() != null && peForm.getToken().equals(session.getId())) {
 

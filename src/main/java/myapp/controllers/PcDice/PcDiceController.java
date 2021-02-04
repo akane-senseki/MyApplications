@@ -81,7 +81,6 @@ public class PcDiceController {
             File images = new File(securitydate.getPicPath() + u.getId() + "/" + count);
             images.mkdirs();
 
-
             //画像パス　defaImg---------------------------
             String defaultPath = null;
             if (!pdForm.getDefa().get(0).getOriginalFilename().equals("")
@@ -162,11 +161,12 @@ public class PcDiceController {
             session.setAttribute("flush", "画像を登録しました");
             mv = new ModelAndView("redirect:/pd/index"); // リダイレクト
             return mv;
-        }
+        } else {
 
-        mv = new ModelAndView("redirect:/"); // リダイレクト
-        session.setAttribute("flush", "画像の登録に失敗しました");
-        return mv;
+            mv = new ModelAndView("redirect:/"); // リダイレクト
+            session.setAttribute("flush", "画像の登録に失敗しました");
+            return mv;
+        }
     }
 
     @RequestMapping(path = "/pd/play", method = RequestMethod.GET)
@@ -206,12 +206,163 @@ public class PcDiceController {
     }
 
     @RequestMapping(value = "/pd/edit", method = RequestMethod.GET)
-    public ModelAndView pdEdit(Pic_DataForm pdform, ModelAndView mv) {
+    public ModelAndView pdEdit(Pic_DataForm pdForm, ModelAndView mv) {
 
-        pdform.setToken(session.getId());
-        mv.addObject("pd", pdform);
+        Optional<Pic_Data> pic = pdrepository.findById(pdForm.getId());
+        ModelMapper modelMapper = new ModelMapper();
+        pdForm = modelMapper.map(pic.orElse(new Pic_Data()), Pic_DataForm.class);
+        pdForm.setToken(session.getId());
+
+        mv.addObject("pd", pdForm);
         mv.setViewName("views/pcdice/edit");
+        session.setAttribute("pic_id", pdForm.getId());
         return mv;
     }
 
+    @RequestMapping(path = "/pd/update", method = RequestMethod.POST)
+    @Transactional
+    public ModelAndView pdUpdate(@ModelAttribute Pic_DataForm pdForm, ModelAndView mv) throws IOException {
+        if (pdForm.getToken() != null && pdForm.getToken().equals(session.getId())) {
+            Optional<Pic_Data> oppic = pdrepository.findById((Integer) session.getAttribute("pic_id"));
+            Pic_Data p = oppic.orElse(null);
+            String img_path = null;
+            MultipartFile imgFile = null;
+
+            p.setUser((User) session.getAttribute("login_user"));
+            p.setName(pdForm.getName());
+            p.setReleaseFlag(pdForm.getReleaseFlag());
+            p.setDeleteFlag(0);
+            p.setyAxis(0);
+            p.setxAxis(0);
+            p.setColor("#666666");
+
+            User u = (User) session.getAttribute("login_user");
+
+            //フォルダをidで選択(IntegerをLongに変換)
+            Long count = p.getId().longValue();
+
+            //画像パス　defaImg---------------------------
+            if (!pdForm.getDefa().get(0).getOriginalFilename().equals("")
+                    && pdForm.getDefa().get(0).getOriginalFilename() != null) {
+                //登録されていた画像の削除
+                File delete_images = new File(securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getDefaImg());
+                delete_images.delete();
+
+                imgFile = pdForm.getDefa().get(pdForm.getDefa().size() - 1);
+                img_path = PicSaveClass.PicSavePath(u, img_path, imgFile, pdrepository);
+                p.setDefaImg(img_path);
+                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
+
+            }
+
+            //画像パス　LoadImg---------------------------
+            if (!pdForm.getLoad().get(0).getOriginalFilename().equals("")
+                    && pdForm.getLoad().get(0).getOriginalFilename() != null) {
+                File delete_images = new File(securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getLoadImg());
+                delete_images.delete();
+
+                imgFile = pdForm.getLoad().get(pdForm.getLoad().size() - 1);
+                img_path = PicSaveClass.PicSavePath(u, img_path, imgFile, pdrepository);
+                p.setLoadImg(img_path);
+                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
+
+            }
+
+            //画像パス　CriticalImg---------------------------
+            if (!pdForm.getCritical().get(0).getOriginalFilename().equals("")
+                    && pdForm.getCritical().get(0).getOriginalFilename() != null) {
+                File delete_images = new File(securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getCriticalImg());
+                delete_images.delete();
+
+                imgFile = pdForm.getCritical().get(pdForm.getCritical().size() - 1);
+                img_path = PicSaveClass.PicSavePath(u, img_path, imgFile, pdrepository);
+                p.setCriticalImg(img_path);
+                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
+
+            }
+
+            //画像パス　FumbleImg---------------------------
+            if (!pdForm.getFumble().get(0).getOriginalFilename().equals("")
+                    && pdForm.getFumble().get(0).getOriginalFilename() != null) {
+                File delete_images = new File(securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getFumbleImg());
+                delete_images.delete();
+
+                imgFile = pdForm.getFumble().get(pdForm.getFumble().size() - 1);
+                img_path = PicSaveClass.PicSavePath(u, img_path, imgFile, pdrepository);
+                p.setFumbleImg(img_path);
+                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
+
+            }
+
+            //画像パス　HoverImg---------------------------
+            if (!pdForm.getHover().get(0).getOriginalFilename().equals("")
+                    && pdForm.getHover().get(0).getOriginalFilename() != null) {
+                File delete_images = new File(securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getHoverImg());
+                delete_images.delete();
+
+                imgFile = pdForm.getHover().get(pdForm.getHover().size() - 1);
+                img_path = PicSaveClass.PicSavePath(u, img_path, imgFile, pdrepository);
+                p.setHoverImg(img_path);
+                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
+
+            }
+
+            //画像パス　ActiveImg---------------------------
+            if (!pdForm.getActive().get(0).getOriginalFilename().equals("")
+                    && pdForm.getActive().get(0).getOriginalFilename() != null) {
+                File delete_images = new File(securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getActiveImg());
+                delete_images.delete();
+
+                imgFile = pdForm.getActive().get(pdForm.getActive().size() - 1);
+                img_path = PicSaveClass.PicSavePath(u, img_path, imgFile, pdrepository);
+                p.setActiveImg(img_path);
+                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
+
+            }
+
+            pdForm.setToken(session.getId());
+            mv.addObject("pic", pdForm);
+            pdrepository.save(p);
+            session.setAttribute("flush", "画像を変更しました");
+            mv = new ModelAndView("redirect:/pd/index"); // リダイレクト
+            return mv;
+        } else {
+
+            mv = new ModelAndView("redirect:/pd/index"); // リダイレクト
+            session.setAttribute("flush", "画像の登録に失敗しました");
+            return mv;
+
+        }
+    }
+
+    @RequestMapping(path = "/pd/destroy" , method = RequestMethod.POST)
+    @Transactional
+    public ModelAndView pdDestroy(@ModelAttribute Pic_DataForm pdForm , ModelAndView mv) {
+        if(pdForm.getToken() != null && pdForm.getToken().equals(session.getId())) {
+            Optional<Pic_Data> oppic = pdrepository.findById((Integer) session.getAttribute("pic_id"));
+            Pic_Data p = oppic.orElse(null);
+
+            p.setDeleteFlag(1);
+
+            //保存している画像の削除
+            User u = (User) session.getAttribute("login_user");
+            File deleteFIle = new File(securitydate.getPicPath() + u.getId() + "/" + p.getId());
+            File[] deleteImages = deleteFIle.listFiles();
+            for(int i = 0 ; i < deleteImages.length ; i++) {
+                deleteImages[i].delete();
+            }
+            pdrepository.save(p);
+            session.removeAttribute("pic_id");
+            session.setAttribute("flush", "削除しました");
+            mv = new ModelAndView("redirect:/pd/index"); // リダイレクト
+        }else {
+            session.setAttribute("flush", "削除に失敗しました");
+            mv = new ModelAndView("redirect:/pd/index"); // リダイレクト
+        }
+
+        return mv;
+
+    }
 }
+
+
