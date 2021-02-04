@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{views/layout/app :: layout(~{::body/content()})}">
+<head>
+</head>
+<body>
+    <h2>PcDiceNewページ</h2>
+    <form id="Pic_DataForm" name="Pic_DataForm" enctype="multipart/form-data" method="post" th:action="@{/pd/update}">
+        <div th:replace="~{views/form/picdata::registForm(${picdata})}"></div>
+    </form>
+    <a class="button" href="#" onclick="pdDestroy();">削除</a>
+    <form method="POST" th:action="@{/pd/destroy}">
+        <input type="hidden" name="token" th:value="${pic.token}" />
+    </form>
+    <script>
+                    function pdDestroy() {
+                        if (confirm("本当に削除してもよろしいですか？")) {
+                            document.forms[1].submit();
+                        }
+                    }
+                </script>
+</body>
+</html>

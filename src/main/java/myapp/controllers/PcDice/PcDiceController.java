@@ -205,4 +205,13 @@ public class PcDiceController {
 
     }
 
+    @RequestMapping(value = "/pd/edit", method = RequestMethod.GET)
+    public ModelAndView pdEdit(Pic_DataForm pdform, ModelAndView mv) {
+
+        pdform.setToken(session.getId());
+        mv.addObject("pd", pdform);
+        mv.setViewName("views/pcdice/edit");
+        return mv;
+    }
+
 }
