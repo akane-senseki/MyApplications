@@ -80,15 +80,17 @@ public class PcDiceController {
             Long count = pdrepository.count() + 1;
             File images = new File(securitydate.getPicPath() + u.getId() + "/" + count);
             images.mkdirs();
-            System.out.println("フォルダ作成");
+
 
             //画像パス　defaImg---------------------------
+            String defaultPath = null;
             if (!pdForm.getDefa().get(0).getOriginalFilename().equals("")
                     && pdForm.getDefa().get(0).getOriginalFilename() != null) {
                 imgFile = pdForm.getDefa().get(pdForm.getDefa().size() - 1);
                 img_path = PicSaveClass.PicSavePath(u, img_path, imgFile, pdrepository);
                 p.setDefaImg(img_path);
                 PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
+                defaultPath = img_path;
 
             } else {
                 //デフォルトはnullable=falseなのでエラーを起こす。
@@ -103,7 +105,7 @@ public class PcDiceController {
                 PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
 
             } else {
-                p.setLoadImg(null);
+                p.setLoadImg(defaultPath);
             }
 
             //画像パス　CriticalImg---------------------------
@@ -115,7 +117,7 @@ public class PcDiceController {
                 PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
 
             } else {
-                p.setCriticalImg(null);
+                p.setCriticalImg(defaultPath);
             }
 
             //画像パス　FumbleImg---------------------------
@@ -127,7 +129,7 @@ public class PcDiceController {
                 PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
 
             } else {
-                p.setFumbleImg(null);
+                p.setFumbleImg(defaultPath);
             }
 
             //画像パス　HoverImg---------------------------
@@ -139,7 +141,7 @@ public class PcDiceController {
                 PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
 
             } else {
-                p.setHoverImg(null);
+                p.setHoverImg(defaultPath);
             }
 
             //画像パス　ActiveImg---------------------------
@@ -151,7 +153,7 @@ public class PcDiceController {
                 PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
 
             } else {
-                p.setActiveImg(null);
+                p.setActiveImg(defaultPath);
             }
 
             pdForm.setToken(session.getId());
