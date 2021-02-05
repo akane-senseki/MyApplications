@@ -47,6 +47,45 @@ main {
     main .btn_circle a:hover {
       background-image: linear-gradient(#FFEDF3 0%, #b0c4de 100%); }
 
+.modal {
+  z-index: 10;
+  position: absolute;
+  top: 200px;
+  left: 40%; }
+  .modal .formTitle {
+    background: #b0c4de;
+    border: solid 1px #333;
+    padding: 10px 20px;
+    color: #fff;
+    text-align: center;
+    border-bottom: none;
+    border-radius: 10px 10px 0px 0px; }
+    .modal .formTitle .xbutton {
+      position: absolute;
+      top: 0;
+      right: 15px;
+      font-size: 2.2rem;
+      text-decoration: none;
+      color: #555; }
+  .modal .formContent {
+    background: #fff;
+    border: solid 1px #333;
+    padding: 10px 20px;
+    border-radius: 0px 0px 10px 10px; }
+
+.noneModal {
+  display: none; }
+
+.overlay {
+  z-index: 5;
+  position: absolute;
+  background: #393f4c;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  opacity: 0.8; }
+
 .cs_form img {
   width: 200px; }
 .cs_form .cs_form_container {

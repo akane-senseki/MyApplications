@@ -3,17 +3,24 @@
 <head>
 </head>
 <body>
-<div th:fragment="registForm(sginup)">
+    <div id="signupForm" class="noneModal" th:fragment="registForm(sginup)">
+        <div class="formTitle">
+            <p>ログイン</p>
+            <a class="xbutton" href="#!" onclick="showSignup()">×</a>
+        </div>
+        <div class="formContent">
+            <label for="mail">メールアドレス</label>
+            <br />
+            <input type="text" id="signup_mail" name="mail" />
+            <br /> <br />
+            <label for="password">パスワード</label>
+            <br />
+            <input type="password" id="signup_password" name="password" />
+            <br /> <br />
 
-                <label for="mail">メールアドレス</label><br />
-                <input type="text"id="signup_mail" name="mail" />
-                <br />
-                <br />
-                <label for="password">パスワード</label><br />
-                <input type="password" id="signup_password" name="password" /> <br /> <br />
-
-                <button type="submit" onclick="return check_signup()">ログイン</button>
-                <br/>
-</div>
+            <button type="submit" onclick="return check_signup()">ログイン</button>
+            <br />
+        </div>
+    </div>
 </body>
 </html>

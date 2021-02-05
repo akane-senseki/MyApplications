@@ -7,6 +7,7 @@
 
 $baseColor:#b0c4de;
 $pink:#fed6e3;
+$overlay:#393f4c;
 
 @mixin button() {
     display: inline-block;
@@ -40,8 +41,8 @@ header {
         }
     }
 }
-
 main {
+
     width: 80%;
     margin: auto;
 
@@ -82,6 +83,54 @@ main {
 
 
 }
+
+//サインイン・サインアップフォーム--------------------------
+.modal{
+    z-index:10;
+    position: absolute;
+    top: 200px;
+    left: 40%;
+    .formTitle{
+        background:$baseColor;
+        border: solid 1px #333;
+        padding: 10px 20px;
+        color: #fff;
+        text-align: center;
+        border-bottom: none;
+        border-radius: 10px 10px 0px 0px;
+        .xbutton{
+            position: absolute;
+            top: 0;
+            right: 15px;
+            font-size: 2.2rem;
+            text-decoration: none;
+            color: #555;
+        }
+    }
+    .formContent{
+    background: #fff;
+    border: solid 1px #333;
+    padding: 10px 20px;
+    border-radius: 0px 0px 10px 10px;
+    }
+}
+.noneModal{
+    display:none;
+}
+
+.overlay{
+    z-index: 5;
+    position: absolute;
+    background: $overlay;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    opacity: 0.8;
+    }
+
+
+
 
 //CSのフォーム--------------------------------------
 .cs_form {
