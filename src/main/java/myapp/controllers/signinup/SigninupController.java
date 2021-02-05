@@ -33,9 +33,6 @@ public class SigninupController {
     @Transactional // メソッド開始時にトランザクションを開始、終了時にコミットする
     public ModelAndView userCreate(@ModelAttribute UserForm userForm, ModelAndView mv) {
 
-        System.out.println("サインインアップcontroller通過");
-        System.out.println(userForm.getToken());
-
         if (userForm.getToken() != null && userForm.getToken().equals(session.getId())) {
 
             User u = new User();
@@ -67,13 +64,11 @@ public class SigninupController {
 
     @RequestMapping(path = "/signup", method = RequestMethod.POST)
     @Transactional
-    public ModelAndView loginExec(@ModelAttribute UserForm userForm, ModelAndView mv) {
-        System.out.println("signupコントローラー通過");
+    public ModelAndView loginExec(@ModelAttribute UserForm userForm,ModelAndView mv) {
         Boolean check_result = false; //認証結果を格納する場所
 
         String mail = userForm.getMail();
         String plain_pass = userForm.getPassword();
-
         User u = null;
 
         if (mail != null && !mail.equals("") && plain_pass != null && !plain_pass.equals("")) {
@@ -91,7 +86,6 @@ public class SigninupController {
             }
 
             if (!check_result) { //認証出来なかったら
-                System.out.println("ログイン失敗");
                 userForm.setToken(session.getId());
                 userForm.setPassword(""); //入力したパスワードは繰り越さない
 
@@ -99,7 +93,6 @@ public class SigninupController {
                 mv = new ModelAndView("redirect:/"); // リダイレクト
                 session.setAttribute("flush", "ログインに失敗しました");
             } else { //認証出来たら
-                System.out.println("ログイン成功");
                 session.setAttribute("login_user", u);
                 session.setAttribute("flush", "ログインしました");
                 mv = new ModelAndView("redirect:/"); // リダイレクト

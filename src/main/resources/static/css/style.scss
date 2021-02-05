@@ -12,7 +12,7 @@ $overlay:#393f4c;
 @mixin button() {
     display: inline-block;
     text-align: center;
-    margin: 50px auto 30px auto;
+    margin: 10px auto 30px auto;
     text-decoration: none;
     border: solid 2px;
     padding: 7px 40px;
@@ -37,6 +37,19 @@ header {
 
         li {
             display: inline-block;
+            border-right:solid 1px $overlay;
+                &:last-child{
+                        border-right:none;
+                        }
+            a{
+                padding:10px 15px;
+                text-decoration: none;
+                transition: all 0.5s 0s ease;
+                &:hover{
+                    background:#eee;
+                }
+
+                    }
 
         }
     }
@@ -116,6 +129,7 @@ main {
 }
 .noneModal{
     display:none;
+    opacity: 0;
 }
 
 .overlay{

@@ -6,7 +6,7 @@
 .button {
   display: inline-block;
   text-align: center;
-  margin: 50px auto 30px auto;
+  margin: 10px auto 30px auto;
   text-decoration: none;
   border: solid 2px;
   padding: 7px 40px; }
@@ -20,7 +20,16 @@ header {
   header .header_nav {
     text-align: center; }
     header .header_nav li {
-      display: inline-block; }
+      display: inline-block;
+      border-right: solid 1px #393f4c; }
+      header .header_nav li:last-child {
+        border-right: none; }
+      header .header_nav li a {
+        padding: 10px 15px;
+        text-decoration: none;
+        transition: all 0.5s 0s ease; }
+        header .header_nav li a:hover {
+          background: #eee; }
 
 main {
   width: 80%;
@@ -74,7 +83,8 @@ main {
     border-radius: 0px 0px 10px 10px; }
 
 .noneModal {
-  display: none; }
+  display: none;
+  opacity: 0; }
 
 .overlay {
   z-index: 5;
@@ -115,7 +125,7 @@ main {
   .cs_index_wrapper .cs_new {
     display: inline-block;
     text-align: center;
-    margin: 50px auto 30px auto;
+    margin: 10px auto 30px auto;
     text-decoration: none;
     border: solid 2px;
     padding: 7px 40px; }
@@ -172,7 +182,7 @@ main {
   .pdIndexWrapper .button {
     display: inline-block;
     text-align: center;
-    margin: 50px auto 30px auto;
+    margin: 10px auto 30px auto;
     text-decoration: none;
     border: solid 2px;
     padding: 7px 40px; }
