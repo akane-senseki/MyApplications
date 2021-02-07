@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    th:replace="~{views/layout/app :: layout(~{::body/content()})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{views/layout/app :: layout(~{::body/content()})}">
 <head>
 </head>
 <body>
-    <h2>デモバトルインデックスページ</h2>
-    <a th:href="@{/db/1vs1}">取り敢えず1VS1</a>
+    <div class="dbContainer">
+        <div class="item">
+            <a th:href="@{/db/1vs1}">1VS1</a>
+        </div>
+        <div class="item">
+            <a th:href="@{/db/2vs2}">2VS2</a>
+        </div>
+    </div>
+    <div class="dbContainer">
+        <div class="item">
+            <a th:href="@{/db/3vs1}">3VS1</a>
+        </div>
+        <div class="item">
+            <a th:href="@{/db/4vs1}">4VS1</a>
+        </div>
+    </div>
+
 </body>
 </html>

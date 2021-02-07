@@ -1,17 +1,105 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    th:replace="~{views/layout/app :: layout(~{::body/content()})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{views/layout/app :: layout(~{::body/content()})}">
 <head>
 </head>
 <body>
-    <h2 th:if="${flush != null}" id="flush_message" th:text="${flush}"></h2>
-    <h2 th:text="${token}"></h2>
+    <div class="toppageWrapper">
+        <h2 th:if="${flush != null}" id="flush_message" th:text="${flush}"></h2>
+        <div class="imgOverlay">
+            <img src="/myapplications/images/defo/eyeChatchmin.jpg" />
+            <a></a>
+        </div>
+        <div class="topBtnWrap">
+            <h2>Let's Play!</h2>
+            <div class="btn_circle">
+                <a th:href="@{/db/index}">Demo Battle</a>
+                <a th:href="@{/pd/index}">Pc_Dice</a>
+                <a th:href="@{/cs/user}">Character Sheet</a>
+            </div>
+        </div>
+        <section>
+            <div class="topCOntainerWrap">
+                <div class="topContainer">
+                    <div class="topItem">
+                        <h2>Demo Battle</h2>
+                        <pre>シナリオを作成したけど戦闘のバランス調整が難しい……
+色々なPCで戦闘の想定をしておきたいけど一つ一つ入力して試すのは手間……
+手軽に自探索者天下一武道会を開きたい……
+そんな時に
 
-    <div class="btn_circle">
-        <a th:href="@{/db/index}">Demo Battle</a>
-        <a th:href="@{/pd/index}">Pc_Dice</a>
-        <a th:href="@{/cs/user}">Character Sheet</a>
+キャラデータを保存したらあとは形式を選ぶだけ！
+・ワンクリックで戦闘ログを作成
+・クリファン、気絶判定適用
+・クリーチャー数種類をデフォルトで使用可能</pre>
+                    </div>
+                    <div class="topItem">
+                        <img class="minImg1" src="/myapplications/images/defo/battle.png" />
+                    </div>
+                </div>
+                <div class="linkButton">
+                    <a th:href="@{/db/index}" class="button">遊んでみる</a>
+                </div>
+                <div class="overImg">
+                    <img src="/myapplications/images/defo/dicemin2.png" />
+                </div>
+            </div>
+            <div class="topCOntainerWrap">
+                <div class="topContainer">
+                    <div class="topItem">
+                        <img class="minImg1" src="/myapplications/images/defo/book.png" />
+                    </div>
+                    <div class="topItem">
+                        <h2>Character Sheet</h2>
+                        <pre>戦闘に必要なデータを入力して登録するだけ！
+一度登録することで次回以降呼び出して使用することが出来ます。
+また、他の利用者が公開しているPC,エネミーを使用することも！
+勿論、登録したものを非公開にしておくことも出来ます。
+登録制限はなし！お気軽にどうぞ
+</pre>
+                    </div>
+                </div>
+                <div class="linkButton btn2">
+                    <a th:href="@{/cs/index}" class="button">遊んでみる</a>
+                </div>
+            </div>
+            <div class="topCOntainerWrap">
+                <div class="topContainer">
+                    <div class="topItem">
+                        <h2>Pc Dice</h2>
+                        <pre>可愛いミニキャラがサイコロに？
+自作イラストを使用して自分だけのサイコロを作ることが出来ます。
+クリファン、ロール中等々、差分を登録することも。
+</pre>
+                    </div>
+                    <div class="topItem">
+                        <img class="minImg2" src="/myapplications/images/defo/fun.png" />
+                    </div>
+                </div>
+                <div class="linkButton">
+                    <a th:href="@{/pd/index}" class="button">遊んでみる</a>
+                </div>
+                <div class="overImg">
+                    <img src="/myapplications/images/defo/eyeChatch2min.jpg" />
+                </div>
+            </div>
+            <div class="topCOntainerWrap">
+                <div class="topContainer">
+                    <div class="topItem">
+                        <img class="minImg1" src="/myapplications/images/defo/book.png" />
+                    </div>
+                    <div class="topItem">
+                        <h2>本サイト・管理人について</h2>
+                        <pre>本サイトは管理人がサイト設計～公開までを勉強するために作成したものです。
+以下のボタンから本サイト作成に当たっての使用スキルを確認することが出来ます。
+ご興味のある方はご観覧ください
+</pre>
+                    </div>
+                </div>
+                <div class="linkButton btn2">
+                    <a th:href="@{/top/about}" class="button">詳細</a>
+                </div>
+            </div>
+        </section>
     </div>
-
 </body>
 </html>

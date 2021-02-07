@@ -6,37 +6,57 @@
 .button {
   display: inline-block;
   text-align: center;
-  margin: 10px auto 30px auto;
+  margin: 10px auto 10px auto;
   text-decoration: none;
   border: solid 2px;
-  padding: 7px 40px; }
+  padding: 3px 30px; }
+
+.wrapper {
+  overflow: hidden; }
 
 header {
   background-color: #b0c4de;
-  padding: 30px auto; }
+  padding: 0px 0px 10px 0px; }
   header .header_container {
     display: flex;
     justify-content: space-around; }
+    header .header_container .button {
+      margin-left: 10px; }
+  header h1 {
+    margin-top: 10px; }
   header .header_nav {
     text-align: center; }
     header .header_nav li {
-      display: inline-block;
-      border-right: solid 1px #393f4c; }
-      header .header_nav li:last-child {
-        border-right: none; }
+      display: inline-block; }
       header .header_nav li a {
-        padding: 10px 15px;
+        padding: 15px 35px 0px 35px;
         text-decoration: none;
-        transition: all 0.5s 0s ease; }
-        header .header_nav li a:hover {
-          background: #eee; }
+        transition: all 0.5s 0s ease;
+        position: relative; }
+        header .header_nav li a::before {
+          content: "";
+          display: block;
+          height: 1px;
+          width: 100%;
+          background: #555;
+          position: absolute;
+          bottom: 0;
+          transform: scaleX(0);
+          transition: transform 0.3s; }
+        header .header_nav li a:hover::before {
+          transform: scaleX(1); }
 
 main {
   width: 80%;
   margin: auto; }
-  main .btn_circle {
-    text-align: center; }
-    main .btn_circle a {
+  main .topBtnWrap h2 {
+    text-align: center;
+    font-size: 2.0rem;
+    margin-top: 60px; }
+  main .topBtnWrap .btn_circle {
+    text-align: center;
+    margin-top: 50px; }
+    main .topBtnWrap .btn_circle a {
       display: inline-block;
       text-decoration: none;
       color: #fff;
@@ -50,11 +70,75 @@ main {
       text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
       box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
       margin: auto 30px; }
-    main .btn_circle a:active {
+    main .topBtnWrap .btn_circle a:active {
       box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.32);
       background-image: linear-gradient(#fed6e3 0%, #7B94B5 100%); }
-    main .btn_circle a:hover {
+    main .topBtnWrap .btn_circle a:hover {
       background-image: linear-gradient(#FFEDF3 0%, #b0c4de 100%); }
+
+.toppageWrapper .imgOverlay {
+  position: relative; }
+  .toppageWrapper .imgOverlay img {
+    width: 125.5%;
+    position: relative;
+    left: -13%;
+    object-fit: cover;
+    height: 500px; }
+  .toppageWrapper .imgOverlay a {
+    position: absolute;
+    background: #333;
+    left: -13%;
+    right: -13%;
+    top: 0;
+    bottom: 7px;
+    opacity: 0.3; }
+.toppageWrapper .topCOntainerWrap {
+  position: relative; }
+  .toppageWrapper .topCOntainerWrap .topContainer {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 150px; }
+    .toppageWrapper .topCOntainerWrap .topContainer .topItem {
+      position: relative;
+      z-index: 5; }
+      .toppageWrapper .topCOntainerWrap .topContainer .topItem .minImg1 {
+        width: 350px;
+        opacity: 0.7;
+        position: relative;
+        top: -85px;
+        filter: drop-shadow(2px 4px 6px black); }
+      .toppageWrapper .topCOntainerWrap .topContainer .topItem .minImg2 {
+        width: 350px;
+        position: relative;
+        top: -85px;
+        filter: drop-shadow(2px 4px 6px black); }
+      .toppageWrapper .topCOntainerWrap .topContainer .topItem h2 {
+        font-weight: bold;
+        font-size: 2.0rem;
+        margin-bottom: 30px;
+        margin-top: 130px;
+        border-left: solid 5px #333;
+        padding-left: 5px; }
+      .toppageWrapper .topCOntainerWrap .topContainer .topItem pre {
+        font-size: 1.6rem;
+        margin-top: 100px; }
+  .toppageWrapper .topCOntainerWrap .overImg {
+    position: relative; }
+    .toppageWrapper .topCOntainerWrap .overImg img {
+      position: absolute;
+      left: -13%;
+      object-fit: cover;
+      width: 100vw;
+      height: 700px;
+      opacity: 0.1;
+      top: -570px;
+      z-index: 1; }
+  .toppageWrapper .topCOntainerWrap .linkButton {
+    text-align: end;
+    position: relative;
+    z-index: 5; }
+  .toppageWrapper .topCOntainerWrap .btn2 {
+    margin-top: 100px; }
 
 .modal {
   z-index: 10;
@@ -125,10 +209,10 @@ main {
   .cs_index_wrapper .cs_new {
     display: inline-block;
     text-align: center;
-    margin: 10px auto 30px auto;
+    margin: 10px auto 10px auto;
     text-decoration: none;
     border: solid 2px;
-    padding: 7px 40px; }
+    padding: 3px 30px; }
   .cs_index_wrapper .cs_index_list {
     display: flex;
     flex-wrap: wrap;
@@ -158,6 +242,25 @@ main {
           right: 0px;
           bottom: 10px; }
 
+.dbContainer {
+  display: flex;
+  justify-content: center; }
+  .dbContainer .item {
+    margin: 110px 50px 60px 50px; }
+    .dbContainer .item a {
+      text-decoration: none;
+      color: #fff;
+      background-image: linear-gradient(#fed6e3 0%, #b0c4de 100%);
+      text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
+      padding: 60px 90px;
+      border-radius: 10px; }
+      .dbContainer .item a:active {
+        box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.32);
+        background-image: linear-gradient(#fed6e3 0%, #7B94B5 100%); }
+      .dbContainer .item a:hover {
+        background-image: linear-gradient(#FFEDF3 0%, #b0c4de 100%); }
+
 .dbSelectWarapper .dbSelect {
   display: flex;
   justify-content: space-between; }
@@ -182,10 +285,10 @@ main {
   .pdIndexWrapper .button {
     display: inline-block;
     text-align: center;
-    margin: 10px auto 30px auto;
+    margin: 10px auto 10px auto;
     text-decoration: none;
     border: solid 2px;
-    padding: 7px 40px; }
+    padding: 3px 30px; }
   .pdIndexWrapper .pdIndexContainer {
     display: flex;
     justify-content: space-around;
@@ -250,10 +353,51 @@ main {
   .pcDicePlay .opacity {
     opacity: 0; }
 
+.aboutWrap {
+  text-align: center; }
+  .aboutWrap .aboutImg {
+    margin-top: 100px; }
+    .aboutWrap .aboutImg img {
+      width: 150px;
+      border-radius: 50%;
+      filter: drop-shadow(0px 0px 4px #393f4c); }
+  .aboutWrap pre {
+    margin: 60px; }
+  .aboutWrap .skill {
+    font-size: 2.0rem; }
+  .aboutWrap .skillWrap {
+    background: #d4dfed;
+    width: 80%;
+    margin: 30px auto;
+    padding: 20px 20px 0px 20px; }
+    .aboutWrap .skillWrap h2 {
+      margin-bottom: 30px; }
+    .aboutWrap .skillWrap .skillContainer {
+      display: flex;
+      justify-content: space-around; }
+      .aboutWrap .skillWrap .skillContainer .item {
+        width: 30%;
+        background: #fff;
+        padding: 10px 10px 20px 10px; }
+        .aboutWrap .skillWrap .skillContainer .item .star {
+          margin-top: 5px; }
+    .aboutWrap .skillWrap .pinImg {
+      position: relative;
+      width: 35px;
+      right: -482px;
+      top: -175px; }
+
 footer {
   background-color: #b0c4de;
-  margin: 330px auto;
-  text-align: center; }
+  margin: 100px auto 0px auto;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100vw; }
+  footer ul li {
+    display: inline-block; }
+    footer ul li a {
+      text-decoration: none; }
 
 /*# sourceMappingURL=style.css.map */
 

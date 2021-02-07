@@ -23,12 +23,8 @@ public class TopPageController {
     @Autowired
     UserRepository userrepository;
 
-    //@RequestMapping……"/"にアクセスするとindexメソッドを実行する
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index(ModelAndView mv) {
-
-        System.out.println("toppageController通過");
-
         List<User> users = userrepository.findAll();
 
             mv.addObject("token", session.getId());
@@ -43,6 +39,12 @@ public class TopPageController {
 
             return mv;
 
+    }
+
+    @RequestMapping(path = "/top/about" , method = RequestMethod.GET)
+    public ModelAndView about(ModelAndView mv) {
+        mv.setViewName("views/toppage/about");
+        return mv;
     }
 }
 

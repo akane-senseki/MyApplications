@@ -12,24 +12,34 @@ $overlay:#393f4c;
 @mixin button() {
     display: inline-block;
     text-align: center;
-    margin: 10px auto 30px auto;
+    margin: 10px auto 10px auto;
     text-decoration: none;
     border: solid 2px;
-    padding: 7px 40px;
+    padding: 3px 30px;
 }
-.button{
+
+.button {
     @include button();
 }
-
-
+.wrapper{
+    overflow: hidden;
+}
 
 header {
     background-color: $baseColor;
-    padding: 30px auto;
+    padding: 0px 0px 10px 0px;
 
     .header_container {
         display: flex;
         justify-content: space-around;
+
+        .button {
+            margin-left: 10px;
+        }
+    }
+
+    h1 {
+        margin-top: 10px;
     }
 
     .header_nav {
@@ -37,30 +47,49 @@ header {
 
         li {
             display: inline-block;
-            border-right:solid 1px $overlay;
-                &:last-child{
-                        border-right:none;
-                        }
-            a{
-                padding:10px 15px;
+
+            a {
+                padding: 15px 35px 0px 35px;
                 text-decoration: none;
                 transition: all 0.5s 0s ease;
-                &:hover{
-                    background:#eee;
+                position: relative;
+
+                &::before {
+                    content: "";
+                    display: block;
+                    height: 1px;
+                    width: 100%;
+                    background: #555;
+                    position: absolute;
+                    bottom: 0;
+                    transform: scaleX(0);
+                    transition: transform 0.3s;
                 }
 
-                    }
+                &:hover::before {
+                    transform: scaleX(1);
+                }
+
+            }
 
         }
     }
 }
+
 main {
 
     width: 80%;
     margin: auto;
+.topBtnWrap{
+    h2{
+    text-align: center;
+    font-size: 2.0rem;
+    margin-top: 60px;
 
+    }
     .btn_circle {
         text-align: center;
+        margin-top: 50px;
 
         a {
             display: inline-block;
@@ -93,25 +122,120 @@ main {
             background-image: linear-gradient(#FFEDF3 0%, $baseColor 100%);
         }
     }
+}
 
 
 }
 
+//トップページ---------------------------------------
+.toppageWrapper {
+    .imgOverlay {
+        position: relative;
+
+        img {
+            width: 125.5%;
+            position: relative;
+            left: -13%;
+            object-fit: cover;
+            height: 500px;
+        }
+
+        a {
+            position: absolute;
+            background: #333;
+            left: -13%;
+            right: -13%;
+            top: 0;
+            bottom: 7px;
+            opacity: 0.3;
+        }
+    }
+
+    .topCOntainerWrap {
+        position:relative;
+        .topContainer {
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 150px;
+
+            .topItem {
+                position:relative;
+                z-index:5;
+                .minImg1 {
+                       width: 350px;
+                       opacity: 0.7;
+                       position: relative;
+                       top: -85px;
+                       filter: drop-shadow(2px 4px 6px black);
+
+                }
+                .minImg2 {
+                       width: 350px;
+                       position: relative;
+                       top: -85px;
+                       filter: drop-shadow(2px 4px 6px black);
+
+                }
+
+                h2 {
+                    font-weight: bold;
+                    font-size: 2.0rem;
+                    margin-bottom: 30px;
+                    margin-top: 130px;
+                    border-left: solid 5px #333;
+                    padding-left: 5px;
+                }
+            pre{
+                font-size: 1.6rem;
+                margin-top:100px
+            }
+            }
+
+        }
+
+        .overImg {
+            position: relative;
+
+            img {
+                position: absolute;
+                left: -13%;
+                object-fit: cover;
+                width: 100vw;
+                height: 700px;
+                opacity: 0.1;
+                top: -570px;
+                z-index:1;
+            }
+        }
+
+        .linkButton {
+            text-align: end;
+            position:relative;
+            z-index:5;
+        }
+    .btn2{
+        margin-top:100px;
+    }
+}
+}
 //サインイン・サインアップフォーム--------------------------
-.modal{
-    z-index:10;
+
+.modal {
+    z-index: 10;
     position: absolute;
     top: 200px;
     left: 40%;
-    .formTitle{
-        background:$baseColor;
+
+    .formTitle {
+        background: $baseColor;
         border: solid 1px #333;
         padding: 10px 20px;
         color: #fff;
         text-align: center;
         border-bottom: none;
         border-radius: 10px 10px 0px 0px;
-        .xbutton{
+
+        .xbutton {
             position: absolute;
             top: 0;
             right: 15px;
@@ -120,19 +244,21 @@ main {
             color: #555;
         }
     }
-    .formContent{
-    background: #fff;
-    border: solid 1px #333;
-    padding: 10px 20px;
-    border-radius: 0px 0px 10px 10px;
+
+    .formContent {
+        background: #fff;
+        border: solid 1px #333;
+        padding: 10px 20px;
+        border-radius: 0px 0px 10px 10px;
     }
 }
-.noneModal{
-    display:none;
+
+.noneModal {
+    display: none;
     opacity: 0;
 }
 
-.overlay{
+.overlay {
     z-index: 5;
     position: absolute;
     background: $overlay;
@@ -141,7 +267,7 @@ main {
     right: 0px;
     bottom: 0px;
     opacity: 0.8;
-    }
+}
 
 
 
@@ -236,6 +362,32 @@ main {
     }
 }
 
+//demobattle IndexPage-------------------------------------------------------
+.dbContainer{
+        display: flex;
+        justify-content:center;
+        .item{
+                margin: 110px 50px 60px 50px;
+        a{
+            text-decoration: none;
+            color:#fff;
+            background-image: linear-gradient($pink 0%, $baseColor 100%);
+            text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
+            padding:60px 90px;
+            border-radius:10px;
+        &:active {
+            box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.32);
+            background-image: linear-gradient(#fed6e3 0%, #7B94B5 100%);
+        }
+
+        &:hover {
+            background-image: linear-gradient(#FFEDF3 0%, $baseColor 100%);
+        }
+}
+}
+}
+
 //demobattle selectPage-------------------------------------------------------
 
 .dbSelectWarapper {
@@ -313,29 +465,30 @@ main {
 .pcDicePlay {
     text-align: center;
     position: relative;
-    .imgWrap{
 
-    img {
-        width: 800px;
-        filter: drop-shadow(10px 10px 0px #B0CDEF);
+    .imgWrap {
 
-        &:active {
-            filter: drop-shadow(0px 0px 0px #B0CDEF);
-            margin-left: 10px;
-            margin-top: 10px;
+        img {
+            width: 800px;
+            filter: drop-shadow(10px 10px 0px #B0CDEF);
+
+            &:active {
+                filter: drop-shadow(0px 0px 0px #B0CDEF);
+                margin-left: 10px;
+                margin-top: 10px;
+            }
+        }
+
+
+        #rollNum {
+            color: #888;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            font-size: 2.5rem;
+            width: 200px;
         }
     }
-
-
-    #rollNum {
-        color: #888;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        font-size: 2.5rem;
-        width: 200px;
-    }
-}
 
     .picMenu {
         position: fixed;
@@ -386,16 +539,74 @@ main {
     .none {
         width: 0px;
     }
-    .opacity{
-        opacity:0;
+
+    .opacity {
+        opacity: 0;
     }
 
 }
 
+//aboutページ--------------------------------------------------------------------------------
+.aboutWrap{
+    text-align: center;
+    .aboutImg{
+        margin-top: 100px;
+        img{
+        width: 150px;
+        border-radius: 50%;
+        filter: drop-shadow(0px 0px 4px $overlay);
+        }
+
+    }
+    pre{
+    margin: 60px;
+    }
+    .skill{
+        font-size:2.0rem;
+    }
+.skillWrap{
+        background:lighten($baseColor , 10%) ;
+        width: 80%;
+        margin: 30px auto;
+        padding: 20px 20px 0px 20px;
+        h2{
+            margin-bottom:30px;
+        }
+    .skillContainer{
+        display: flex;
+        justify-content: space-around;
+        .item{
+                width: 30%;
+                background: #fff;
+                padding: 10px 10px 20px 10px;
+                .star{
+                    margin-top: 5px;
+                }
+        }
+    }
+        .pinImg{
+            position: relative;
+            width: 35px;
+            right: -482px;
+            top: -175px;
+        }
+}
+}
 footer {
     background-color: $baseColor;
-    margin: 330px auto;
+    margin: 100px auto 0px auto;
     text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    ul{
+        li{
+            display:inline-block;
+            a{
+                    text-decoration: none;
+            }
+        }
+    }
 }
 
 /*# sourceMappingURL=style.css.map */
