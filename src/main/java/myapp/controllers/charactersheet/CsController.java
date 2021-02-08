@@ -208,10 +208,7 @@ public class CsController {
     @RequestMapping(path = "/cs/show", method = RequestMethod.GET)
     public ModelAndView csShow(@ModelAttribute Pc_EntityForm peForm, ModelAndView mv) {
 
-        //Optional<> はその値がnullかも知れないことをあらわしている(nullチェックが必要ない)
         Optional<Pc_Entity> p = pcrepository.findById(peForm.getId());
-
-        //ModelMapperでEntity→Formオブジェクトへマッピングする。
         ModelMapper modelMapper = new ModelMapper();
         peForm = modelMapper.map(p.orElse(new Pc_Entity()), Pc_EntityForm.class);
 

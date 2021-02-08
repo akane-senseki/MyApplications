@@ -19,12 +19,6 @@ public class Pc_EntityForm extends Pc_Entity{
 
     private int avoidance ;
 
-    private int fist; //こぶし
-
-    private int kick; //キック
-
-    private int headbutt; //頭突き
-
 //getter/setter---------------------------------------
 
     public String getToken() {

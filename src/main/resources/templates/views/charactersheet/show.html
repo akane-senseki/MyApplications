@@ -1,9 +1,90 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    th:replace="~{views/layout/app :: layout(~{::body/content()})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{views/layout/app :: layout(~{::body/content()})}">
 <head>
 </head>
 <body>
-<h2>showページだぞ！</h2>
+    <div class="cs_form_container">
+        <div class="cs_form_item">
+            <th:block th:if="${pc.imgPath == null}">
+                <img id="preview" src="/myapplications/images/defo/noimage.png" alt="cs_img" />
+            </th:block>
+            <th:block th:unless="${pc.imgPath == null}">
+                <img id="preview" th:src="@{/images/{id}/{img_path}(id=${pc.user.id},img_path=${pc.imgPath})}" alt="cs_img" />
+            </th:block>
+        </div>
+        <div class="cs_form_item right">
+            <br /> <br />
+            <p>名前</p>
+            <br />
+            <p th:text="${pc.name}"></p>
+            <br /> <br />
+            <p>ふりがな</p>
+            <br />
+            <p th:text="${pc.nameRuby}"></p>
+            <br /> <br />
+        </div>
+    </div>
+    <div class="ability_form">
+        <p>能力値</p>
+        <table>
+            <tbody>
+                <tr>
+                    <th><p>STR</p></th>
+                    <th><p>CON</p></th>
+                    <th><p>DEX</p></th>
+                    <th><p>SIZ</p></th>
+                    <th>HP</th>
+                    <th>DB</th>
+                </tr>
+                <tr>
+                    <td><p th:text="${pc.str}"></p></td>
+                    <td><p th:text="${pc.con}"></p></td>
+                    <td><p th:text="${pc.dex}"></p></td>
+                    <td><p th:text="${pc.siz}"></p></td>
+                    <td id="hp">--</td>
+                    <td id="db">--</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br />
+    <br />
+    <div class="skill_form">
+        <p>技能値</p>
+        <table>
+            <tbody>
+                <tr>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>初期値</th>
+                    <th>振分け</th>
+                    <th>合計</th>
+                </tr>
+                <tr>
+                    <th>回避</th>
+                    <td id="dex_2"></td>
+                    <td><p th:text="${pc.avoidanceAdd}"></p></td>
+                    <td id="avoidance"></td>
+                </tr>
+                <tr>
+                    <th>キック</th>
+                    <td>25</td>
+                    <td><p th:text=${pc.kickAdd}></p></td>
+                    <td id="kick"></td>
+                </tr>
+                <tr>
+                    <th>こぶし</th>
+                    <td>50</td>
+                    <td><p th:text="${pc.fistAdd}"></p></td>
+                    <td id="fist"></td>
+                </tr>
+                <tr>
+                    <th>頭突き</th>
+                    <td>10</td>
+                    <td><p th:text="${pc.headbuttAdd}"></p></td>
+                    <td id="headbutt"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
