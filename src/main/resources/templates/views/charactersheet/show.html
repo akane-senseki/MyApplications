@@ -13,15 +13,18 @@
             </th:block>
         </div>
         <div class="cs_form_item right">
-            <br /> <br />
+            <br />
+            <br />
             <p>名前</p>
             <br />
             <p th:text="${pc.name}"></p>
-            <br /> <br />
+            <br />
+            <br />
             <p>ふりがな</p>
             <br />
             <p th:text="${pc.nameRuby}"></p>
-            <br /> <br />
+            <br />
+            <br />
         </div>
     </div>
     <div class="ability_form">
@@ -29,18 +32,34 @@
         <table>
             <tbody>
                 <tr>
-                    <th><p>STR</p></th>
-                    <th><p>CON</p></th>
-                    <th><p>DEX</p></th>
-                    <th><p>SIZ</p></th>
+                    <th>
+                        <p>STR</p>
+                    </th>
+                    <th>
+                        <p>CON</p>
+                    </th>
+                    <th>
+                        <p>DEX</p>
+                    </th>
+                    <th>
+                        <p>SIZ</p>
+                    </th>
                     <th>HP</th>
                     <th>DB</th>
                 </tr>
                 <tr>
-                    <td><p th:text="${pc.str}"></p></td>
-                    <td><p th:text="${pc.con}"></p></td>
-                    <td><p th:text="${pc.dex}"></p></td>
-                    <td><p th:text="${pc.siz}"></p></td>
+                    <td>
+                        <p th:text="${pc.str}"></p>
+                    </td>
+                    <td>
+                        <p th:text="${pc.con}"></p>
+                    </td>
+                    <td>
+                        <p th:text="${pc.dex}"></p>
+                    </td>
+                    <td>
+                        <p th:text="${pc.siz}"></p>
+                    </td>
                     <td id="hp">--</td>
                     <td id="db">--</td>
                 </tr>
@@ -62,29 +81,42 @@
                 <tr>
                     <th>回避</th>
                     <td id="dex_2"></td>
-                    <td><p th:text="${pc.avoidanceAdd}"></p></td>
+                    <td>
+                        <p th:text="${pc.avoidanceAdd}"></p>
+                    </td>
                     <td id="avoidance"></td>
                 </tr>
                 <tr>
                     <th>キック</th>
                     <td>25</td>
-                    <td><p th:text=${pc.kickAdd}></p></td>
+                    <td>
+                        <p th:text=${pc.kickAdd}></p>
+                    </td>
                     <td id="kick"></td>
                 </tr>
                 <tr>
                     <th>こぶし</th>
                     <td>50</td>
-                    <td><p th:text="${pc.fistAdd}"></p></td>
+                    <td>
+                        <p th:text="${pc.fistAdd}"></p>
+                    </td>
                     <td id="fist"></td>
                 </tr>
                 <tr>
                     <th>頭突き</th>
                     <td>10</td>
-                    <td><p th:text="${pc.headbuttAdd}"></p></td>
+                    <td>
+                        <p th:text="${pc.headbuttAdd}"></p>
+                    </td>
                     <td id="headbutt"></td>
                 </tr>
             </tbody>
         </table>
     </div>
+    <form name="PcLike" method="POST" th:action="@{/pcLike}">
+        <input type="submit" value="♡" onclick="return Submit('PcLike','@{/pcLike}','POST');" />
+        <input type="hidden" name="token" th:value="${token}" />
+        <input type="hidden" name="id" th:value="${pc.id}" />
+    </form>
 </body>
 </html>
