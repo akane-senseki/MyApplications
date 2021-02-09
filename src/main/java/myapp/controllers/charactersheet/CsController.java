@@ -72,16 +72,13 @@ public class CsController {
 
     }
 
-    @SuppressWarnings("null")
     @RequestMapping(value = "/cs/userLike", method = RequestMethod.GET)
     public ModelAndView csUserLikeIndex(ModelAndView mv) {
         if(session.getAttribute("login_user") != null) {
-            System.out.println("お気に入りページ通過");
         List<PcEntityLike> likes = pcLikerepository.findByUser((User)session.getAttribute("login_user"));
         List<PcEntity> pc = new ArrayList<PcEntity>() ;
         for(int i = 0 ; i < likes.size(); i++) {
             pc.add(likes.get(i).getPc_entity());
-            System.out.println(likes.get(i).getPc_entity().getName());
         }
 
         mv.addObject("pc", pc);

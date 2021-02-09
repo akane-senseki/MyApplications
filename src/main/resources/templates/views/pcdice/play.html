@@ -6,7 +6,7 @@
     <div class="pcDicePlay">
         <h2>PcDicePlayページ</h2>
         <th:block th:if="${pic.user.id != session.login_user.id}">
-            <form name="PcLike" method="POST" th:action="@{/pcLike}">
+            <form name="PcLike" method="POST" th:action="@{/picLike}">
                 <th:block th:if="${like == null}">
                     <input class="likeButtonOff" type="submit" value="お気に入りに追加" />
                 </th:block>
@@ -14,7 +14,7 @@
                     <input class="likeButtonOn" type="submit" value="お気に入り済" onclick="return Submit('PcLike','@{/pcLike}','POST');" />
                 </th:block>
                 <input type="hidden" name="token" th:value="${token}" />
-                <input type="hidden" name="id" th:value="${pc.id}" />
+                <input type="hidden" name="id" th:value="${pic.id}" />
             </form>
         </th:block>
         <th:block th:if="${pic.user.id == session.login_user.id}">

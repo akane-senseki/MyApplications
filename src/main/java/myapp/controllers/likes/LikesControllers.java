@@ -44,7 +44,7 @@ public class LikesControllers {
     Optional<PcEntity>  oppc = pcrepository.findById(peForm.getId());
     ModelMapper modelMapper = new ModelMapper();
     Pc_EntityForm pcEntityForm = modelMapper.map(oppc.orElse(new PcEntity()), Pc_EntityForm.class);
-
+    pcEntityForm.setToken(session.getId());
     mv.addObject("pc", pcEntityForm);
     mv.setViewName("views/charactersheet/show");
 

@@ -118,7 +118,7 @@
             <th:block th:if="${like != null}">
                 <input class="likeButtonOn" type="submit" value="お気に入り済" onclick="return Submit('PcLike','@{/pcLike}','POST');" />
             </th:block>
-            <input type="hidden" name="token" th:value="${token}" />
+            <input type="hidden" name="token" th:value="${pc.token}" />
             <input type="hidden" name="id" th:value="${pc.id}" />
         </form>
     </th:block>

@@ -12,6 +12,6 @@ import myapp.models.User;
 
 @Repository
 public interface PicDataLikeRepository extends JpaRepository<PicDataLike, Integer>{
-    public PicDataLike findByUserAndPcEntity(User user , PicData picdata);
+    public PicDataLike findByUserAndPicData(User user , PicData picdata);
     public List<PicDataLike> findByUser(User user);
 }
