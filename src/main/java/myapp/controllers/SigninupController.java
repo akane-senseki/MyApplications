@@ -1,4 +1,4 @@
-package myapp.controllers.signinup;
+package myapp.controllers;
 
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpSession;

@@ -1,4 +1,4 @@
-package myapp.controllers.likes;
+package myapp.controllers;
 
 import java.util.Optional;
 

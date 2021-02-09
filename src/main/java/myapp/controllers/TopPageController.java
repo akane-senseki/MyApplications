@@ -1,4 +1,4 @@
-package myapp.controllers.toppage;
+package myapp.controllers;
 
 import java.util.List;
 

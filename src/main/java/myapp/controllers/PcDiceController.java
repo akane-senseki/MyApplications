@@ -1,4 +1,4 @@
-package myapp.controllers.PcDice;
+package myapp.controllers;
 
 import java.io.File;
 import java.io.IOException;

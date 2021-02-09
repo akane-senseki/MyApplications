@@ -1,4 +1,4 @@
-package myapp.controllers.charactersheet;
+package myapp.controllers;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
