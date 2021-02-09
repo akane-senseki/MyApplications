@@ -47,14 +47,3 @@ public class TopPageController {
         return mv;
     }
 }
-
-//参考
-//【Spring】@Controllerと@RestControllerの違い
-//https://memento-mori-blog.com/spring-controller-restcontroller/
-
-//message_boardのcontrollerは@RestController
-//dayly_report_systemのcontrolelrは@Controller
-//本プロジェクトで@ResetControllerにするとindexの文字のみを返される。
-//@Controllerは、戻り値としてView(HTML)を返す際に使うアノテーション
-//@RestControllerはJSONやXMLを返すAPIサーバー用のアノテーション
-//mesage_boardはDB接続にJPAを使用しているから？確認する

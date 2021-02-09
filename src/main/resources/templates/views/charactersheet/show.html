@@ -13,15 +13,18 @@
             </th:block>
         </div>
         <div class="cs_form_item right">
-            <br /> <br />
+            <br />
+            <br />
             <p>名前</p>
             <br />
             <p th:text="${pc.name}"></p>
-            <br /> <br />
+            <br />
+            <br />
             <p>ふりがな</p>
             <br />
             <p th:text="${pc.nameRuby}"></p>
-            <br /> <br />
+            <br />
+            <br />
         </div>
     </div>
     <div class="ability_form">
@@ -110,17 +113,19 @@
             </tbody>
         </table>
     </div>
-    <th:block th:if="${pc.user.id != session.login_user.id}">
-        <form name="PcLike" method="POST" th:action="@{/pcLike}">
-            <th:block th:if="${like == null}">
-                <input class="likeButtonOff" type="submit" value="お気に入りに追加" />
-            </th:block>
-            <th:block th:if="${like != null}">
-                <input class="likeButtonOn" type="submit" value="お気に入り済" onclick="return Submit('PcLike','@{/pcLike}','POST');" />
-            </th:block>
-            <input type="hidden" name="token" th:value="${pc.token}" />
-            <input type="hidden" name="id" th:value="${pc.id}" />
-        </form>
+    <th:block th:if="${session.login_user != null}">
+        <th:block th:if="${pc.user.id != session.login_user.id}">
+            <form name="PcLike" method="POST" th:action="@{/pcLike}">
+                <th:block th:if="${like == null}">
+                    <input class="likeButtonOff" type="submit" value="お気に入りに追加" />
+                </th:block>
+                <th:block th:if="${like != null}">
+                    <input class="likeButtonOn" type="submit" value="お気に入り済" onclick="return Submit('PcLike','@{/pcLike}','POST');" />
+                </th:block>
+                <input type="hidden" name="token" th:value="${pc.token}" />
+                <input type="hidden" name="id" th:value="${pc.id}" />
+            </form>
+        </th:block>
     </th:block>
 </body>
 </html>

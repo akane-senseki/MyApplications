@@ -12,27 +12,68 @@
             <label for="name">表示名</label>
             <br />
             <input type="text" id="signin_name" name="name" />
-            <br /> <br />
+            <p id="nameCheck"></p>
+            <br />
+            <br />
             <label for="mail">メールアドレス</label>
             <br />
             <input type="text" id="signin_mail" name="mail" />
-            <br /> <br />
+            <p id="mailCheck"></p>
+            <br />
             <label for="password">パスワード</label>
             <br />
             <input type="password" id="signin_password" name="password" />
-            <br /> <br />
-            <label for="re_password">パスワードの再入力</label>
+            <p id="passCheck"></p>
             <br />
+            <br />
+            <label for="re_password">パスワードの再入力</label>
             <input type="password" id="re_password" name="re_password" />
-            <br /> <br />
+            <p id="rePassCheck"></p>
+            <br />
             <label for="admin_flag">権限</label>
-            <br /> <select name="admin_flag">
+            <br />
+            <select name="admin_flag">
                 <option value="0" th:selected="${admin_flag == 0}">一般</option>
                 <option value="1" th:selected="${admin_flag == 1}">管理人</option>
             </select>
             <input type="hidden" name="token" th:value="${token}" />
-            <button type="submit" onclick="return check_signin()">登録</button>
-            <br /> <a href="#">利用規約</a> <a href="#">プライバシーポリシー</a>
+            <button type="button" onclick="check()">登録</button>
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+                function check() {
+                    var check = 0;
+                    if (document.getElementById("signin_mail").value == "") {
+                        check = 1;
+                        document.getElementById("mailCheck").innerHTML = "入力してください";
+                    } else {
+                        document.getElementById("mailCheck").innerHTML = "";
+                    }
+                    if (document.getElementById("signin_name").value == "") {
+                        check = 1;
+                        document.getElementById("nameCheck").innerHTML = "入力してください";
+                    } else {
+                        document.getElementById("nameCheck").innerHTML = "";
+                    }
+                    if (document.getElementById("signin_password").value == "") {
+                        check = 1;
+                        document.getElementById("passCheck").innerHTML = "入力してください";
+                    } else {
+                        document.getElementById("passCheck").innerHTML = "";
+                    }
+                    if(document.getElementById("signin_password").value != document.getElementById("re_password").value){
+                        document.getElementById("rePassCheck").innerHTML = "入力に誤りがあります";
+                        check = 1;
+                    }else{
+                        document.getElementById("rePassCheck").innerHTML = "";
+                    }
+                    for(let i = 0 ; i < /*[[ ${users.length} ]]*/; i++){
+                        
+                    }
+                }
+                /*]]>*/
+            </script>
+            <a href="#">利用規約</a>
+            <a href="#">プライバシーポリシー</a>
         </div>
     </div>
 </body>

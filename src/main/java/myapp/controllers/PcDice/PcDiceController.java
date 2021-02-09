@@ -2,6 +2,7 @@ package myapp.controllers.PcDice;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,9 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import myapp.config.SecurityData;
-import myapp.forms.Pic_DataForm;
+import myapp.forms.PicDataForm;
 import myapp.models.PicData;
+import myapp.models.PicDataLike;
 import myapp.models.User;
+import myapp.repositories.PicDataLikeRepository;
 import myapp.repositories.PicDateRepository;
 
 @Controller
@@ -33,6 +36,35 @@ public class PcDiceController {
 
     @Autowired
     SecurityData securitydate;
+
+    @Autowired
+    PicDataLikeRepository picrepository;
+
+    @RequestMapping(value = "/pd/user", method = RequestMethod.GET)
+    public ModelAndView pdUserIndex(ModelAndView mv) {
+        if (session.getAttribute("login_user") != null) {
+            List<PicData> pic = pdrepository.findByUserAndDeleteFlag((User)session.getAttribute("login_user"), 0);
+            mv.addObject("pic" , pic);
+            mv.setViewName("views/pcdice/user");
+            }
+        return mv;
+        }
+
+    @RequestMapping(value = "/pd/like", method = RequestMethod.GET)
+    public ModelAndView pdUserLikeIndex(ModelAndView mv) {
+        if (session.getAttribute("login_user") != null) {
+            List<PicDataLike> likes = picrepository.findByUser((User)session.getAttribute("login_user"));
+            List<PicData> pic = new ArrayList<PicData>();
+            for(int i = 0 ; i < likes.size(); i++) {
+                if(likes.get(i).getpicData().getDeleteFlag() == 0 ) {
+                    pic.add(likes.get(i).getpicData());
+                }
+            }
+            mv.addObject("pic" , pic);
+            mv.setViewName("views/pcdice/like");
+            }
+        return mv;
+        }
 
     @RequestMapping(value = "/pd/index", method = RequestMethod.GET)
     public ModelAndView pdIndex(ModelAndView mv) {
@@ -50,7 +82,7 @@ public class PcDiceController {
     }
 
     @RequestMapping(value = "/pd/new", method = RequestMethod.GET)
-    public ModelAndView pdNew(Pic_DataForm pdform, ModelAndView mv) {
+    public ModelAndView pdNew(PicDataForm pdform, ModelAndView mv) {
 
         pdform.setToken(session.getId());
         mv.addObject("pd", pdform);
@@ -60,7 +92,7 @@ public class PcDiceController {
 
     @RequestMapping(value = "/pd/create", method = RequestMethod.POST)
     @Transactional
-    public ModelAndView pdCreate(@ModelAttribute Pic_DataForm pdForm, ModelAndView mv) throws IOException {
+    public ModelAndView pdCreate(@ModelAttribute PicDataForm pdForm, ModelAndView mv) throws IOException {
         if (pdForm.getToken() != null && pdForm.getToken().equals(session.getId())) {
             PicData p = new PicData();
             String img_path = null;
@@ -170,24 +202,34 @@ public class PcDiceController {
     }
 
     @RequestMapping(path = "/pd/play", method = RequestMethod.GET)
-    public ModelAndView pdPlay(@ModelAttribute Pic_DataForm pdForm, ModelAndView mv) {
+    public ModelAndView pdPlay(@ModelAttribute PicDataForm pdForm, ModelAndView mv) {
 
-        Optional<PicData> pic = pdrepository.findById(pdForm.getId());
+        Optional<PicData> oppic = pdrepository.findById(pdForm.getId());
         ModelMapper modelMapper = new ModelMapper();
-        pdForm = modelMapper.map(pic.orElse(new PicData()), Pic_DataForm.class);
+        pdForm = modelMapper.map(oppic.orElse(new PicData()), PicDataForm.class);
         pdForm.setToken(session.getId());
 
         mv.addObject("pic", pdForm);
-        session.setAttribute("pic_id", pdForm.getId());
+        session.setAttribute("picId", pdForm.getId());
         mv.setViewName("views/pcdice/play");
+
+      //お気に入りの確認
+        PicData pic = oppic.get();
+        if(session.getAttribute("login_user") != null) {
+            PicDataLike p = picrepository.findByUserAndPicData((User)session.getAttribute("login_user"), pic);
+            if(p != null) {
+                mv.addObject("like" , p);
+            }
+        }
+
         return mv;
     }
 
     @RequestMapping(value = "/pd/adjustment", method = RequestMethod.POST)
     @Transactional
-    public ModelAndView pdAdjustment(@ModelAttribute Pic_DataForm pdForm, ModelAndView mv) {
+    public ModelAndView pdAdjustment(@ModelAttribute PicDataForm pdForm, ModelAndView mv) {
         if (pdForm.getToken() != null && pdForm.getToken().equals(session.getId())) {
-            Optional<PicData> oppic = pdrepository.findById((Integer) session.getAttribute("pic_id"));
+            Optional<PicData> oppic = pdrepository.findById((Integer) session.getAttribute("picId"));
             PicData p = oppic.orElse(null);
             p.setyAxis(pdForm.getyAxis());
             p.setxAxis(pdForm.getxAxis());
@@ -206,24 +248,24 @@ public class PcDiceController {
     }
 
     @RequestMapping(value = "/pd/edit", method = RequestMethod.GET)
-    public ModelAndView pdEdit(Pic_DataForm pdForm, ModelAndView mv) {
+    public ModelAndView pdEdit(PicDataForm pdForm, ModelAndView mv) {
 
         Optional<PicData> pic = pdrepository.findById(pdForm.getId());
         ModelMapper modelMapper = new ModelMapper();
-        pdForm = modelMapper.map(pic.orElse(new PicData()), Pic_DataForm.class);
+        pdForm = modelMapper.map(pic.orElse(new PicData()), PicDataForm.class);
         pdForm.setToken(session.getId());
 
         mv.addObject("pd", pdForm);
         mv.setViewName("views/pcdice/edit");
-        session.setAttribute("pic_id", pdForm.getId());
+        session.setAttribute("picId", pdForm.getId());
         return mv;
     }
 
     @RequestMapping(path = "/pd/update", method = RequestMethod.POST)
     @Transactional
-    public ModelAndView pdUpdate(@ModelAttribute Pic_DataForm pdForm, ModelAndView mv) throws IOException {
+    public ModelAndView pdUpdate(@ModelAttribute PicDataForm pdForm, ModelAndView mv) throws IOException {
         if (pdForm.getToken() != null && pdForm.getToken().equals(session.getId())) {
-            Optional<PicData> oppic = pdrepository.findById((Integer) session.getAttribute("pic_id"));
+            Optional<PicData> oppic = pdrepository.findById((Integer) session.getAttribute("picId"));
             PicData p = oppic.orElse(null);
             String img_path = null;
             MultipartFile imgFile = null;
@@ -337,9 +379,9 @@ public class PcDiceController {
 
     @RequestMapping(path = "/pd/destroy" , method = RequestMethod.POST)
     @Transactional
-    public ModelAndView pdDestroy(@ModelAttribute Pic_DataForm pdForm , ModelAndView mv) {
+    public ModelAndView pdDestroy(@ModelAttribute PicDataForm pdForm , ModelAndView mv) {
         if(pdForm.getToken() != null && pdForm.getToken().equals(session.getId())) {
-            Optional<PicData> oppic = pdrepository.findById((Integer) session.getAttribute("pic_id"));
+            Optional<PicData> oppic = pdrepository.findById((Integer) session.getAttribute("picId"));
             PicData p = oppic.orElse(null);
 
             p.setDeleteFlag(1);
@@ -352,7 +394,7 @@ public class PcDiceController {
                 deleteImages[i].delete();
             }
             pdrepository.save(p);
-            session.removeAttribute("pic_id");
+            session.removeAttribute("picId");
             session.setAttribute("flush", "削除しました");
             mv = new ModelAndView("redirect:/pd/index"); // リダイレクト
         }else {

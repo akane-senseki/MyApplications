@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import myapp.models.PicData;
 
-public class Pic_DataForm extends PicData{
+public class PicDataForm extends PicData{
     private String token;
 
     private List<MultipartFile> defa;

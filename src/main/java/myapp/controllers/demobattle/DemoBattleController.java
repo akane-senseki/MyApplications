@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import myapp.demobattleItems.DemoBattle;
-import myapp.forms.Pc_EntityForm;
+import myapp.forms.PcEntityForm;
 import myapp.models.PcEntity;
 import myapp.repositories.PcRepository;
 
@@ -44,11 +44,11 @@ public class DemoBattleController {
 
         ModelMapper modelMapper1 = new ModelMapper();
         ModelMapper modelMapper2 = new ModelMapper();
-        Pc_EntityForm pc1 = modelMapper1.map(oppc1.orElse(new PcEntity()), Pc_EntityForm.class);
-        Pc_EntityForm pc2 = modelMapper2.map(oppc2.orElse(new PcEntity()), Pc_EntityForm.class);
+        PcEntityForm pc1 = modelMapper1.map(oppc1.orElse(new PcEntity()), PcEntityForm.class);
+        PcEntityForm pc2 = modelMapper2.map(oppc2.orElse(new PcEntity()), PcEntityForm.class);
 
-        Pc_EntityForm first;  //先攻
-        Pc_EntityForm latter; //後攻
+        PcEntityForm first;  //先攻
+        PcEntityForm latter; //後攻
         int roll;
         int round = 0;
         pc1.setHp((pc1.getCon() + pc1.getSiz())/2);

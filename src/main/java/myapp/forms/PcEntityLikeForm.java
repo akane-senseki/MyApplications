@@ -2,7 +2,7 @@ package myapp.forms;
 
 import myapp.models.PcEntityLike;
 
-public class Pc_Entity_LikeForm extends PcEntityLike {
+public class PcEntityLikeForm extends PcEntityLike {
     private String token;
 
     public String getToken() {

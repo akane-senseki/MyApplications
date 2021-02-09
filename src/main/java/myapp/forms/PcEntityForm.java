@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import myapp.models.PcEntity;
 
-public class Pc_EntityForm extends PcEntity{
+public class PcEntityForm extends PcEntity{
     private String token;
 
     private List<MultipartFile> csImg;

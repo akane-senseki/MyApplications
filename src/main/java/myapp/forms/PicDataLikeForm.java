@@ -2,7 +2,7 @@ package myapp.forms;
 
 import myapp.models.PicDataLike;
 
-public class Pic_Data_LikeForm extends PicDataLike {
+public class PicDataLikeForm extends PicDataLike {
     private String token;
 
     public String getToken() {

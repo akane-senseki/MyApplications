@@ -2,7 +2,7 @@ package myapp.demobattleItems;
 
 import java.util.List;
 
-import myapp.forms.Pc_EntityForm;
+import myapp.forms.PcEntityForm;
 
 public class DemoBattle {
     static int damage;
@@ -11,7 +11,7 @@ public class DemoBattle {
     static String beforeHp;
     static String afterHp;
 
-    public static void attake(Pc_EntityForm attacker , Pc_EntityForm defender ,String attackerDb ,List<String> log) {
+    public static void attake(PcEntityForm attacker , PcEntityForm defender ,String attackerDb ,List<String> log) {
 
         damage = attacker.attack_roll();
         dbDamage = attacker.getDb_Roll();
