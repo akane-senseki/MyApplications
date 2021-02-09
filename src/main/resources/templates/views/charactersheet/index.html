@@ -8,7 +8,8 @@
     <h2 th:if="${flush != null}" id="flush_message" th:text="${flush}"></h2>
          <th:block th:if="${session.login_user != null}">
             <a class="cs_new" th:href="@{/cs/new}">新規登録</a>
-            <a class="cs_new" th:href="@{/cs/user}">自分のキャラシを見る</a>
+            <a class="cs_new" th:href="@{/cs/user}">my一覧を見る</a>
+            <a class="cs_new" th:href="@{/cs/userLike}">お気に入りを見る</a>
          </th:block>
          <th:block th:unless="${session.login_user != null}">
             <a class="cs_new" href="#">ログインして登録する</a>

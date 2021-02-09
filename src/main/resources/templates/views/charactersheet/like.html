@@ -8,7 +8,7 @@
     <h2 th:if="${flush != null}" id="flush_message" th:text="${flush}"></h2>
             <a class="cs_new" th:href="@{/cs/new}">新規登録</a>
             <a class="cs_new" th:href="@{/cs/index}">公開されているキャラシを見る</a>
-            <a class="cs_new" th:href="@{/cs/userLike}">お気に入りを見る</a>
+            <a class="cs_new" th:href="@{/cs/user}">my一覧を見る</a>
         <th:block th:if="${pc != null}">
             <div class="cs_index_list">
                 <div class="cs_index_container" th:each="pc : ${pc}" th:object="${pc}"><!-- ここも繰り返される -->

@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,8 +31,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import myapp.config.SecurityData;
 import myapp.forms.Pc_EntityForm;
-import myapp.models.Pc_Entity;
+import myapp.models.PcEntity;
+import myapp.models.PcEntityLike;
 import myapp.models.User;
+import myapp.repositories.PcLikeRepository;
 import myapp.repositories.PcRepository;
 
 @Controller
@@ -46,24 +49,20 @@ public class CsController {
     @Autowired
     SecurityData securitydate;
 
+    @Autowired
+    PcLikeRepository pcLikerepository;
+
     @RequestMapping(value = "/cs/user", method = RequestMethod.GET)
-    public ModelAndView csUsserIndex(@RequestParam(name = "page", required = false) Integer page, ModelAndView mv) {
+    public ModelAndView csUserIndex(@RequestParam(name = "page", required = false) Integer page, ModelAndView mv) {
         if(session.getAttribute("login_user") != null) {
-
-        if (page == null) {
+            if (page == null) {
             page = 1;
-        }
-
-        Page<Pc_Entity> pc = pcrepository.findByUserAndDeleteFlag((User)session.getAttribute("login_user") , 0 , (PageRequest.of(20 * (page - 1), 20, Sort.by("id").descending())));
+            }
+        Page<PcEntity> pc = pcrepository.findByUserAndDeleteFlag((User)session.getAttribute("login_user") , 0 , (PageRequest.of(20 * (page - 1), 20, Sort.by("id").descending())));
 
         mv.addObject("pc", pc);
         mv.addObject("page", page);
         mv.setViewName("views/charactersheet/user");
-
-        if(session.getAttribute("flush") != null){
-            mv.addObject("flush" , session.getAttribute("flush"));
-            session.removeAttribute("flush");
-        }
 
         }else {
             //ログインしていないなら通常のindexへ
@@ -73,6 +72,28 @@ public class CsController {
 
     }
 
+    @SuppressWarnings("null")
+    @RequestMapping(value = "/cs/userLike", method = RequestMethod.GET)
+    public ModelAndView csUserLikeIndex(ModelAndView mv) {
+        if(session.getAttribute("login_user") != null) {
+            System.out.println("お気に入りページ通過");
+        List<PcEntityLike> likes = pcLikerepository.findByUser((User)session.getAttribute("login_user"));
+        List<PcEntity> pc = new ArrayList<PcEntity>() ;
+        for(int i = 0 ; i < likes.size(); i++) {
+            pc.add(likes.get(i).getPc_entity());
+            System.out.println(likes.get(i).getPc_entity().getName());
+        }
+
+        mv.addObject("pc", pc);
+        mv.setViewName("views/charactersheet/like");
+
+        }else {
+            //ログインしていないなら通常のindexへ
+            mv = new ModelAndView("redirect:/cs/index"); // リダイレクト
+        }
+        return mv;
+    }
+
 
     @RequestMapping(value = "/cs/index", method = RequestMethod.GET)
     public ModelAndView csIndex(@RequestParam(name = "page", required = false) Integer page, ModelAndView mv) {
@@ -80,7 +101,7 @@ public class CsController {
             page = 1;
         }
 
-        Page<Pc_Entity> pc = pcrepository.findByDeleteFlagAndReleaseFlag( 0 , 0 ,(PageRequest.of(20 * (page - 1), 20, Sort.by("id").descending())));
+        Page<PcEntity> pc = pcrepository.findByDeleteFlagAndReleaseFlag( 0 , 0 ,(PageRequest.of(20 * (page - 1), 20, Sort.by("id").descending())));
 
         mv.addObject("pc", pc);
         mv.addObject("page", page);
@@ -111,7 +132,7 @@ public class CsController {
     public ModelAndView csCerate(@ModelAttribute Pc_EntityForm peForm, ModelAndView mv) throws IOException {
 
         if (peForm.getToken() != null && peForm.getToken().equals(session.getId())) {
-            Pc_Entity p = new Pc_Entity();
+            PcEntity p = new PcEntity();
 
             p.setUser((User) session.getAttribute("login_user"));
             p.setName(peForm.getName());
@@ -148,7 +169,7 @@ public class CsController {
                 String imgName = imgFile.getOriginalFilename();
                 String extension = imgName.substring(imgName.lastIndexOf("."));//最後の.より右側の文字(拡張子)を取得
                 String img_path = (int) (Math.floor(Math.random() * 1000000000)) + extension;
-                List<Pc_Entity> pc = pcrepository.findByUserAndDeleteFlag(u ,0);
+                List<PcEntity> pc = pcrepository.findByUserAndDeleteFlag(u ,0);
                 //画像名が既存のものと被っていた場合変更する(変更後はもう一度確認する)
                 for (int i = 0; i < pc.size(); i++) {
                     if (img_path.equals(pc.get(i).getImgPath())) {
@@ -208,12 +229,21 @@ public class CsController {
     @RequestMapping(path = "/cs/show", method = RequestMethod.GET)
     public ModelAndView csShow(@ModelAttribute Pc_EntityForm peForm, ModelAndView mv) {
 
-        Optional<Pc_Entity> p = pcrepository.findById(peForm.getId());
+        Optional<PcEntity> oppc = pcrepository.findById(peForm.getId());
         ModelMapper modelMapper = new ModelMapper();
-        peForm = modelMapper.map(p.orElse(new Pc_Entity()), Pc_EntityForm.class);
+        peForm = modelMapper.map(oppc.orElse(new PcEntity()), Pc_EntityForm.class);
 
         mv.addObject("pc", peForm);
         mv.setViewName("views/charactersheet/show");
+
+        //お気に入りに追加or削除
+        PcEntity pc = oppc.get();
+        PcEntityLike p = pcLikerepository.findByUserAndPcEntity((User)session.getAttribute("login_user"), pc);
+        if(p != null) {
+            mv.addObject("like",p);
+        }
+
+
 
         return mv;
 
@@ -222,11 +252,11 @@ public class CsController {
     @RequestMapping(path = "/cs/edit", method = RequestMethod.GET)
     public ModelAndView csEdit(@ModelAttribute Pc_EntityForm peForm, ModelAndView mv) {
 
-        Optional<Pc_Entity> p = pcrepository.findById(peForm.getId());
+        Optional<PcEntity> p = pcrepository.findById(peForm.getId());
 
         //ModelMapperでEntity→Formオブジェクトへマッピングする。(変換する)
         ModelMapper modelMapper = new ModelMapper();
-        peForm = modelMapper.map(p.orElse(new Pc_Entity()), Pc_EntityForm.class);
+        peForm = modelMapper.map(p.orElse(new PcEntity()), Pc_EntityForm.class);
         peForm.setToken(session.getId());
 
         mv.addObject("pc", peForm);
@@ -240,8 +270,8 @@ public class CsController {
     @Transactional
     public ModelAndView csUpdate(@ModelAttribute Pc_EntityForm peForm, ModelAndView mv) throws IOException {
         if (peForm.getToken() != null && peForm.getToken().equals(session.getId())) {
-            Optional<Pc_Entity> opp = pcrepository.findById((Integer) session.getAttribute("pc_id"));
-            Pc_Entity p = opp.orElse(null);
+            Optional<PcEntity> opp = pcrepository.findById((Integer) session.getAttribute("pc_id"));
+            PcEntity p = opp.orElse(null);
             //orElse……存在しない場合はother(この場合はnull)を返却する。
 
             p.setName(peForm.getName());
@@ -278,7 +308,7 @@ public class CsController {
                 String img_name = img_file.getOriginalFilename();
                 String extension = img_name.substring(img_name.lastIndexOf("."));//最後の.より右側の文字(拡張子)を取得
                 String img_path = (int) (Math.floor(Math.random() * 1000000000)) + extension;
-                List<Pc_Entity> pc = pcrepository.findByUserAndDeleteFlag(u , 0);
+                List<PcEntity> pc = pcrepository.findByUserAndDeleteFlag(u , 0);
                 //画像名が既存のものと被っていた場合変更する(変更後はもう一度確認する)
                 for (int i = 0; i < pc.size(); i++) {
                     if (img_path.equals(pc.get(i).getImgPath())) {
@@ -337,8 +367,8 @@ public class CsController {
 
         if(peForm.getToken() != null && peForm.getToken().equals(session.getId())) {
 
-            Optional<Pc_Entity> opp = pcrepository.findById((Integer) session.getAttribute("pc_id"));
-            Pc_Entity p = opp.orElse(null);
+            Optional<PcEntity> opp = pcrepository.findById((Integer) session.getAttribute("pc_id"));
+            PcEntity p = opp.orElse(null);
 
             p.setDeleteFlag(1);
 

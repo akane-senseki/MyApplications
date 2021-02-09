@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import myapp.demobattleItems.DemoBattle;
 import myapp.forms.Pc_EntityForm;
-import myapp.models.Pc_Entity;
+import myapp.models.PcEntity;
 import myapp.repositories.PcRepository;
 
 @Controller
@@ -30,7 +30,7 @@ public class DemoBattleController {
 
     @RequestMapping(value = "/db/index", method = RequestMethod.GET)
     public ModelAndView db1vs1Select(ModelAndView mv) {
-        List<Pc_Entity> p = pcrepository.findByDeleteFlagAndReleaseFlag(0, 0);
+        List<PcEntity> p = pcrepository.findByDeleteFlagAndReleaseFlag(0, 0);
         mv.addObject("pc", p);
         mv.setViewName("views/demobattle/index");
         return mv;
@@ -39,13 +39,13 @@ public class DemoBattleController {
 
     @RequestMapping(value = "db/log", method = RequestMethod.POST)
     public ModelAndView dbLog(@RequestParam(name = "pc1") Integer p1, @RequestParam(name = "pc2") Integer p2, ModelAndView mv) {
-        Optional<Pc_Entity> oppc1 = pcrepository.findById(p1);
-        Optional<Pc_Entity> oppc2 = pcrepository.findById(p2);
+        Optional<PcEntity> oppc1 = pcrepository.findById(p1);
+        Optional<PcEntity> oppc2 = pcrepository.findById(p2);
 
         ModelMapper modelMapper1 = new ModelMapper();
         ModelMapper modelMapper2 = new ModelMapper();
-        Pc_EntityForm pc1 = modelMapper1.map(oppc1.orElse(new Pc_Entity()), Pc_EntityForm.class);
-        Pc_EntityForm pc2 = modelMapper2.map(oppc2.orElse(new Pc_Entity()), Pc_EntityForm.class);
+        Pc_EntityForm pc1 = modelMapper1.map(oppc1.orElse(new PcEntity()), Pc_EntityForm.class);
+        Pc_EntityForm pc2 = modelMapper2.map(oppc2.orElse(new PcEntity()), Pc_EntityForm.class);
 
         Pc_EntityForm first;  //先攻
         Pc_EntityForm latter; //後攻

@@ -12,7 +12,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import myapp.config.SecurityData;
-import myapp.models.Pic_Data;
+import myapp.models.PicData;
 import myapp.models.User;
 import myapp.repositories.PicDateRepository;
 
@@ -26,7 +26,7 @@ public class PicSaveClass {
         img_path = (int) (Math.floor(Math.random() * 1000000000)) + extension;
         System.out.println("saveの中："+img_path);
 
-            List<Pic_Data> pic = pdrepository.findByUserAndDeleteFlag(u, 0);
+            List<PicData> pic = pdrepository.findByUserAndDeleteFlag(u, 0);
             //画像名が既存のものと被っていた場合変更する(変更後はもう一度確認する)
             for (int i = 0; i < pic.size(); i++) {
                 if (img_path.equals(pic.get(i).getDefaImg())) {

@@ -9,9 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Table(name="pic_data_like")
+@Table(name="pc_entity_like")
 @Entity
-public class Pic_Data_Like {
+public class PcEntityLike {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +22,8 @@ public class Pic_Data_Like {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "pic_data_id",nullable = false)
-    private Pic_Data pic_data;
+    @JoinColumn(name = "pc_entity_id",nullable = false)
+    private PcEntity pcEntity;
 
     public Integer getId() {
         return id;
@@ -41,12 +41,12 @@ public class Pic_Data_Like {
         this.user = user;
     }
 
-    public Pic_Data getPic_data() {
-        return pic_data;
+    public PcEntity getPc_entity() {
+        return pcEntity;
     }
 
-    public void setPic_data(Pic_Data pic_data) {
-        this.pic_data = pic_data;
+    public void setPc_entity(PcEntity pc_entity) {
+        this.pcEntity = pc_entity;
     }
 
 

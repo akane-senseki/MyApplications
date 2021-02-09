@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import myapp.config.SecurityData;
 import myapp.forms.Pic_DataForm;
-import myapp.models.Pic_Data;
+import myapp.models.PicData;
 import myapp.models.User;
 import myapp.repositories.PicDateRepository;
 
@@ -37,7 +37,7 @@ public class PcDiceController {
     @RequestMapping(value = "/pd/index", method = RequestMethod.GET)
     public ModelAndView pdIndex(ModelAndView mv) {
 
-        List<Pic_Data> pic = pdrepository.findByDeleteFlagAndReleaseFlag(0, 0);
+        List<PicData> pic = pdrepository.findByDeleteFlagAndReleaseFlag(0, 0);
 
         mv.addObject("pic", pic);
         if (session.getAttribute("flush") != null) {
@@ -62,7 +62,7 @@ public class PcDiceController {
     @Transactional
     public ModelAndView pdCreate(@ModelAttribute Pic_DataForm pdForm, ModelAndView mv) throws IOException {
         if (pdForm.getToken() != null && pdForm.getToken().equals(session.getId())) {
-            Pic_Data p = new Pic_Data();
+            PicData p = new PicData();
             String img_path = null;
             MultipartFile imgFile = null;
 
@@ -172,9 +172,9 @@ public class PcDiceController {
     @RequestMapping(path = "/pd/play", method = RequestMethod.GET)
     public ModelAndView pdPlay(@ModelAttribute Pic_DataForm pdForm, ModelAndView mv) {
 
-        Optional<Pic_Data> pic = pdrepository.findById(pdForm.getId());
+        Optional<PicData> pic = pdrepository.findById(pdForm.getId());
         ModelMapper modelMapper = new ModelMapper();
-        pdForm = modelMapper.map(pic.orElse(new Pic_Data()), Pic_DataForm.class);
+        pdForm = modelMapper.map(pic.orElse(new PicData()), Pic_DataForm.class);
         pdForm.setToken(session.getId());
 
         mv.addObject("pic", pdForm);
@@ -187,8 +187,8 @@ public class PcDiceController {
     @Transactional
     public ModelAndView pdAdjustment(@ModelAttribute Pic_DataForm pdForm, ModelAndView mv) {
         if (pdForm.getToken() != null && pdForm.getToken().equals(session.getId())) {
-            Optional<Pic_Data> oppic = pdrepository.findById((Integer) session.getAttribute("pic_id"));
-            Pic_Data p = oppic.orElse(null);
+            Optional<PicData> oppic = pdrepository.findById((Integer) session.getAttribute("pic_id"));
+            PicData p = oppic.orElse(null);
             p.setyAxis(pdForm.getyAxis());
             p.setxAxis(pdForm.getxAxis());
             p.setColor(pdForm.getColor());
@@ -208,9 +208,9 @@ public class PcDiceController {
     @RequestMapping(value = "/pd/edit", method = RequestMethod.GET)
     public ModelAndView pdEdit(Pic_DataForm pdForm, ModelAndView mv) {
 
-        Optional<Pic_Data> pic = pdrepository.findById(pdForm.getId());
+        Optional<PicData> pic = pdrepository.findById(pdForm.getId());
         ModelMapper modelMapper = new ModelMapper();
-        pdForm = modelMapper.map(pic.orElse(new Pic_Data()), Pic_DataForm.class);
+        pdForm = modelMapper.map(pic.orElse(new PicData()), Pic_DataForm.class);
         pdForm.setToken(session.getId());
 
         mv.addObject("pd", pdForm);
@@ -223,8 +223,8 @@ public class PcDiceController {
     @Transactional
     public ModelAndView pdUpdate(@ModelAttribute Pic_DataForm pdForm, ModelAndView mv) throws IOException {
         if (pdForm.getToken() != null && pdForm.getToken().equals(session.getId())) {
-            Optional<Pic_Data> oppic = pdrepository.findById((Integer) session.getAttribute("pic_id"));
-            Pic_Data p = oppic.orElse(null);
+            Optional<PicData> oppic = pdrepository.findById((Integer) session.getAttribute("pic_id"));
+            PicData p = oppic.orElse(null);
             String img_path = null;
             MultipartFile imgFile = null;
 
@@ -339,8 +339,8 @@ public class PcDiceController {
     @Transactional
     public ModelAndView pdDestroy(@ModelAttribute Pic_DataForm pdForm , ModelAndView mv) {
         if(pdForm.getToken() != null && pdForm.getToken().equals(session.getId())) {
-            Optional<Pic_Data> oppic = pdrepository.findById((Integer) session.getAttribute("pic_id"));
-            Pic_Data p = oppic.orElse(null);
+            Optional<PicData> oppic = pdrepository.findById((Integer) session.getAttribute("pic_id"));
+            PicData p = oppic.orElse(null);
 
             p.setDeleteFlag(1);
 

@@ -1,8 +1,8 @@
 package myapp.forms;
 
-import myapp.models.Pic_Data_Like;
+import myapp.models.PicDataLike;
 
-public class Pic_Data_LikeForm extends Pic_Data_Like {
+public class Pic_Data_LikeForm extends PicDataLike {
     private String token;
 
     public String getToken() {

@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import myapp.models.Pc_Entity;
+import myapp.models.PcEntity;
 
-public class Pc_EntityForm extends Pc_Entity{
+public class Pc_EntityForm extends PcEntity{
     private String token;
 
     private List<MultipartFile> csImg;
