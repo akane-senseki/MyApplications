@@ -50,7 +50,7 @@
         </dependency>
         <dependency>
 
-        <!-- 追加その３ -->
+            <!-- 追加その３ -->
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
@@ -60,6 +60,11 @@
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
             <version>1.1.0</version>
+        </dependency>
+        <!-- springsecurity -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
     </dependencies>
 
