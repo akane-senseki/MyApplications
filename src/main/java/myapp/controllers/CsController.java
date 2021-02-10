@@ -111,6 +111,10 @@ public class CsController {
             mv.addObject("flush", session.getAttribute("flush"));
             session.removeAttribute("flush");
         }
+        if (session.getAttribute("error") != null) {
+            mv.addObject("error", session.getAttribute("error"));
+            session.removeAttribute("error");
+        }
 
         return mv;
 
@@ -220,7 +224,7 @@ public class CsController {
         } else {
 
             mv = new ModelAndView("redirect:/cs/index"); // リダイレクト
-            session.setAttribute("flush", "登録に失敗しました");
+            session.setAttribute("error", "登録に失敗しました");
 
             return mv;
 
@@ -261,7 +265,7 @@ public class CsController {
         peForm.setToken(session.getId());
 
         mv.addObject("pc", peForm);
-        session.setAttribute("pc_id", peForm.getId());
+        session.setAttribute("pcId", peForm.getId());
         mv.setViewName("views/charactersheet/edit");
         return mv;
 
@@ -271,7 +275,7 @@ public class CsController {
     @Transactional
     public ModelAndView csUpdate(@ModelAttribute PcEntityForm peForm, ModelAndView mv) throws IOException {
         if (peForm.getToken() != null && peForm.getToken().equals(session.getId())) {
-            Optional<PcEntity> opp = pcrepository.findById((Integer) session.getAttribute("pc_id"));
+            Optional<PcEntity> opp = pcrepository.findById((Integer) session.getAttribute("pcId"));
             PcEntity p = opp.orElse(null);
             //orElse……存在しない場合はother(この場合はnull)を返却する。
 
@@ -352,12 +356,12 @@ public class CsController {
             mv.addObject("pc", peForm);
             pcrepository.save(p);
             session.setAttribute("flush", "更新しました");
-            session.removeAttribute("pc_id");
+            session.removeAttribute("pcId");
             mv = new ModelAndView("redirect:/cs/index"); // リダイレクト
             return mv;
 
         } else {
-            session.setAttribute("flush", "更新に失敗しました");
+            session.setAttribute("error", "更新に失敗しました");
             mv = new ModelAndView("redirect:/cs/index"); // リダイレクト
             return mv;
         }
@@ -369,7 +373,7 @@ public class CsController {
 
         if (peForm.getToken() != null && peForm.getToken().equals(session.getId())) {
 
-            Optional<PcEntity> opp = pcrepository.findById((Integer) session.getAttribute("pc_id"));
+            Optional<PcEntity> opp = pcrepository.findById((Integer) session.getAttribute("pcId"));
             PcEntity p = opp.orElse(null);
 
             p.setDeleteFlag(1);
@@ -380,13 +384,13 @@ public class CsController {
             delete_images.delete();
 
             pcrepository.save(p);
-            session.removeAttribute("pc_id");
+            session.removeAttribute("pcId");
             session.setAttribute("flush", "削除しました");
             mv = new ModelAndView("redirect:/cs/index"); // リダイレクト
 
             return mv;
         } else {
-            session.setAttribute("flush", "削除に失敗しました");
+            session.setAttribute("error", "削除に失敗しました");
             mv = new ModelAndView("redirect:/cs/index"); // リダイレクト
             return mv;
         }

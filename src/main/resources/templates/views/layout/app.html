@@ -74,7 +74,7 @@
         </footer>
     </div>
     <!-- サインインフォーム -->
-    <form class="signinFormWrapper modal" method="POST" th:action="@{/signin}">
+    <form  name="signinForm" class="signinFormWrapper modal" method="POST" th:action="@{/signin}">
         <div th:replace="~{views/form/signin::registForm(${user})}"></div>
     </form>
     <script>

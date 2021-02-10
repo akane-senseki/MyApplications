@@ -29,7 +29,30 @@ $overlay:#393f4c;
    min-height: 100vh
 }
 
-
+//メッセージデザイン-------------------------
+#flushMessage{
+    position: absolute;
+    z-index: 20;
+    background: #c1d8ac;
+    padding: 10px 15px;
+    color: #316745;
+    transition: all 0.5s 0s ease;
+}
+#errorMessage{
+    position: absolute;
+    z-index: 20;
+    background: #f5b1aa;
+    padding: 10px 15px;
+    color: #640125;
+    transition: all 0.5s 0s ease;
+}
+.massage{
+        top: 120px;
+}
+.msNone{
+    top: 0px;
+    opacity: 0;
+}
 
 header {
     height:100px;

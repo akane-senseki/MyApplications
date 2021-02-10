@@ -4,7 +4,8 @@
 </head>
 <body>
     <div class="toppageWrapper">
-        <h2 th:if="${flush != null}" id="flush_message" th:text="${flush}"></h2>
+        <h2 class="massage" th:if="${flush != null}" id="flushMessage" th:text="${flush}"></h2>
+        <h2 class="massage" th:if="${error != null}" id="errorMessage" th:text="${error}"></h2>
         <div class="imgOverlay">
             <img src="/myapplications/images/defo/eyeChatchmin.jpg" />
             <a></a>
@@ -12,9 +13,7 @@
         <div class="topBtnWrap">
             <h2>Let's Play!</h2>
             <div class="btn_circle">
-                <a th:href="@{/db/index}">Demo Battle</a>
-                <a th:href="@{/pd/index}">Pc_Dice</a>
-                <a th:href="@{/cs/user}">Character Sheet</a>
+                <a th:href="@{/db/index}">Demo Battle</a> <a th:href="@{/pd/index}">Pc_Dice</a> <a th:href="@{/cs/user}">Character Sheet</a>
             </div>
         </div>
         <section>
@@ -101,5 +100,18 @@
             </div>
         </section>
     </div>
+    <script>
+                    window.onload = function() {
+                        var none = function(){
+                            if(document.getElementById('flushMessage') != null){
+                            document.getElementById('flushMessage').classList.add('msNone');
+                            }
+                            if(document.getElementById('errorMessage') != null){
+                            document.getElementById('errorMessage').classList.add('msNone');
+                            }
+                        }
+                        setTimeout(none, 2000);
+                    }
+                </script>
 </body>
 </html>

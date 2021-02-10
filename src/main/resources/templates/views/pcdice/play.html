@@ -20,7 +20,8 @@
         </th:block>
         <a class="button" href="#" onclick="showMenu();">文字の編集</a>
         <div class="imgWrap">
-            <img id="rollImg" th:src="@{/images/pd/{userId}/{id}/{defaImg}(userId=${pic.user.id},id=${pic.id},defaImg=${pic.defaImg})}" onclick="roll();" onmouseover="hover();" onmouseleave="notHover();" />
+            <img id="rollImg" th:src="@{/images/pd/{userId}/{id}/{defaImg}(userId=${pic.user.id},id=${pic.id},defaImg=${pic.defaImg})}" onclick="roll();" onmouseover="hover();"
+                onmouseleave="notHover();" />
             <p id="rollNum" onclick="roll();">PUSH</p>
         </div>
         <script th:inline="javascript">
@@ -41,7 +42,8 @@
                                                 document.getElementById("rollImg").src = /*[[ @{/images/pd/{userId}/{id}/{Img}(userId=${pic.user.id},id=${pic.id},Img=${pic.criticalImg})} ]]*/ "";
                                             }else{
                                                 document.getElementById("rollImg").src = /*[[ @{/images/pd/{userId}/{id}/{Img}(userId=${pic.user.id},id=${pic.id},Img=${pic.defaImg})} ]]*/ "";
-                                            }                                   }
+                                            }
+                                        }
                                     function roll(){
                                         document.getElementById("rollImg").src = /*[[ @{/images/pd/{userId}/{id}/{loadImg}(userId=${pic.user.id},id=${pic.id},loadImg=${pic.loadImg})} ]]*/ "";
 

@@ -1,5 +1,7 @@
 package myapp.controllers;
 
+import java.util.List;
+
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpSession;
 
@@ -30,41 +32,54 @@ public class SigninupController {
     UserRepository userRepository;
 
     @RequestMapping(path = "/signin", method = RequestMethod.POST)
-    @Transactional // メソッド開始時にトランザクションを開始、終了時にコミットする
+    @Transactional
     public ModelAndView userCreate(@ModelAttribute UserForm userForm, ModelAndView mv) {
+        List<User> users = userRepository.findAll();
 
         if (userForm.getToken() != null && userForm.getToken().equals(session.getId())) {
+            int check = 0;
+            for (int i = 0; i < users.size(); i++) {
+                if (users.get(i).getMail().equals(userForm.getMail())) {
+                    check = 1;
+                }
+            }
+            if (check == 0) {
+                User u = new User();
 
-            User u = new User();
+                u.setName(userForm.getName());
+                u.setMail(userForm.getMail());
+                u.setAdmin_flag(userForm.getAdmin_flag());
+                u.setDelete_flag(0);
+                u.setPassword(
+                        EncryptUtil.getPasswordEncrypt(
+                                userForm.getPassword(),
+                                securityData.getPepper()));
 
-            u.setName(userForm.getName());
-            u.setMail(userForm.getMail());
-            u.setAdmin_flag(userForm.getAdmin_flag());
-            u.setDelete_flag(0);
-            u.setPassword(
-                    EncryptUtil.getPasswordEncrypt(
-                            userForm.getPassword(),
-                            securityData.getPepper()));
+                userForm.setToken(session.getId());
+                mv.addObject("user", userForm);
+                mv = new ModelAndView("redirect:/"); // リダイレクト
 
-            userForm.setToken(session.getId());
-            mv.addObject("user", userForm);
+                userRepository.save(u); //DBに保存
+                session.setAttribute("flush", "登録が完了しました");
+                session.setAttribute("login_user", u);
+
+            } else {
+                mv = new ModelAndView("redirect:/"); // リダイレクト
+                session.setAttribute("error", "ご指定のメールアドレスは既に登録されています");
+            }
+
+        }else {
             mv = new ModelAndView("redirect:/"); // リダイレクト
-
-            userRepository.save(u); //DBに保存
-            session.setAttribute("flush", "登録が完了しました");
-            session.setAttribute("login_user", u);
-
-        } else {
-            mv = new ModelAndView("redirect:/"); // リダイレクト
-            session.setAttribute("flush", "登録に失敗しました");
+            session.setAttribute("error", "登録に失敗しました");
         }
+
         return mv;
 
     }
 
     @RequestMapping(path = "/signup", method = RequestMethod.POST)
     @Transactional
-    public ModelAndView loginExec(@ModelAttribute UserForm userForm,ModelAndView mv) {
+    public ModelAndView loginExec(@ModelAttribute UserForm userForm, ModelAndView mv) {
         Boolean check_result = false; //認証結果を格納する場所
 
         String mail = userForm.getMail();
@@ -91,7 +106,7 @@ public class SigninupController {
 
                 mv.addObject("user", userForm);
                 mv = new ModelAndView("redirect:/"); // リダイレクト
-                session.setAttribute("flush", "ログインに失敗しました");
+                session.setAttribute("error", "ログインに失敗しました");
             } else { //認証出来たら
                 session.setAttribute("login_user", u);
                 session.setAttribute("flush", "ログインしました");
@@ -103,7 +118,7 @@ public class SigninupController {
         return mv;
     }
 
-    @RequestMapping(path = "/logout" , method = RequestMethod.GET)
+    @RequestMapping(path = "/logout", method = RequestMethod.GET)
     public ModelAndView logout(ModelAndView mv) {
         session.removeAttribute("login_user");
         session.setAttribute("flush", "ログアウトしました");

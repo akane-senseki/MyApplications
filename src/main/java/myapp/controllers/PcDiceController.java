@@ -76,6 +76,10 @@ public class PcDiceController {
             mv.addObject("flush", session.getAttribute("flush"));
             session.removeAttribute("flush");
         }
+        if (session.getAttribute("error") != null) {
+            mv.addObject("error", session.getAttribute("error"));
+            session.removeAttribute("error");
+        }
 
         mv.setViewName("views/pcdice/index");
         return mv;
@@ -196,7 +200,7 @@ public class PcDiceController {
         } else {
 
             mv = new ModelAndView("redirect:/"); // リダイレクト
-            session.setAttribute("flush", "画像の登録に失敗しました");
+            session.setAttribute("error", "画像の登録に失敗しました");
             return mv;
         }
     }
@@ -241,7 +245,7 @@ public class PcDiceController {
             return mv;
         }
 
-        session.setAttribute("flush", "保存に失敗しました");
+        session.setAttribute("error", "保存に失敗しました");
         mv = new ModelAndView("redirect:/pd/index"); // リダイレクト
         return mv;
 
@@ -371,7 +375,7 @@ public class PcDiceController {
         } else {
 
             mv = new ModelAndView("redirect:/pd/index"); // リダイレクト
-            session.setAttribute("flush", "画像の登録に失敗しました");
+            session.setAttribute("error", "画像の登録に失敗しました");
             return mv;
 
         }
@@ -398,7 +402,7 @@ public class PcDiceController {
             session.setAttribute("flush", "削除しました");
             mv = new ModelAndView("redirect:/pd/index"); // リダイレクト
         }else {
-            session.setAttribute("flush", "削除に失敗しました");
+            session.setAttribute("error", "削除に失敗しました");
             mv = new ModelAndView("redirect:/pd/index"); // リダイレクト
         }
 
