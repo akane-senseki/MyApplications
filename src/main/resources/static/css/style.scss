@@ -9,13 +9,21 @@ $baseColor:#b0c4de;
 $pink:#fed6e3;
 $overlay:#393f4c;
 
+$titleFont:"Malgun Gothic";
+$baseFont:"Mongolian Baiti" , "MS Mincho";
+
 @mixin button() {
     display: inline-block;
     text-align: center;
     margin: 10px auto 10px auto;
     text-decoration: none;
     border: solid 2px;
-    padding: 3px 30px;
+    padding: 8px 30px;
+    font-family:"Microsoft JhengHei UI";
+
+    background-image: linear-gradient($pink 0%, $baseColor 100%);
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
 }
 
 .button {
@@ -26,7 +34,8 @@ $overlay:#393f4c;
        margin: 0;
    display: flex;
    flex-flow: column;
-   min-height: 100vh
+   min-height: 100vh;
+   font-family:$baseFont;
 }
 
 //メッセージデザイン-------------------------
@@ -74,6 +83,7 @@ header {
 
     .header_nav {
         text-align: center;
+        margin-top: 10px;
 
         li {
             display: inline-block;
@@ -83,6 +93,7 @@ header {
                 text-decoration: none;
                 transition: all 0.5s 0s ease;
                 position: relative;
+                font-size: 1.2rem;
 
                 &::before {
                     content: "";
@@ -176,7 +187,7 @@ main {
             left: -13%;
             right: -13%;
             top: 0;
-            bottom: 7px;
+            bottom: 3px;
             opacity: 0.3;
         }
     }
@@ -196,14 +207,14 @@ main {
                        opacity: 0.7;
                        position: relative;
                        top: -85px;
-                       filter: drop-shadow(2px 4px 6px black);
+                       filter: drop-shadow(2px 4px 6px $overlay);
 
                 }
                 .minImg2 {
                        width: 350px;
                        position: relative;
                        top: -85px;
-                       filter: drop-shadow(2px 4px 6px black);
+                       filter: drop-shadow(2px 4px 6px $overlay);
 
                 }
 
@@ -589,10 +600,11 @@ main {
 
     }
     pre{
-    margin: 60px;
+    margin:60px 60px 0px 60px;
     }
     .skill{
         font-size:2.0rem;
+        margin-top:60px;
     }
 .skillWrap{
         background:lighten($baseColor , 10%) ;
@@ -621,6 +633,18 @@ main {
             top: -175px;
         }
 }
+        i{
+            font-size: 4rem;
+            margin: 35px 35px 135px 35px;
+            background: #b0c4de;
+            padding: 16px;
+            border-radius: 50%;
+            color: #fff;
+            width: 100px;
+            &:hover{
+                background:lighten(#b0c4de ,5% ) ;
+            }
+        }
 }
 footer {
     background-color: $baseColor;
