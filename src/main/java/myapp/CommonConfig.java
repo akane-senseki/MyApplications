@@ -10,10 +10,12 @@ public class CommonConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //SpringSecurityのデフォログイン画面の無効化
+        //SpringSecurityのデフォログイン・ログアウト画面の無効化
       http.authorizeRequests().antMatchers("/*").permitAll().and().formLogin().and().httpBasic();
+      http.logout().logoutSuccessUrl("/").permitAll();
       //403エラーの対処
       http.csrf().disable();
+
     }
 
 }

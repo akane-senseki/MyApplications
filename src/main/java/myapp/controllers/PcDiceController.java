@@ -43,28 +43,28 @@ public class PcDiceController {
     @RequestMapping(value = "/pd/user", method = RequestMethod.GET)
     public ModelAndView pdUserIndex(ModelAndView mv) {
         if (session.getAttribute("login_user") != null) {
-            List<PicData> pic = pdrepository.findByUserAndDeleteFlag((User)session.getAttribute("login_user"), 0);
-            mv.addObject("pic" , pic);
+            List<PicData> pic = pdrepository.findByUserAndDeleteFlag((User) session.getAttribute("login_user"), 0);
+            mv.addObject("pic", pic);
             mv.setViewName("views/pcdice/user");
-            }
-        return mv;
         }
+        return mv;
+    }
 
     @RequestMapping(value = "/pd/like", method = RequestMethod.GET)
     public ModelAndView pdUserLikeIndex(ModelAndView mv) {
         if (session.getAttribute("login_user") != null) {
-            List<PicDataLike> likes = picrepository.findByUser((User)session.getAttribute("login_user"));
+            List<PicDataLike> likes = picrepository.findByUser((User) session.getAttribute("login_user"));
             List<PicData> pic = new ArrayList<PicData>();
-            for(int i = 0 ; i < likes.size(); i++) {
-                if(likes.get(i).getpicData().getDeleteFlag() == 0 ) {
+            for (int i = 0; i < likes.size(); i++) {
+                if (likes.get(i).getpicData().getDeleteFlag() == 0) {
                     pic.add(likes.get(i).getpicData());
                 }
             }
-            mv.addObject("pic" , pic);
+            mv.addObject("pic", pic);
             mv.setViewName("views/pcdice/like");
-            }
-        return mv;
         }
+        return mv;
+    }
 
     @RequestMapping(value = "/pd/index", method = RequestMethod.GET)
     public ModelAndView pdIndex(ModelAndView mv) {
@@ -217,12 +217,12 @@ public class PcDiceController {
         session.setAttribute("picId", pdForm.getId());
         mv.setViewName("views/pcdice/play");
 
-      //お気に入りの確認
+        //お気に入りの確認
         PicData pic = oppic.get();
-        if(session.getAttribute("login_user") != null) {
-            PicDataLike p = picrepository.findByUserAndPicData((User)session.getAttribute("login_user"), pic);
-            if(p != null) {
-                mv.addObject("like" , p);
+        if (session.getAttribute("login_user") != null) {
+            PicDataLike p = picrepository.findByUserAndPicData((User) session.getAttribute("login_user"), pic);
+            if (p != null) {
+                mv.addObject("like", p);
             }
         }
 
@@ -274,13 +274,10 @@ public class PcDiceController {
             String img_path = null;
             MultipartFile imgFile = null;
 
-            p.setUser((User) session.getAttribute("login_user"));
-            p.setName(pdForm.getName());
+            if (pdForm.getName() != null && !pdForm.getName().equals("")) {
+                p.setName(pdForm.getName());
+            }
             p.setReleaseFlag(pdForm.getReleaseFlag());
-            p.setDeleteFlag(0);
-            p.setyAxis(0);
-            p.setxAxis(0);
-            p.setColor("#666666");
 
             User u = (User) session.getAttribute("login_user");
 
@@ -291,7 +288,8 @@ public class PcDiceController {
             if (!pdForm.getDefa().get(0).getOriginalFilename().equals("")
                     && pdForm.getDefa().get(0).getOriginalFilename() != null) {
                 //登録されていた画像の削除
-                File delete_images = new File(securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getDefaImg());
+                File delete_images = new File(
+                        securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getDefaImg());
                 delete_images.delete();
 
                 imgFile = pdForm.getDefa().get(pdForm.getDefa().size() - 1);
@@ -304,7 +302,8 @@ public class PcDiceController {
             //画像パス　LoadImg---------------------------
             if (!pdForm.getLoad().get(0).getOriginalFilename().equals("")
                     && pdForm.getLoad().get(0).getOriginalFilename() != null) {
-                File delete_images = new File(securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getLoadImg());
+                File delete_images = new File(
+                        securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getLoadImg());
                 delete_images.delete();
 
                 imgFile = pdForm.getLoad().get(pdForm.getLoad().size() - 1);
@@ -317,7 +316,8 @@ public class PcDiceController {
             //画像パス　CriticalImg---------------------------
             if (!pdForm.getCritical().get(0).getOriginalFilename().equals("")
                     && pdForm.getCritical().get(0).getOriginalFilename() != null) {
-                File delete_images = new File(securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getCriticalImg());
+                File delete_images = new File(
+                        securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getCriticalImg());
                 delete_images.delete();
 
                 imgFile = pdForm.getCritical().get(pdForm.getCritical().size() - 1);
@@ -330,7 +330,8 @@ public class PcDiceController {
             //画像パス　FumbleImg---------------------------
             if (!pdForm.getFumble().get(0).getOriginalFilename().equals("")
                     && pdForm.getFumble().get(0).getOriginalFilename() != null) {
-                File delete_images = new File(securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getFumbleImg());
+                File delete_images = new File(
+                        securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getFumbleImg());
                 delete_images.delete();
 
                 imgFile = pdForm.getFumble().get(pdForm.getFumble().size() - 1);
@@ -343,7 +344,8 @@ public class PcDiceController {
             //画像パス　HoverImg---------------------------
             if (!pdForm.getHover().get(0).getOriginalFilename().equals("")
                     && pdForm.getHover().get(0).getOriginalFilename() != null) {
-                File delete_images = new File(securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getHoverImg());
+                File delete_images = new File(
+                        securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getHoverImg());
                 delete_images.delete();
 
                 imgFile = pdForm.getHover().get(pdForm.getHover().size() - 1);
@@ -356,7 +358,8 @@ public class PcDiceController {
             //画像パス　ActiveImg---------------------------
             if (!pdForm.getActive().get(0).getOriginalFilename().equals("")
                     && pdForm.getActive().get(0).getOriginalFilename() != null) {
-                File delete_images = new File(securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getActiveImg());
+                File delete_images = new File(
+                        securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getActiveImg());
                 delete_images.delete();
 
                 imgFile = pdForm.getActive().get(pdForm.getActive().size() - 1);
@@ -381,10 +384,10 @@ public class PcDiceController {
         }
     }
 
-    @RequestMapping(path = "/pd/destroy" , method = RequestMethod.POST)
+    @RequestMapping(path = "/pd/destroy", method = RequestMethod.POST)
     @Transactional
-    public ModelAndView pdDestroy(@ModelAttribute PicDataForm pdForm , ModelAndView mv) {
-        if(pdForm.getToken() != null && pdForm.getToken().equals(session.getId())) {
+    public ModelAndView pdDestroy(@ModelAttribute PicDataForm pdForm, ModelAndView mv) {
+        if (pdForm.getToken() != null && pdForm.getToken().equals(session.getId())) {
             Optional<PicData> oppic = pdrepository.findById((Integer) session.getAttribute("picId"));
             PicData p = oppic.orElse(null);
 
@@ -394,14 +397,16 @@ public class PcDiceController {
             User u = (User) session.getAttribute("login_user");
             File deleteFIle = new File(securitydate.getPicPath() + u.getId() + "/" + p.getId());
             File[] deleteImages = deleteFIle.listFiles();
-            for(int i = 0 ; i < deleteImages.length ; i++) {
-                deleteImages[i].delete();
+            if (deleteImages != null) {
+                for (int i = 0; i < deleteImages.length; i++) {
+                    deleteImages[i].delete();
+                }
             }
             pdrepository.save(p);
             session.removeAttribute("picId");
             session.setAttribute("flush", "削除しました");
             mv = new ModelAndView("redirect:/pd/index"); // リダイレクト
-        }else {
+        } else {
             session.setAttribute("error", "削除に失敗しました");
             mv = new ModelAndView("redirect:/pd/index"); // リダイレクト
         }
@@ -410,5 +415,3 @@ public class PcDiceController {
 
     }
 }
-
-

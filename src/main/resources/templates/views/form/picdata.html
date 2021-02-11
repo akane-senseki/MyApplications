@@ -6,13 +6,14 @@
     <div class="pd_form" th:fragment="registForm(picdata)">
         <label for="name" class="name">表示名</label>
         <br />
-        <input type="text" name="name" />
-        <br /> <br />
+        <input id="picName" type="text" name="name" th:value="${pd.name}" />
+        <br />
+        <br />
         <div class="pd_form_container">
             <div class="pd_form_item">
                 <label for="defa">デフォルト画像</label>
                 <br />
-                <input type="file" name="defa" id="defa" accept=".png,.jpg,.jpeg" required onChange="change();" />
+                <input type="file" name="defa" id="defa" accept=".png,.jpg,.jpeg" onChange="change();" />
                 <th:block th:if="${pd.defaImg != null}">
                     <img id="defaSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.defaImg})}" />
                 </th:block>
@@ -54,7 +55,7 @@
                 <th:block th:if="${pd.loadImg == pd.defaImg}">
                     <img id="loadSrc" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
                 </th:block>
-                </div>
+            </div>
             <div class="pd_form_item">
                 <label for="hover">ホバー時差分</label>
                 <br />
@@ -76,7 +77,7 @@
                 <th:block th:if="${pd.activeImg == pd.defaImg}">
                     <img id="activeSrc" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
                 </th:block>
-                </div>
+            </div>
         </div>
         <script type="text/javascript">
             function previewFile(file, id) {
@@ -103,7 +104,18 @@
         <input type="radio" name="releaseFlag" value="1" />
         非公開
         <input type="hidden" name="token" th:value="${pd.token}" />
-        <button type="submit" id="pd_submit">アップロード</button>
+        <button type="button" id="pd_submit" onclick="picSubmit();">アップロード</button>
+        <script th:inline="javascript">
+                                    /*<![CDATA[*/
+    　　　　function picSubmit(){
+        if(document.getElementById('defaSrc').src == "http://localhost:8080/myapplications/images/defo/noimage.png"){
+            alert("デフォルト画像を選択してください");
+        }else{
+            document.forms[0].submit();
+            }
+        }
+    /*]]>*/
+    </script>
     </div>
 </body>
 </html>
