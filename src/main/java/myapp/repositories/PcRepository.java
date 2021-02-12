@@ -19,7 +19,8 @@ public interface PcRepository extends JpaRepository<PcEntity, Integer>{
     public Page<PcEntity> findByUserAndDeleteFlag(User user, Integer deleteFlag, Pageable pageable);
     public Page<PcEntity> findByDeleteFlagAndReleaseFlag(Integer deleteFlag, Integer releaseFlag , Pageable pageable);
 
-
+    public Long countByUserAndDeleteFlag(User user , Integer deleteFlag);
+    public Long countByDeleteFlagAndReleaseFlag(Integer deleteFlag, Integer releaseFlag);
 
 
 }

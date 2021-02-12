@@ -59,7 +59,7 @@ public class CsController {
                 page = 1;
             }
             Page<PcEntity> pc = pcrepository.findByUserAndDeleteFlag((User) session.getAttribute("login_user"), 0,
-                    (PageRequest.of(20 * (page - 1), 20, Sort.by("id").descending())));
+                    (PageRequest.of(15 * (page - 1), 15, Sort.by("id").descending())));
 
             mv.addObject("pc", pc);
             mv.addObject("page", page);
@@ -75,7 +75,6 @@ public class CsController {
 
     @RequestMapping(value = "/cs/userLike", method = RequestMethod.GET)
     public ModelAndView csUserLikeIndex(ModelAndView mv) {
-        if (session.getAttribute("login_user") != null) {
             List<PcEntityLike> likes = pcLikerepository.findByUser((User) session.getAttribute("login_user"));
             List<PcEntity> pc = new ArrayList<PcEntity>();
             for (int i = 0; i < likes.size(); i++) {
@@ -87,10 +86,6 @@ public class CsController {
             mv.addObject("pc", pc);
             mv.setViewName("views/charactersheet/like");
 
-        } else {
-            //ログインしていないなら通常のindexへ
-            mv = new ModelAndView("redirect:/cs/index"); // リダイレクト
-        }
         return mv;
     }
 
@@ -101,10 +96,11 @@ public class CsController {
         }
 
         Page<PcEntity> pc = pcrepository.findByDeleteFlagAndReleaseFlag(0, 0,
-                (PageRequest.of(20 * (page - 1), 20, Sort.by("id").descending())));
-
+                PageRequest.of(10 * (page - 1), 10, Sort.by("id").descending()));
+        long allCount = pcrepository.countByDeleteFlagAndReleaseFlag(0, 0);
         mv.addObject("pc", pc);
         mv.addObject("page", page);
+        mv.addObject("count", allCount);
         mv.setViewName("views/charactersheet/index");
 
         if (session.getAttribute("flush") != null) {

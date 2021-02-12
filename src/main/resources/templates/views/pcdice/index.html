@@ -12,8 +12,8 @@
    <a class="button" th:href="@{/pd/like}">お気に入りを見る</a>
   </th:block>
   <th:block th:unless="${session.login_user != null}">
-   <a class="button" href="#">ログインして登録する</a>
-   <a class="button" href="#">アカウントを作成して登録する</a>
+   <a class="button" href="#" onclick="showSignup()">ログインして登録する</a>
+   <a class="button" href="#" onclick="showSignin()">アカウントを作成して登録する</a>
   </th:block>
   <div class="pdIndexContainer">
    <div class="item" th:each="pic : ${pic}" th:object="${pic}">
