@@ -24,9 +24,6 @@
      <a th:href="@{/pd/play(id=*{id})}"><img src="/myapplications/images/defo/noimage.png" /></a>
     </th:block>
     <p th:text="*{name}"></p>
-    <th:block th:if="${session.login_user != null}">
-    <a th:if="*{user.id} == ${session.login_user.id}" class="button" th:href="@{/pd/edit(id=*{id})}">編集</a>
-    </th:block>
    </div>
   </div>
  </div>

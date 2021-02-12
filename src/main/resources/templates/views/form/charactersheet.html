@@ -32,6 +32,9 @@
     const handleFileSelect = () => {
         const files = fileInput.files;
         previewFile(files[0]);
+        if(files[0].size > 1000000){
+            alert("画像ファイルは1MG以下のものを選択してください");
+        }
     }
     fileInput.addEventListener('change', handleFileSelect);
 
@@ -110,7 +113,16 @@
         <input type="radio" name="releaseFlag" value="0"/>公開
         <input type="radio" name="releaseFlag" value="1"/>非公開
         <input type="hidden" name="token" th:value="${pc.token}" />
-        <button type="submit" id="cs_submit">アップロード</button>
+        <a class="button" href="#" id="cs_submit" onclick="csSubmit();">アップロード</a>
+            <script>
+        function csSubmit(){
+            if(document.getElementById('cs_img').files[0].size > 1000000){
+                alert("画像ファイルは1MG以下のものを選択してください");
+            }else{
+                document.forms[0].submit();
+            }
+        }
+    </script>
     </div>
 </body>
 </html>
