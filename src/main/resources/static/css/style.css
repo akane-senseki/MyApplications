@@ -11,6 +11,7 @@
   border: solid 2px;
   padding: 8px 30px;
   font-family: "Microsoft JhengHei UI";
+  color: #393f4c;
   background-image: linear-gradient(#fed6e3 0%, #b0c4de 100%);
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28); }
@@ -104,6 +105,7 @@ main {
       border: solid 2px;
       padding: 8px 30px;
       font-family: "Microsoft JhengHei UI";
+      color: #393f4c;
       background-image: linear-gradient(#fed6e3 0%, #b0c4de 100%);
       text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
       box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
@@ -261,6 +263,7 @@ main {
     border: solid 2px;
     padding: 8px 30px;
     font-family: "Microsoft JhengHei UI";
+    color: #393f4c;
     background-image: linear-gradient(#fed6e3 0%, #b0c4de 100%);
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28); }
@@ -289,7 +292,9 @@ main {
           font-size: 1.3rem;
           margin-bottom: 8px; }
         .cs_index_wrapper .cs_index_list .cs_index_container .item img {
-          width: 150px; }
+          width: 150px;
+          max-height: 150px;
+          object-fit: contain; }
         .cs_index_wrapper .cs_index_list .cs_index_container .item .cs_edit, .cs_index_wrapper .cs_index_list .cs_index_container .item .cs_show {
           display: inline-block;
           text-align: center;
@@ -298,6 +303,7 @@ main {
           border: solid 2px;
           padding: 8px 30px;
           font-family: "Microsoft JhengHei UI";
+          color: #393f4c;
           background-image: linear-gradient(#fed6e3 0%, #b0c4de 100%);
           text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
           box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
@@ -394,6 +400,7 @@ main {
     border: solid 2px;
     padding: 8px 30px;
     font-family: "Microsoft JhengHei UI";
+    color: #393f4c;
     background-image: linear-gradient(#fed6e3 0%, #b0c4de 100%);
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28); }

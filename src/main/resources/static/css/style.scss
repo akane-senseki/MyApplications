@@ -20,6 +20,7 @@ $baseFont:"Mongolian Baiti" , "MS Mincho";
     border: solid 2px;
     padding: 8px 30px;
     font-family:"Microsoft JhengHei UI";
+    color:$overlay;
 
     background-image: linear-gradient($pink 0%, $baseColor 100%);
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
@@ -387,6 +388,8 @@ main {
 
                 img {
                     width: 150px;
+                    max-height: 150px;
+                    object-fit: contain;
                 }
 
                 .cs_edit , .cs_show {

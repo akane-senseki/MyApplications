@@ -97,18 +97,9 @@
     </div>
     <script th:inline="javascript">
             /*<![CDATA[*/
-                    function showMenu() {
-                        document.getElementById("picMenu").classList.toggle("none");
-                        document.getElementById("saveButton").classList.toggle("opacity");
-                        document.getElementById("wkSlider1").classList.toggle("none");
-                        document.getElementById("wkSlider2").classList.toggle("none");
-                        document.getElementById("wkSlider1").getElementsByClassName("ui-slider-handle")[0].classList
-                                .toggle("show");
-                        document.getElementById("wkSlider2").getElementsByClassName("ui-slider-handle")[0].classList
-                                .toggle("show");
-                    }
+
                     function adjustmentSubmit() {
-                        document.forms[0].submit();
+                        document.forms['pdDiceTextForm'].submit();
                     }
                     <!--
                     $(function() {
@@ -161,6 +152,16 @@
                     });
                 //-->
             /*]]>*/
+                function showMenu() {
+                    document.getElementById("picMenu").classList.toggle("none");
+                    document.getElementById("wkSlider1").classList.toggle("none");
+                    document.getElementById("wkSlider2").classList.toggle("none");
+                    document.getElementById("wkSlider1").getElementsByClassName("ui-slider-handle")[0].classList
+                            .toggle("show");
+                    document.getElementById("wkSlider2").getElementsByClassName("ui-slider-handle")[0].classList
+                            .toggle("show");
+                    document.getElementById("saveButton").classList.toggle("opacity");
+                }
         </script>
 </body>
 </html>
