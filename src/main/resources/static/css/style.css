@@ -520,6 +520,18 @@ main {
     .aboutWrap i:hover {
       background: #c2d1e6; }
 
+#arrow i {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 3.0rem;
+  opacity: 0.3;
+  mix-blend-mode: multiply;
+  z-index: 25;
+  transition: ease 1s all; }
+  #arrow i:hover {
+    opacity: 0.5; }
+
 footer {
   background-color: #b0c4de;
   text-align: center;

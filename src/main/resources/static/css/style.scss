@@ -703,11 +703,29 @@ table{
             }
         }
 }
+
+//arrowButton----------------------------------------
+#arrow{
+    i{
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        font-size: 3.0rem;
+        opacity: 0.3;
+        mix-blend-mode: multiply;
+        z-index: 25;
+        transition: ease 1s all;
+        &:hover{
+            opacity: 0.5;
+        }
+    }
+}
+
+
+//footer---------------------------------------------
 footer {
     background-color: $baseColor;
     text-align: center;
-//    position: absolute;
-//    bottom: 0;
     width: 100%;
     ul{
         li{

@@ -43,6 +43,14 @@
                 <div th:replace="${body}"></div>
             </div>
         </main>
+            <a id="arrow"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
+            <script>
+            $('#arrow').click(function () {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 1000);
+            });
+            </script>
         <footer>
             <ul class="footer_nav">
                 <li><a th:href="@{/}">Home</a></li>
