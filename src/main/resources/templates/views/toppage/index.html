@@ -21,15 +21,12 @@
                 <div class="topContainer">
                     <div class="topItem">
                         <h2>Demo Battle</h2>
-                        <pre>シナリオを作成したけど戦闘のバランス調整が難しい……
-色々なPCで戦闘の想定をしておきたいけど一つ一つ入力して試すのは手間……
-手軽に自探索者天下一武道会を開きたい……
-そんな時に
-
-キャラデータを保存したらあとは形式を選ぶだけ！
+                        <pre>登録したCSを元にバトルログを作成します。
+現在探索者同士の１対１、殴る蹴る頭突きのみしか行えませんが
 ・ワンクリックで戦闘ログを作成
-・クリファン、気絶判定適用
-・クリーチャー数種類をデフォルトで使用可能</pre>
+・攻撃・回避共にクリファン、気絶判定適用
+また、今後2VS2やエネミーとの戦闘も実装予定！乞うご期待
+</pre>
                     </div>
                     <div class="topItem">
                         <img class="minImg1" src="/myapplications/images/defo/battle.png" />
@@ -51,7 +48,7 @@
                         <h2>Character Sheet</h2>
                         <pre>戦闘に必要なデータを入力して登録するだけ！
 一度登録することで次回以降呼び出して使用することが出来ます。
-また、他の利用者が公開しているPC,エネミーを使用することも！
+また、他の利用者が公開しているCSを使用してDemoBattoleを行うことも！
 勿論、登録したものを非公開にしておくことも出来ます。
 登録制限はなし！お気軽にどうぞ
 </pre>
@@ -68,6 +65,7 @@
                         <pre>可愛いミニキャラがサイコロに？
 自作イラストを使用して自分だけのサイコロを作ることが出来ます。
 クリファン、ロール中等々、差分を登録することも。
+デフォルトで管理人が作成したサイコロが登録されています。まずはお試しあれ！
 </pre>
                     </div>
                     <div class="topItem">
@@ -102,12 +100,14 @@
     </div>
     <script>
                     window.onload = function() {
-                        var none = function(){
-                            if(document.getElementById('flushMessage') != null){
-                            document.getElementById('flushMessage').classList.add('msNone');
+                        var none = function() {
+                            if (document.getElementById('flushMessage') != null) {
+                                document.getElementById('flushMessage').classList
+                                        .add('msNone');
                             }
-                            if(document.getElementById('errorMessage') != null){
-                            document.getElementById('errorMessage').classList.add('msNone');
+                            if (document.getElementById('errorMessage') != null) {
+                                document.getElementById('errorMessage').classList
+                                        .add('msNone');
                             }
                         }
                         setTimeout(none, 2000);
