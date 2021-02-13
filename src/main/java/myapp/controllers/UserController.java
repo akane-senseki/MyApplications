@@ -1,6 +1,7 @@
 package myapp.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpSession;
@@ -20,7 +21,7 @@ import myapp.repositories.UserRepository;
 import myapp.util.EncryptUtil;
 
 @Controller
-public class SigninupController {
+public class UserController {
 
     @Autowired
     HttpSession session; //セッション
@@ -34,7 +35,7 @@ public class SigninupController {
     @RequestMapping(path = "/signin", method = RequestMethod.POST)
     @Transactional
     public ModelAndView userCreate(@ModelAttribute UserForm userForm, ModelAndView mv) {
-        List<User> users = userRepository.findAll();
+        List<User> users = userRepository.findByDeleteFlag(0);
 
         if (userForm.getToken() != null && userForm.getToken().equals(session.getId())) {
             int check = 0;
@@ -49,7 +50,7 @@ public class SigninupController {
                 u.setName(userForm.getName());
                 u.setMail(userForm.getMail());
                 u.setAdmin_flag(userForm.getAdmin_flag());
-                u.setDelete_flag(0);
+                u.setDeleteFlag(0);
                 u.setPassword(
                         EncryptUtil.getPasswordEncrypt(
                                 userForm.getPassword(),
@@ -62,6 +63,8 @@ public class SigninupController {
                 userRepository.save(u); //DBに保存
                 session.setAttribute("flush", "登録が完了しました");
                 session.setAttribute("login_user", u);
+                session.setAttribute("login_user_id", u.getId());
+                session.setAttribute("token" , session.getId());
 
             } else {
                 mv = new ModelAndView("redirect:/"); // リダイレクト
@@ -92,7 +95,7 @@ public class SigninupController {
 
             //メールアドレスとパスワードが正しいかの確認。合っていたらuに格納する。
             try {
-                u = userRepository.findByMailAndPassword(mail, password);
+                u = userRepository.findByMailAndPasswordAndDeleteFlag(mail, password,0);
             } catch (NoResultException ex) {
             }
 
@@ -109,6 +112,8 @@ public class SigninupController {
                 session.setAttribute("error", "ログインに失敗しました");
             } else { //認証出来たら
                 session.setAttribute("login_user", u);
+                session.setAttribute("login_user_id", u.getId());
+                session.setAttribute("token" , session.getId());
                 session.setAttribute("flush", "ログインしました");
                 mv = new ModelAndView("redirect:/"); // リダイレクト
 
@@ -121,11 +126,36 @@ public class SigninupController {
     @RequestMapping(path = "/logout", method = RequestMethod.GET)
     public ModelAndView logout(ModelAndView mv) {
         session.removeAttribute("login_user");
+        session.removeAttribute("token");
         session.setAttribute("flush", "ログアウトしました");
 
         mv = new ModelAndView("redirect:/");
 
         return mv;
+    }
+
+    @RequestMapping(path = "/user/destroy" , method = RequestMethod.POST)
+    @Transactional
+    public ModelAndView userDestroy(@ModelAttribute UserForm userForm, ModelAndView mv) {
+        if(session.getAttribute("token") != null && session.getAttribute("token").equals(session.getId())) {
+
+            Optional<User> opu = userRepository.findById((int)session.getAttribute("login_user_id"));
+            User u = opu.orElse(null);
+
+            u.setDeleteFlag(1);
+            userRepository.save(u);
+            session.removeAttribute("login_user");
+            session.removeAttribute("token");
+            session.setAttribute("flush", "削除しました");
+            mv = new ModelAndView("redirect:/");
+
+        }else {
+            session.setAttribute("error", "削除に失敗しました");
+            mv = new ModelAndView("redirect:/");
+        }
+
+        return mv;
+
     }
 
 }

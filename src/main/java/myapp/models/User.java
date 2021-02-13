@@ -29,7 +29,7 @@ public class User {
     private Integer admin_flag;
 
     @Column(name="delete_flag",nullable=false)
-    private Integer delete_flag;
+    private Integer deleteFlag;
 
 
     public Integer getId() {
@@ -73,12 +73,12 @@ public class User {
         this.mail = mail;
     }
 
-    public Integer getDelete_flag() {
-        return delete_flag;
+    public Integer getDeleteFlag() {
+        return deleteFlag;
     }
 
-    public void setDelete_flag(Integer delete_flag) {
-        this.delete_flag = delete_flag;
+    public void setDeleteFlag(Integer deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 
 

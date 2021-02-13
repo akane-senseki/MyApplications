@@ -22,7 +22,7 @@
                 <div class="header_item">
                     <th:block th:if="${session.login_user == null}">
                         <a href="#" class="button" onclick="showSignup()">ログイン</a>
-                        <a href="#!" class="button" onclick="showSignin()">新規登録</a>
+                        <a href="#" class="button" onclick="showSignin()">新規登録</a>
                     </th:block>
                     <th:block th:unless="${session.login_user == null}">
                         <p th:text="${session.login_user.name}+'さん'"></p>
@@ -31,21 +31,11 @@
                 </div>
             </div>
             <ul class="header_nav">
-                <li>
-                    <a th:href="@{/}">Home</a>
-                </li>
-                <li>
-                    <a th:href="@{/db/index}">Demo Battle</a>
-                </li>
-                <li>
-                    <a th:href="@{/pd/index}">Pc Dice</a>
-                </li>
-                <li>
-                    <a th:href="@{/cs/index}">Characeter Sheet</a>
-                </li>
-                <li>
-                    <a th:href="@{/}">Info</a>
-                </li>
+                <li><a th:href="@{/}">Home</a></li>
+                <li><a th:href="@{/db/index}">Demo Battle</a></li>
+                <li><a th:href="@{/pd/index}">Pc Dice</a></li>
+                <li><a th:href="@{/cs/index}">Characeter Sheet</a></li>
+                <li><a th:href="@{/}">Info</a></li>
             </ul>
         </header>
         <main>
@@ -55,45 +45,53 @@
         </main>
         <footer>
             <ul class="footer_nav">
-                <li>
-                    <a th:href="@{/}">Home</a>
-                </li>
-                <li>
-                    <a th:href="@{/db/index}">Demo Battle</a>
-                </li>
-                <li>
-                    <a th:href="@{/pd/index}">Pc Dice</a>
-                </li>
-                <li>
-                    <a th:href="@{/cs/index}">Characeter Sheet</a>
-                </li>
-                <li>
-                    <a th:href="@{/}">Info</a>
-                </li>
+                <li><a th:href="@{/}">Home</a></li>
+                <li><a th:href="@{/db/index}">Demo Battle</a></li>
+                <li><a th:href="@{/pd/user}">Pc Dice</a></li>
+                <li><a th:href="@{/cs/user}">Characeter Sheet</a></li>
+                <li><a th:href="@{/}">Info</a></li>
+                <th:block th:if="${session.login_user != null}">
+                    <a href="#" onclick="userDestroy()">アカウントを削除</a>
+                    <form name="userDestroyForm" method="POST" th:action="@{/user/destroy}">
+                        <input type="hidden" name="token" th:value="${session.token}" />
+                    </form>
+                </th:block>
             </ul>
-            <small>©2021- MyApplicationss</small>
+            <script>
+            function userDestroy() {
+                if (confirm("アカウントを削除しますか？")) {
+                    document.forms['userDestroyForm'].submit();
+                }
+            }
+            </script>
+            <small>©2021- MyApplications</small>
         </footer>
     </div>
     <!-- サインインフォーム -->
-    <form  name="signinForm" class="signinFormWrapper modal" method="POST" th:action="@{/signin}">
+    <form name="signinForm" class="signinFormWrapper modal" method="POST" th:action="@{/signin}">
         <div th:replace="~{views/form/signin::registForm(${user})}"></div>
     </form>
     <script>
-        function showSignin() {
-            document.getElementById("overlay1").classList.toggle("noneModal");
-            document.getElementById("signinForm").classList.toggle("noneModal");
-        }
-    </script>
+                    function showSignin() {
+                        document.getElementById("overlay1").classList
+                                .toggle("noneModal");
+                        document.getElementById("signinForm").classList
+                                .toggle("noneModal");
+                    }
+                </script>
     <!-- サインアップフォーム -->
     <form class="signinFormWrapper modal" method="POST" th:action="@{/signup}">
         <div th:replace="~{views/form/signup::registForm(${user})}"></div>
     </form>
     <script>
-        function showSignup() {
-            document.getElementById("overlay2").classList.toggle("noneModal");
-            document.getElementById("signupForm").classList.toggle("noneModal");
-        }
-    </script>
+                    function showSignup() {
+                        document.getElementById("overlay2").classList
+                                .toggle("noneModal");
+                        document.getElementById("signupForm").classList
+                                .toggle("noneModal");
+                    }
+
+                </script>
     <a href="#!" id="overlay1" class="overlay noneModal" onclick="showSignin()"></a>
     <a href="#!" id="overlay2" class="overlay noneModal" onclick="showSignup()"></a>
 </body>
