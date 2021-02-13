@@ -10,11 +10,15 @@ import javax.servlet.http.HttpSession;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -41,10 +45,18 @@ public class PcDiceController {
     PicDataLikeRepository picrepository;
 
     @RequestMapping(value = "/pd/user", method = RequestMethod.GET)
-    public ModelAndView pdUserIndex(ModelAndView mv) {
+    public ModelAndView pdUserIndex(@RequestParam(name = "page", required = false) Integer page, ModelAndView mv) {
+        if (page == null) {
+            page = 1;
+        }
+
         if (session.getAttribute("login_user") != null) {
-            List<PicData> pic = pdrepository.findByUserAndDeleteFlag((User) session.getAttribute("login_user"), 0);
+            Page<PicData> pic = pdrepository.findByUserAndDeleteFlag((User) session.getAttribute("login_user"), 0 , PageRequest.of(page - 1, 10, Sort.by("id").descending()));
+            long count = pdrepository.countByUserAndDeleteFlag((User) session.getAttribute("login_user") , 0);
+
             mv.addObject("pic", pic);
+            mv.addObject("page", page);
+            mv.addObject("count", count);
             mv.setViewName("views/pcdice/user");
         }
         return mv;
@@ -67,11 +79,18 @@ public class PcDiceController {
     }
 
     @RequestMapping(value = "/pd/index", method = RequestMethod.GET)
-    public ModelAndView pdIndex(ModelAndView mv) {
+    public ModelAndView pdIndex(@RequestParam(name = "page", required = false) Integer page, ModelAndView mv) {
+        if (page == null) {
+            page = 1;
+        }
 
-        List<PicData> pic = pdrepository.findByDeleteFlagAndReleaseFlag(0, 0);
+        Page<PicData> pic = pdrepository.findByDeleteFlagAndReleaseFlag(0, 0,
+                PageRequest.of(page - 1, 10, Sort.by("id").descending()));
+        long count = pdrepository.countByDeleteFlagAndReleaseFlag(0, 0);
 
         mv.addObject("pic", pic);
+        mv.addObject("page", page);
+        mv.addObject("count", count);
         if (session.getAttribute("flush") != null) {
             mv.addObject("flush", session.getAttribute("flush"));
             session.removeAttribute("flush");

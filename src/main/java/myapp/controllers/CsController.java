@@ -59,7 +59,7 @@ public class CsController {
                 page = 1;
             }
             Page<PcEntity> pc = pcrepository.findByUserAndDeleteFlag((User) session.getAttribute("login_user"), 0,
-                    (PageRequest.of(15 * (page - 1), 15, Sort.by("id").descending())));
+                    (PageRequest.of(page - 1, 15, Sort.by("id").descending())));
 
             mv.addObject("pc", pc);
             mv.addObject("page", page);
@@ -96,7 +96,7 @@ public class CsController {
         }
 
         Page<PcEntity> pc = pcrepository.findByDeleteFlagAndReleaseFlag(0, 0,
-                PageRequest.of(10 * (page - 1), 10, Sort.by("id").descending()));
+                PageRequest.of(page - 1, 10, Sort.by("id").descending()));
         long allCount = pcrepository.countByDeleteFlagAndReleaseFlag(0, 0);
         mv.addObject("pc", pc);
         mv.addObject("page", page);

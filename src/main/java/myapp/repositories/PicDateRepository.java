@@ -19,4 +19,6 @@ public interface PicDateRepository extends JpaRepository<PicData, Integer>{
     public Page<PicData> findByUserAndDeleteFlag(User user , Integer deleteFlag, Pageable pageable);
     public Page<PicData> findByDeleteFlagAndReleaseFlag(Integer deleteFlag , Integer releaseFlag, Pageable pageable);
 
+    public Long countByUserAndDeleteFlag(User user , Integer deleteFlag);
+    public Long countByDeleteFlagAndReleaseFlag(Integer deleteFlag, Integer releaseFlag);
 }

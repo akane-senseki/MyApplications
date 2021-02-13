@@ -7,7 +7,8 @@
         <label for="name" class="name">表示名</label>
         <br />
         <input id="picName" type="text" name="name" th:value="${pd.name}" />
-        <br /> <br />
+        <br />
+        <br />
         <div class="pd_form_container">
             <div class="pd_form_item">
                 <label for="defa">デフォルト画像</label>
@@ -110,51 +111,71 @@
         <script th:inline="javascript">
                                     /*<![CDATA[*/
     　　　　function picSubmit(){
-        var defaCheck = "";
-        var cliCheck = "";
-        var funCheck = "";
-        var loadCheck = "";
-        var actCheck = "";
-        var hovCheck = "";
         if(document.getElementById('defaSrc').src == "http://localhost:8080/myapplications/images/defo/noimage.png"){
             alert("デフォルト画像を選択してください");
         }else{
             if(document.getElementById('defa').files[0].size > 1000000){
-                defaChack = "デフォルト画像 ";
+               var defaCheck = "デフォルト画像 ";
             }else{
-                defaCheck = "";
+                var defaCheck = "";
             }
+            if(document.getElementById('critical').files[0] != null){
             if(document.getElementById('critical').files[0].size > 1000000){
-                cliCheck = "クリティカル差分 ";
+               var cliCheck = "クリティカル差分 ";
             }else{
-                cliCheck = "";
+                var cliCheck = "";
             }
-            if(document.getElementById('fumble').files[0].size > 1000000){
-                funCheck = "ファンブル差分 ";
             }else{
-                funCheck = "";
+                var cliCheck = "";
             }
-            if(document.getElementById('load').files[0].size > 1000000){
-                loadCheck = "読み込み中差分 ";
+
+            if(document.getElementById('fumble').files[0] != null){
+                if(document.getElementById('fumble').files[0].size > 1000000){
+                   var funCheck = "ファンブル差分 ";
+                }else{
+                    var funCheck = "";
+                }
+                }else{
+                    var funCheck = "";
+                }
+
+            if(document.getElementById('load').files[0] != null){
+                if(document.getElementById('load').files[0].size > 1000000){
+                   var loadCheck = "読み込み中差分 ";
+                }else{
+                    var loadCheck = "";
+                }
+                }else{
+                    var loadCheck = "";
+                }
+
+            if(document.getElementById('hover').files[0] != null){
+                if(document.getElementById('hover').files[0].size > 1000000){
+                   var hovCheck = "ホバー時差分 ";
+                }else{
+                    var hovCheck = "";
+                }
+                }else{
+                    var hovCheck = "";
+                }
+
+            if(document.getElementById('active').files[0] != null){
+                if(document.getElementById('active').files[0].size > 1000000){
+                   var actCheck = "クリック時差分 ";
+                }else{
+                    var actCheck = "";
+                }
+                }else{
+                    var actCheck = "";
+                }
+            if(defaCheck == "" && cliCheck == "" && funCheck == "" && loadCheck == "" && actCheck == "" && hovCheck == ""){
+                document.forms[0].submit();
             }else{
-                loadCheck = "";
+                alert(defaCheck + cliCheck + funCheck + loadCheck + hovCheck + actCheck　+ "のサイズが1MGを超えています");
             }
-            if(document.getElementById('hover').files[0].size > 1000000){
-                hovCheck = "ホバー時差分 ";
-            }else{
-                hovCheck = "";
-            }
-            if(document.getElementById('active').files[0].size > 1000000){
-                actCheck = "クリック時差分 ";
-            }else{
-                actCheck = "";
-            }
-            if(defaCheck = "" && cliCheck = "" && funCheck = "" && loadCheck= "" && actCheck = "" && hovCheck = ""){
-            document.forms[0].submit();
-            }else{
-                alert("大きい画像があります");
-            }
+
         }
+    }
     /*]]>*/
     </script>
     </div>

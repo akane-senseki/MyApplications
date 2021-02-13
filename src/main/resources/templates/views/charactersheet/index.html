@@ -18,8 +18,6 @@
         <th:block th:if="${pc != null}">
             <div class="cs_index_list">
                 <div class="cs_index_container" th:each="pc : ${pc}" th:object="${pc}">
-                    <!-- ここも繰り返される -->
-                    <!-- th:objectを指定しておくことで*{}で中身を取り出すことが出来る。 -->
                     <div class="item">
                         <th:block th:if="*{imgPath != null}">
                             <img th:src="@{/images/{id}/{img_path}(id=*{user.id},img_path=*{imgPath})}" />
