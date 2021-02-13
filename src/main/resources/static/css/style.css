@@ -454,7 +454,7 @@ main {
     height: 100%;
     right: 0px;
     top: 0px;
-    background-color: #f5deb3;
+    background-color: #e6ecf5;
     transition: all 0.3s 0s ease; }
     .pcDicePlay .picMenu .xbutton {
       margin-top: 80px;
@@ -496,13 +496,15 @@ main {
     font-size: 2.0rem;
     margin-top: 60px; }
   .aboutWrap .skillWrap {
+    position: relative;
     background: #d4dfed;
     width: 80%;
     margin: 30px auto;
-    padding: 20px 20px 0px 20px; }
+    padding: 20px; }
     .aboutWrap .skillWrap h2 {
       margin-bottom: 30px; }
     .aboutWrap .skillWrap .skillContainer {
+      position: relative;
       display: flex;
       justify-content: space-around; }
       .aboutWrap .skillWrap .skillContainer .item {
@@ -512,10 +514,10 @@ main {
         .aboutWrap .skillWrap .skillContainer .item .star {
           margin-top: 5px; }
     .aboutWrap .skillWrap .pinImg {
-      position: relative;
       width: 35px;
-      right: -482px;
-      top: -175px; }
+      right: 0%;
+      position: absolute;
+      top: 0%; }
   .aboutWrap i {
     font-size: 4rem;
     margin: 35px 35px 135px 35px;
@@ -529,7 +531,7 @@ main {
 
 #arrow i {
   position: fixed;
-  bottom: 20px;
+  bottom: 100px;
   right: 20px;
   font-size: 3.0rem;
   opacity: 0.3;
@@ -542,11 +544,15 @@ main {
 footer {
   background-color: #b0c4de;
   text-align: center;
-  width: 100%; }
-  footer ul li {
-    display: inline-block; }
-    footer ul li a {
-      text-decoration: none; }
+  width: 100%;
+  margin-top: 50px;
+  padding: 20px; }
+  footer ul {
+    font-size: 1.1rem; }
+    footer ul li {
+      display: inline-block; }
+      footer ul li a {
+        text-decoration: none; }
 
 /*# sourceMappingURL=style.css.map */
 

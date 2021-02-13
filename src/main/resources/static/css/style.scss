@@ -597,7 +597,7 @@ table{
         height: 100%;
         right: 0px;
         top: 0px;
-        background-color: #f5deb3;
+        background-color: lighten($baseColor , 15%);
         transition: all 0.3s 0s ease;
 
         .xbutton {
@@ -667,14 +667,16 @@ table{
         margin-top:60px;
     }
 .skillWrap{
+        position: relative;
         background:lighten($baseColor , 10%) ;
         width: 80%;
         margin: 30px auto;
-        padding: 20px 20px 0px 20px;
+        padding: 20px;
         h2{
             margin-bottom:30px;
         }
     .skillContainer{
+        position: relative;
         display: flex;
         justify-content: space-around;
         .item{
@@ -687,10 +689,10 @@ table{
         }
     }
         .pinImg{
-            position: relative;
             width: 35px;
-            right: -482px;
-            top: -175px;
+            right: 0%;
+            position: absolute;
+            top: 0%;
         }
 }
         i{
@@ -711,7 +713,7 @@ table{
 #arrow{
     i{
         position: fixed;
-        bottom: 20px;
+        bottom: 100px;
         right: 20px;
         font-size: 3.0rem;
         opacity: 0.3;
@@ -730,7 +732,10 @@ footer {
     background-color: $baseColor;
     text-align: center;
     width: 100%;
+    margin-top:50px;
+    padding: 20px;
     ul{
+        font-size:1.1rem;
         li{
             display:inline-block;
             a{
