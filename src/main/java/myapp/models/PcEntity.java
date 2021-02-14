@@ -1,7 +1,5 @@
 package myapp.models;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,10 +18,10 @@ public class PcEntity {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id",nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "name",nullable = false )
+    @Column(name = "name", nullable = false )
     private String name;
 
     @Column(name = "name_ruby") //ふりがな
@@ -34,9 +32,6 @@ public class PcEntity {
 
     @Column(name = "img_path") //画像パス
     private String imgPath;
-
-    @Column(name = "update_date")
-    private Date updateDate;
 
     @Column(name = "delete_flag" , nullable = false)
     private Integer deleteFlag;
@@ -93,13 +88,6 @@ public class PcEntity {
 
     public void setReleaseFlag(Integer releaseFlag) {
         this.releaseFlag = releaseFlag;
-    }
-
-    public Date getUpdateDate() {
-        return updateDate;
-    }
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
     }
 
     public Integer getDeleteFlag() {

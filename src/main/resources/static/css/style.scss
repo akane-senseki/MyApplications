@@ -42,6 +42,30 @@ $baseFont:"Mongolian Baiti",
 button {
     @include button();
 }
+.likeButton {
+                margin: 10px;
+                border-radius: 50%;
+                font-size: 2.3rem;
+                width: 45px;
+                height: 45px;
+                border: solid 1px #888;
+            }
+
+.likeButtonOff {
+                color: #888;
+                &:hover{
+                    color: #bbb;
+                }
+            }
+
+.likeButtonOn {
+                color: #dc143c;
+                border: solid 1px #ffc0cb;
+                background: #fff0f5;
+                &:hover{
+                    color:lighten(#dc143c , 10% );
+                }
+            }
 
 .deleteButton {
     @include button();
@@ -57,6 +81,13 @@ button {
     flex-flow: column;
     min-height: 100vh;
     font-family: $baseFont;
+}
+
+//pagination---------------------------
+#pagination{
+    a{
+
+    }
 }
 
 //メッセージデザイン-------------------------
@@ -169,8 +200,9 @@ main {
                 height: 150px;
                 border-radius: 50%;
 
-                line-height: 150px;
+                line-height: 15px;
                 overflow: hidden;
+                padding: 60px 15px;
 
 
                 background-image: linear-gradient($pink 0%, $baseColor 100%);
@@ -672,26 +704,6 @@ main {
         display: flex;
         justify-content: center;
 
-        .item {
-            .likeButton {
-                margin: 10px;
-                border-radius: 50%;
-                font-size: 2.3rem;
-                width: 45px;
-                height: 45px;
-                border: solid 1px #888;
-            }
-
-            .likeButtonOff {
-                color: #888;
-            }
-
-            .likeButtonOn {
-                color: #dc143c;
-                border: solid 1px #ffc0cb;
-                background: #fff0f5;
-            }
-        }
     }
 
     .imgWrap {
@@ -911,8 +923,8 @@ footer {
 
         li {
             display: inline-block;
-
-            a {
+        }
+                a {
                 text-decoration: none;
                 color: #333;
 
@@ -920,7 +932,6 @@ footer {
                     color: #666;
                 }
             }
-        }
     }
 }
 //利用規約・プライバシーポリシー--------------------------------

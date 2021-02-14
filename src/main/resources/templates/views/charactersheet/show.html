@@ -109,10 +109,10 @@
             <th:block th:if="${pc.user.id != session.login_user.id}">
                 <form name="PcLike" method="POST" th:action="@{/pcLike}">
                     <th:block th:if="${like == null}">
-                        <input class="likeButtonOff" type="submit" value="お気に入りに追加" />
+                        <input class="likeButtonOff likeButton" type="submit" value="♥" />
                     </th:block>
                     <th:block th:if="${like != null}">
-                        <input class="likeButtonOn" type="submit" value="お気に入り済" onclick="return Submit('PcLike','@{/pcLike}','POST');" />
+                        <input class="likeButtonOn likeButton" type="submit" value="♥" onclick="return Submit('PcLike','@{/pcLike}','POST');" />
                     </th:block>
                     <input type="hidden" name="token" th:value="${pc.token}" />
                     <input type="hidden" name="id" th:value="${pc.id}" />

@@ -8,7 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -60,6 +59,8 @@ public class CsController {
             }
             Page<PcEntity> pc = pcrepository.findByUserAndDeleteFlag((User) session.getAttribute("login_user"), 0,
                     (PageRequest.of(page - 1, 15, Sort.by("id").descending())));
+            long allCount = pcrepository.countByUserAndDeleteFlag((User) session.getAttribute("login_user"), 0);
+            mv.addObject("count", allCount);
 
             mv.addObject("pc", pc);
             mv.addObject("page", page);
@@ -139,9 +140,6 @@ public class CsController {
             p.setNameRuby(peForm.getNameRuby());
             p.setReleaseFlag(peForm.getReleaseFlag());
             p.setDeleteFlag(0);
-
-            Date update_date = new Date(System.currentTimeMillis());
-            p.setUpdateDate(update_date);
 
             p.setStr(peForm.getStr());
             p.setCon(peForm.getCon());
@@ -290,8 +288,6 @@ public class CsController {
             p.setNameRuby(peForm.getNameRuby());
             p.setReleaseFlag(peForm.getReleaseFlag());
 
-            Date update_date = new Date(System.currentTimeMillis());
-            p.setUpdateDate(update_date);
 
             p.setStr(peForm.getStr());
             p.setCon(peForm.getCon());
