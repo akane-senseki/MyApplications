@@ -73,6 +73,18 @@ button {
   min-height: 100vh;
   font-family: "Mongolian Baiti", "MS Mincho"; }
 
+#pagination {
+  margin: 30px; }
+  #pagination a {
+    text-decoration: none;
+    border: solid 1px #888;
+    padding: 10px 11px;
+    font-size: 1.1rem;
+    margin: 10px;
+    background: #eee; }
+    #pagination a:hover {
+      background: #fff; }
+
 #flushMessage {
   position: absolute;
   z-index: 20;

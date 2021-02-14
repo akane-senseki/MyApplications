@@ -85,8 +85,17 @@ button {
 
 //pagination---------------------------
 #pagination{
+    margin: 30px;
     a{
-
+    text-decoration: none;
+    border: solid 1px #888;
+    padding: 10px 11px;
+    font-size: 1.1rem;
+    margin: 10px;
+    background:#eee;
+    &:hover{
+        background:#fff;
+    }
     }
 }
 

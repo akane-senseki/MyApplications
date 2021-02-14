@@ -2,15 +2,23 @@ package myapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.PropertySource;
 
 @PropertySource("classpath:security.properties")
 @SpringBootApplication
-public class MyApplicationsApplication {
+public class MyApplicationsApplication extends SpringBootServletInitializer{
 
     public static void main(String[] args) {
         SpringApplication.run(MyApplicationsApplication.class, args);
     }
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(MyApplicationsApplication.class);
+      }
+
+
 
 }
 
