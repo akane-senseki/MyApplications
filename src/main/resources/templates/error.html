@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{views/layout/app :: layout(~{::body/content()})}">
+<head>
+</head>
+<body>
+<div class="errorPage">
+    <p>エラーが発生しています</p>
+    <a th:href="@{/}">トップページに戻る</a>
+</div>
+</body>
+</html>
