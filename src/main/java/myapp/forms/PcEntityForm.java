@@ -43,6 +43,9 @@ public class PcEntityForm extends PcEntity{
         this.hp = hp;
     }
 
+    public void setDb(String db) {
+        this.db = db;
+    }
     public String getDb(int str , int siz)  {
         int dbnum = str + siz;
 

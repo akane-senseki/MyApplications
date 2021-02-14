@@ -49,7 +49,7 @@ public class UserController {
 
                 u.setName(userForm.getName());
                 u.setMail(userForm.getMail());
-                u.setAdmin_flag(userForm.getAdmin_flag());
+                u.setAdmin_flag(0);
                 u.setDeleteFlag(0);
                 u.setPassword(
                         EncryptUtil.getPasswordEncrypt(

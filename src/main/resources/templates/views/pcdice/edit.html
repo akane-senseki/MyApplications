@@ -7,7 +7,7 @@
     <form id="Pic_DataForm" name="Pic_DataForm" enctype="multipart/form-data" method="post" th:action="@{/pd/update}">
         <div th:replace="~{views/form/picdata::registForm(${picdata})}"></div>
     </form>
-    <a class="button" href="#" onclick="pdDestroy();">削除</a>
+    <a class="deleteButton" href="#" onclick="pdDestroy();">削除</a>
     <form method="POST" th:action="@{/pd/destroy}">
         <input type="hidden" name="token" th:value="${pd.token}" />
     </form>

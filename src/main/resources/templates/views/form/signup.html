@@ -12,15 +12,36 @@
             <label for="mail">メールアドレス</label>
             <br />
             <input type="text" id="signup_mail" name="mail" />
-            <br /> <br />
+            <div class="checkD">
+            <p id="mailCheckUp" class="checkP"></p>
+            </div>
             <label for="password">パスワード</label>
             <br />
             <input type="password" id="signup_password" name="password" />
-            <br /> <br />
-
-            <button type="submit">ログイン</button>
+            <div class="checkD">
+            <p id="passCheckUp" class="checkP"></p>
+            </div>
+            <button type="button" onclick="checkUp();">ログイン</button>
+                <script>
+        function checkUp(){
+            var check = 0 ;
+            if (document.getElementById("signup_mail").value == "") {
+                check = 1;
+                document.getElementById("mailCheckUp").innerHTML = "入力してください";
+            } else {
+                document.getElementById("mailCheckUp").innerHTML = "";
+            }
+            if (document.getElementById("signup_password").value == "") {
+                check = 1;
+                document.getElementById("passCheckUp").innerHTML = "入力してください";
+            } else {
+                document.getElementById("passCheckUp").innerHTML = "";
+            }
+        }
+    </script>
             <br />
         </div>
     </div>
+
 </body>
 </html>

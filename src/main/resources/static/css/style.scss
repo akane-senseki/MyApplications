@@ -10,7 +10,8 @@ $pink:#fed6e3;
 $overlay:#393f4c;
 
 $titleFont:"Malgun Gothic";
-$baseFont:"Mongolian Baiti" , "MS Mincho";
+$baseFont:"Mongolian Baiti",
+"MS Mincho";
 
 @mixin button() {
     display: inline-block;
@@ -19,36 +20,47 @@ $baseFont:"Mongolian Baiti" , "MS Mincho";
     text-decoration: none;
     border: solid 2px;
     padding: 8px 30px;
-    font-family:"Microsoft JhengHei UI";
-    color:$overlay;
+    font-family: "Microsoft JhengHei UI";
+    color: $overlay;
 
     background-image: linear-gradient($pink 0%, $baseColor 100%);
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
-    &:hover{
+
+    &:hover {
         background-image: linear-gradient(#FFEDF3 0%, $baseColor 100%);
     }
-    &:active{
 
-    box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.32);
-    background-image: linear-gradient(#fed6e3 0%, #7B94B5 100%);
-}
+    &:active {
+
+        box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.32);
+        background-image: linear-gradient(#fed6e3 0%, #7B94B5 100%);
+    }
 }
 
-.button {
+.button,
+button {
     @include button();
 }
-.wrapper{
+
+.deleteButton {
+    @include button();
+    margin-top: 60px;
+    background: #ccc;
+    color: #333;
+}
+
+.wrapper {
     overflow: hidden;
-       margin: 0;
-   display: flex;
-   flex-flow: column;
-   min-height: 100vh;
-   font-family:$baseFont;
+    margin: 0;
+    display: flex;
+    flex-flow: column;
+    min-height: 100vh;
+    font-family: $baseFont;
 }
 
 //メッセージデザイン-------------------------
-#flushMessage{
+#flushMessage {
     position: absolute;
     z-index: 20;
     background: #c1d8ac;
@@ -56,7 +68,8 @@ $baseFont:"Mongolian Baiti" , "MS Mincho";
     color: #316745;
     transition: all 0.5s 0s ease;
 }
-#errorMessage{
+
+#errorMessage {
     position: absolute;
     z-index: 20;
     background: #f5b1aa;
@@ -64,16 +77,18 @@ $baseFont:"Mongolian Baiti" , "MS Mincho";
     color: #640125;
     transition: all 0.5s 0s ease;
 }
-.massage{
-        top: 120px;
+
+.massage {
+    top: 120px;
 }
-.msNone{
+
+.msNone {
     top: 0px;
     opacity: 0;
 }
 
 header {
-    height:100px;
+    height: 100px;
     background-color: $baseColor;
     padding: 0px 0px 10px 0px;
 
@@ -88,6 +103,9 @@ header {
 
     h1 {
         margin-top: 10px;
+        font-size: 2rem;
+        color: #fff;
+        font-family: "Segoe Script";
     }
 
     .header_nav {
@@ -103,6 +121,7 @@ header {
                 transition: all 0.5s 0s ease;
                 position: relative;
                 font-size: 1.2rem;
+                color: #333;
 
                 &::before {
                     content: "";
@@ -130,39 +149,41 @@ main {
 
     width: 80%;
     margin: 0 auto auto auto;
-.topBtnWrap{
-    h2{
-    text-align: center;
-    font-size: 2.0rem;
-    margin-top: 60px;
 
-    }
-    .btn_circle {
-        text-align: center;
-        margin-top: 50px;
-
-        a {
-            @include button();
-            color: #fff;
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-
-            line-height: 150px;
-            overflow: hidden;
-
-
-            background-image: linear-gradient($pink 0%, $baseColor 100%);
-            text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
-            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
-
-            margin: auto 30px;
-
+    .topBtnWrap {
+        h2 {
+            text-align: center;
+            font-size: 2.0rem;
+            margin-top: 60px;
 
         }
 
+        .btn_circle {
+            text-align: center;
+            margin-top: 50px;
+
+            a {
+                @include button();
+                color: #fff;
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+
+                line-height: 150px;
+                overflow: hidden;
+
+
+                background-image: linear-gradient($pink 0%, $baseColor 100%);
+                text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
+                box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
+
+                margin: auto 30px;
+
+
+            }
+
+        }
     }
-}
 
 
 }
@@ -192,28 +213,31 @@ main {
     }
 
     .topCOntainerWrap {
-        position:relative;
+        position: relative;
+
         .topContainer {
             display: flex;
             justify-content: space-evenly;
             margin-top: 150px;
 
             .topItem {
-                position:relative;
-                z-index:5;
+                position: relative;
+                z-index: 5;
+
                 .minImg1 {
-                       width: 350px;
-                       opacity: 0.7;
-                       position: relative;
-                       top: -85px;
-                       filter: drop-shadow(2px 4px 6px $overlay);
+                    width: 350px;
+                    opacity: 0.7;
+                    position: relative;
+                    top: -85px;
+                    filter: drop-shadow(2px 4px 6px $overlay);
 
                 }
+
                 .minImg2 {
-                       width: 350px;
-                       position: relative;
-                       top: -85px;
-                       filter: drop-shadow(2px 4px 6px $overlay);
+                    width: 350px;
+                    position: relative;
+                    top: -85px;
+                    filter: drop-shadow(2px 4px 6px $overlay);
 
                 }
 
@@ -225,10 +249,11 @@ main {
                     border-left: solid 5px #333;
                     padding-left: 5px;
                 }
-            pre{
-                font-size: 1.6rem;
-                margin-top:100px
-            }
+
+                pre {
+                    font-size: 1.6rem;
+                    margin-top: 100px
+                }
             }
 
         }
@@ -244,20 +269,22 @@ main {
                 height: 700px;
                 opacity: 0.1;
                 top: -570px;
-                z-index:1;
+                z-index: 1;
             }
         }
 
         .linkButton {
             text-align: end;
-            position:relative;
-            z-index:5;
+            position: relative;
+            z-index: 5;
         }
-    .btn2{
-        margin-top:100px;
+
+        .btn2 {
+            margin-top: 100px;
+        }
     }
 }
-}
+
 //サインイン・サインアップフォーム--------------------------
 
 .modal {
@@ -291,7 +318,32 @@ main {
         padding: 10px 20px;
         border-radius: 0px 0px 10px 10px;
     }
+
+    label {
+        margin-top: 15px;
+    }
+
+    button {
+        margin-top: 20px;
+    }
+
+    .checkD {
+        height: 35px;
+
+        .checkP {
+            background: #f5b1aa;
+            color: #640125;
+
+        }
+    }
 }
+
+.modalUp {
+    top: 155px;
+    left: 37%;
+}
+
+
 
 .noneModal {
     display: none;
@@ -320,6 +372,7 @@ main {
     }
 
     .cs_form_container {
+        margin-top: 60px;
         display: flex;
         text-align: center;
         justify-content: center;
@@ -328,10 +381,21 @@ main {
             margin-left: 150px;
         }
 
+        .cs_form_item {
+            display: grid;
+
+            label {
+                text-align: left;
+                position: relative;
+                bottom: -5px;
+            }
+        }
     }
 
     .ability_form,
     .skill_form {
+        margin-bottom: 30px;
+
         input {
             width: 120px;
             height: 36px;
@@ -350,6 +414,26 @@ main {
 
         input[type="number"] {
             -moz-appearance: textfield;
+        }
+    }
+
+    h2 {
+
+        font-size: 1.3rem;
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    table {
+        background: #eee;
+        margin: auto;
+
+        th,
+        td {
+            border: solid 1px #888;
+            width: 100px;
+            font-size: 1.3rem;
+            padding: 5px 10px;
         }
     }
 
@@ -381,7 +465,8 @@ main {
             .item {
                 margin-left: 15px;
                 text-align: left;
-                p{
+
+                p {
                     font-size: 1.3rem;
                     margin-bottom: 8px;
                 }
@@ -392,7 +477,8 @@ main {
                     object-fit: contain;
                 }
 
-                .cs_edit , .cs_show {
+                .cs_edit,
+                .cs_show {
                     @include button();
                     text-decoration: none;
                     border: solid 1px #555;
@@ -404,76 +490,91 @@ main {
                     right: 0px;
                     bottom: 10px;
                 }
-            .cs_show{
-                right: 80px;
-            }
+
+                .cs_show {
+                    right: 80px;
+                }
             }
         }
     }
 }
 
 //CSのShowページ--------------------------------------
-.csShowWrap{
-    text-align:center;
-    .csShowContainer{
-    display:flex;
-    justify-content: center;
-    .item{
+.csShowWrap {
+    margin-top: 60px;
+    text-align: center;
+
+    .csShowContainer {
+        display: flex;
+        justify-content: center;
+
+        .item {
             margin: 10px 65px;
-        img{
+
+            img {
                 width: 200px;
                 max-height: 200px;
-    object-fit: contain;
+                object-fit: contain;
+            }
+        }
+
+        .right {
+            margin-top: 30px;
+            text-align: left;
+
+            p {
+                margin-top: 20px;
+                font-size: 1.3rem;
+            }
+        }
+
+    }
+
+    h2 {
+        font-size: 1.3rem;
+        margin-top: 30px;
+    }
+
+    table {
+        margin: auto;
+
+        th,
+        td {
+            border: solid 1px #888;
+            width: 100px;
+            font-size: 1.3rem;
+            padding: 5px 10px;
         }
     }
-.right{
-    margin-top:30px;
-        text-align: left;
-        p{
-            margin-top: 20px;
-    font-size: 1.3rem;
-        }
 }
 
-}
-h2{
-font-size: 1.3rem;
-    margin-top: 30px;
-}
-table{
-        margin: auto;
-    th , td{
-        border:solid 1px #888;
-        width: 100px;
-        font-size: 1.3rem;
-        padding: 5px 10px;
-    }
-}
-}
 //demobattle IndexPage-------------------------------------------------------
-.dbContainer{
-        display: flex;
-        justify-content:center;
-        .item{
-                margin: 110px 50px 60px 50px;
-        a{
+.dbContainer {
+    display: flex;
+    justify-content: center;
+
+    .item {
+        margin: 110px 50px 60px 50px;
+
+        a {
             text-decoration: none;
-            color:#fff;
+            color: #fff;
             background-image: linear-gradient($pink 0%, $baseColor 100%);
             text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
             box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
-            padding:60px 90px;
-            border-radius:10px;
-        &:active {
-            box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.32);
-            background-image: linear-gradient(#fed6e3 0%, #7B94B5 100%);
-        }
+            padding: 60px 90px;
+            border-radius: 10px;
 
-        &:hover {
-            background-image: linear-gradient(#FFEDF3 0%, $baseColor 100%);
+            &:active {
+                box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.32);
+                background-image: linear-gradient(#fed6e3 0%, #7B94B5 100%);
+            }
+
+            &:hover {
+                background-image: linear-gradient(#FFEDF3 0%, $baseColor 100%);
+            }
         }
-}
-}
+    }
 }
 
 //demobattle selectPage-------------------------------------------------------
@@ -529,27 +630,27 @@ table{
         display: flex;
         justify-content: space-around;
         flex-wrap: wrap;
-        .item{
 
-                flex-basis: 24vw;
-                background: #ccc;
-                padding: 10px 0px 0px 0px ;
-                margin: 10px;
-                background:lighten($baseColor ,  10%);
-                border-left: 5px solid darken($baseColor ,  10%);
-                border-right: 5px solid darken($baseColor ,  10%);
+        .item {
 
-        img {
-            max-width: 200px;
-            max-height: 100px;
-            filter: drop-shadow(3px 3px 0px #fff);
-}
-        p{
+            flex-basis: 24vw;
+            padding: 10px 0px 0px 0px;
+            margin: 10px;
+            border: solid 2px #baseColor;
+            border-radius: 5px;
 
+            img {
+                max-width: 300px;
+                max-height: 200px;
+                filter: drop-shadow(3px 3px 0px #fff);
+
+            }
+
+            p {}
         }
     }
 }
-}
+
 //pdForm---------------------
 
 .pd_form {
@@ -567,16 +668,44 @@ table{
     text-align: center;
     position: relative;
 
+    .container {
+        display: flex;
+        justify-content: center;
+
+        .item {
+            .likeButton {
+                margin: 10px;
+                border-radius: 50%;
+                font-size: 2.3rem;
+                width: 45px;
+                height: 45px;
+                border: solid 1px #888;
+            }
+
+            .likeButtonOff {
+                color: #888;
+            }
+
+            .likeButtonOn {
+                color: #dc143c;
+                border: solid 1px #ffc0cb;
+                background: #fff0f5;
+            }
+        }
+    }
+
     .imgWrap {
 
         img {
             width: 800px;
             filter: drop-shadow(10px 10px 0px #B0CDEF);
+            margin-top: 50px;
 
             &:active {
                 filter: drop-shadow(0px 0px 0px #B0CDEF);
                 margin-left: 10px;
-                margin-top: 10px;
+                margin-top: 60px;
+
             }
         }
 
@@ -597,7 +726,7 @@ table{
         height: 100%;
         right: 0px;
         top: 0px;
-        background-color: lighten($baseColor , 15%);
+        background-color: lighten($baseColor, 15%);
         transition: all 0.3s 0s ease;
 
         .xbutton {
@@ -635,6 +764,10 @@ table{
                 margin-top: 11px;
             }
         }
+
+        #pdDiceTextForm {
+            margin-top: 45px;
+        }
     }
 
     .none {
@@ -648,79 +781,117 @@ table{
 }
 
 //aboutページ--------------------------------------------------------------------------------
-.aboutWrap{
+.aboutWrap {
     text-align: center;
-    .aboutImg{
+
+    .aboutImg {
         margin-top: 100px;
-        img{
-        width: 150px;
-        border-radius: 50%;
-        filter: drop-shadow(0px 0px 4px $overlay);
+
+        img {
+            width: 150px;
+            border-radius: 50%;
+            filter: drop-shadow(0px 0px 4px $overlay);
         }
 
     }
-    pre{
-    margin:60px 60px 0px 60px;
+
+    pre {
+        margin: 60px 60px 0px 60px;
     }
-    .skill{
-        font-size:2.0rem;
-        margin-top:60px;
+
+    .skill {
+        font-size: 2.0rem;
+        margin-top: 160px;
     }
-.skillWrap{
+
+    .skillWrap {
         position: relative;
-        background:lighten($baseColor , 10%) ;
+        background: lighten($baseColor, 10%);
         width: 80%;
         margin: 30px auto;
         padding: 20px;
-        h2{
-            margin-bottom:30px;
+
+        h2 {
+            margin-bottom: 30px;
         }
-    .skillContainer{
-        position: relative;
-        display: flex;
-        justify-content: space-around;
-        .item{
+
+        .skillContainer {
+            position: relative;
+            display: flex;
+            justify-content: space-around;
+
+            .item {
                 width: 30%;
                 background: #fff;
                 padding: 10px 10px 20px 10px;
-                .star{
+
+                .star {
                     margin-top: 5px;
                 }
+            }
         }
-    }
-        .pinImg{
+
+        .pinImg {
             width: 35px;
             right: 0%;
             position: absolute;
             top: 0%;
         }
-}
-        i{
-            font-size: 4rem;
-            margin: 35px 35px 135px 35px;
-            background: #b0c4de;
-            padding: 16px;
-            border-radius: 50%;
-            color: #fff;
-            width: 100px;
-            &:hover{
-                background:lighten(#b0c4de ,5% ) ;
+    }
+
+    .hobbyWrap {
+        .container {
+            text-align: initial;
+            display: flex;
+            justify-content: center;
+            margin: 50px;
+            align-items: flex-end;
+
+            .item {
+                margin: 15px;
+
+                img {
+                    width: 550px;
+                    filter: drop-shadow(10px 14px 0px #b0c4de);
+                }
             }
         }
+    }
+
+    .contactWrap {
+        a {
+            text-decoration: none;
+
+            i {
+                font-size: 4rem;
+                margin: 35px;
+                background: #b0c4de;
+                padding: 16px;
+                border-radius: 50%;
+                color: #fff;
+                width: 100px;
+
+                &:hover {
+                    background: lighten(#b0c4de, 5%);
+                }
+            }
+        }
+    }
 }
 
 //arrowButton----------------------------------------
-#arrow{
-    i{
+#arrow {
+    i {
         position: fixed;
-        bottom: 100px;
+        bottom: 20px;
         right: 20px;
         font-size: 3.0rem;
         opacity: 0.3;
         mix-blend-mode: multiply;
         z-index: 25;
         transition: ease 1s all;
-        &:hover{
+
+        &:hover {
             opacity: 0.5;
         }
     }
@@ -732,16 +903,37 @@ footer {
     background-color: $baseColor;
     text-align: center;
     width: 100%;
-    margin-top:50px;
+    margin-top: 50px;
     padding: 20px;
-    ul{
-        font-size:1.1rem;
-        li{
-            display:inline-block;
-            a{
-                    text-decoration: none;
+
+    ul {
+        font-size: 1.1rem;
+
+        li {
+            display: inline-block;
+
+            a {
+                text-decoration: none;
+                color: #333;
+
+                &:hover {
+                    color: #666;
+                }
             }
         }
+    }
+}
+//利用規約・プライバシーポリシー--------------------------------
+.terms{
+    h1{
+        font-size: 2.5rem;
+    font-weight: bold;
+    margin: 20px 0px;
+    }
+    h2{
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-top:20px;
     }
 }
 

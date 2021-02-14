@@ -6,13 +6,14 @@
     <div class="cs_form" th:fragment="registForm(charactersheet)">
         <div class="cs_form_container">
             <div class="cs_form_item">
-                <label for="csImg">画像をアップロード</label><br />
+                <label for="csImg">画像をアップロード</label>
+                <br />
                 <input type="file" name="csImg" id="cs_img" accept=".png,.jpg,.jpeg">
                 <th:block th:if="${pc.imgPath == null}">
-                <img id="preview" src="/myapplications/images/defo/noimage.png" alt="cs_img"/>
+                    <img id="preview" src="/myapplications/images/defo/noimage.png" alt="cs_img" />
                 </th:block>
                 <th:block th:unless="${pc.imgPath == null}">
-                <img id="preview" th:src="@{/images/{id}/{img_path}(id=${pc.user.id},img_path=${pc.imgPath})}" alt="cs_img"/>
+                    <img id="preview" th:src="@{/images/{id}/{img_path}(id=${pc.user.id},img_path=${pc.imgPath})}" alt="cs_img" />
                 </th:block>
                 <script type="text/javascript">
 //画像をプレビューする
@@ -43,38 +44,59 @@
 </script>
             </div>
             <div class="cs_form_item right">
-                <br /> <br /> <label for="name">名前</label><br />
-                <input type="text" id="cs_name" name="name" th:value="${pc.name}"/> <br /> <br />
-                <label for="nameRuby">ふりがな</label><br />
-                <input type="text" id="cs_name_ruby" name="nameRuby" th:value="${pc.nameRuby}" /> <br /> <br />
+                <label for="name">名前</label>
+                <input type="text" id="cs_name" name="name" th:value="${pc.name}" />
+                <br />
+                <br />
+                <label for="nameRuby">ふりがな</label>
+                <input type="text" id="cs_name_ruby" name="nameRuby" th:value="${pc.nameRuby}" />
+                <br />
+                <br />
             </div>
         </div>
         <div class="ability_form">
-            <p>能力値</p>
+            <h2>能力値</h2>
             <table>
                 <tbody>
                     <tr>
-                        <th><label for="str">STR</label></th>
-                        <th><label for="con">CON</label></th>
-                        <th><label for="dex">DEX</label></th>
-                        <th><label for="siz">SIZ</label></th>
+                        <th>
+                            <label for="str">STR</label>
+                        </th>
+                        <th>
+                            <label for="con">CON</label>
+                        </th>
+                        <th>
+                            <label for="dex">DEX</label>
+                        </th>
+                        <th>
+                            <label for="siz">SIZ</label>
+                        </th>
                         <th>HP</th>
                         <th>DB</th>
                     </tr>
                     <tr>
-                        <td><input type="number" name="str" id="str" onkeyup="show()" th:value="${pc.str}"/></td>
-                        <td><input type="number" name="con" id="con" onkeyup="show()" th:value="${pc.con}"/></td>
-                        <td><input type="number" name="dex" id="dex" onkeyup="show()" th:value="${pc.dex}"/></td>
-                        <td><input type="number" name="siz" id="siz" onkeyup="show()" th:value="${pc.siz}"/></td>
-                        <td id="hp">--</td>
-                        <td id="db">--</td>
+                        <td>
+                            <input type="number" name="str" id="str" onkeyup="show()" th:value="${pc.str}" />
+                        </td>
+                        <td>
+                            <input type="number" name="con" id="con" onkeyup="show()" th:value="${pc.con}" />
+                        </td>
+                        <td>
+                            <input type="number" name="dex" id="dex" onkeyup="show()" th:value="${pc.dex}" />
+                        </td>
+                        <td>
+                            <input type="number" name="siz" id="siz" onkeyup="show()" th:value="${pc.siz}" />
+                        </td>
+                        <td id="hp"></td>
+                        <td><p id="db" th:text="${pd}"></p></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <br /> <br />
+        <br />
+        <br />
         <div class="skill_form">
-            <p>技能値</p>
+            <h2>技能値</h2>
             <table>
                 <tbody>
                     <tr>
@@ -86,38 +108,101 @@
                     <tr>
                         <th>回避</th>
                         <td id="dex_2"></td>
-                        <td><input type="number" name="avoidanceAdd" id="avoidance_add" class="input_min" onkeyup="show()" th:value="${pc.avoidanceAdd}" /></td>
+                        <td>
+                            <input type="number" name="avoidanceAdd" id="avoidance_add" class="input_min" onkeyup="show()" th:value="${pc.avoidanceAdd}" />
+                        </td>
                         <td id="avoidance"></td>
                     </tr>
                     <tr>
                         <th>キック</th>
                         <td>25</td>
-                        <td><input type="number" name="kickAdd" id="kick_add" class="input_min" onkeyup="show_kick()" th:value="${pc.kickAdd}" /></td>
+                        <td>
+                            <input type="number" name="kickAdd" id="kick_add" class="input_min" onkeyup="show()" th:value="${pc.kickAdd}" />
+                        </td>
                         <td id="kick"></td>
                     </tr>
                     <tr>
                         <th>こぶし</th>
                         <td>50</td>
-                        <td><input type="number" name="fistAdd" id="fist_add" class="input_min" onkeyup="show_fist()" th:value="${pc.fistAdd}" /></td>
+                        <td>
+                            <input type="number" name="fistAdd" id="fist_add" class="input_min" onkeyup="show()" th:value="${pc.fistAdd}" />
+                        </td>
                         <td id="fist"></td>
                     </tr>
                     <tr>
                         <th>頭突き</th>
                         <td>10</td>
-                        <td><input type="number" name="headbuttAdd" id="headbutt_add" class="input_min" onkeyup="show_headbutt()" th:value="${pc.headbuttAdd}" /></td>
+                        <td>
+                            <input type="number" name="headbuttAdd" id="headbutt_add" class="input_min" onkeyup="show()" th:value="${pc.headbuttAdd}" />
+                        </td>
                         <td id="headbutt"></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <input type="radio" name="releaseFlag" value="0"/>公開
-        <input type="radio" name="releaseFlag" value="1"/>非公開
+        <input type="radio" name="releaseFlag" value="0" />
+        公開
+        <input type="radio" name="releaseFlag" value="1" />
+        非公開
         <input type="hidden" name="token" th:value="${pc.token}" />
+        <br />
         <a class="button" href="#" id="cs_submit" onclick="csSubmit();">アップロード</a>
-            <script>
+            <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            window.onload = function() {
+                                document.getElementById('hp').innerHTML = Math.ceil( (/*[[ ${pc.con + pc.siz} ]]*/ )/2);
+                                document.getElementById('dex_2').innerHTML = (/*[[ ${pc.dex} ]]*/ )*2;
+                                document.getElementById('avoidance').innerHTML = parseInt(/*[[ ${pc.avoidanceAdd} ]]*/) + ( /*[[ ${pc.dex} ]]*/ )*2;
+                                document.getElementById('kick').innerHTML = parseInt(/*[[ ${pc.kickAdd} ]]*/) + 25 ;
+                                document.getElementById('fist').innerHTML = parseInt(/*[[ ${pc.fistAdd} ]]*/) + 50 ;
+                                document.getElementById('headbutt').innerHTML = parseInt(/*[[ ${pc.headbuttAdd} ]]*/) + 40 ;
+
+
+                            }
+                                /*]]>*/
+        function show(){
+            var str_data = document.getElementById("str").value;
+            var con_data = document.getElementById("con").value;
+            var siz_data = document.getElementById("siz").value;
+            var dex_data = document.getElementById("dex").value;
+            document.getElementById("hp").innerHTML = Math
+            .round((parseInt(con_data) + parseInt(siz_data)) / 2);
+            document.getElementById("dex_2").innerHTML = parseInt(dex_data) * 2;
+            document.getElementById("avoidance").innerHTML = parseInt(dex_data) * 2
+            + parseInt(document.getElementById("avoidance_add").value);
+
+            var db_text;
+            var db_num = parseInt(str_data) + parseInt(siz_data);
+
+            if (db_num > 2 && db_num < 13) {
+                db_text = "-1d4";
+            } else if (db_num < 25) {
+                db_text = "0";
+            } else if (db_num < 33) {
+                db_text = "+1d4";
+            } else if (db_num < 41) {
+                db_text = "+1d6";
+            } else if (db_num < 57) {
+                db_text = "+2d6";
+            } else {
+                db_text = "未設定";
+            }
+            document.getElementById("db").innerHTML = db_text;
+
+            var kick_data = document.getElementById("kick_add").value;
+            var fist_add_data = document.getElementById("fist_add").value;
+            var headbutt_add_data = document.getElementById("headbutt_add").value;
+            document.getElementById('kick').innerHTML = parseInt( kick_data ) + 25 ;
+            document.getElementById('fist').innerHTML = parseInt( fist_add_data ) + 50 ;
+            document.getElementById('headbutt').innerHTML = parseInt( headbutt_add_data ) + 40 ;
+        }
         function csSubmit(){
+            if(document.getElementById('cs_img').files[0] != null){
             if(document.getElementById('cs_img').files[0].size > 1000000){
                 alert("画像ファイルは1MG以下のものを選択してください");
+            }else{
+                document.forms[0].submit();
+            }
             }else{
                 document.forms[0].submit();
             }

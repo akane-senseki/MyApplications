@@ -24,7 +24,6 @@
                     <div class="item">
                         <p th:text="*{name}"></p>
                         <p th:text="*{#dates.format(updateDate , 'yyyy-MM-dd')}"></p>
-                        <a class="cs_show" th:href="@{/cs/show(id=*{id})}">観覧</a>
                         <a class="cs_edit" th:href="@{/cs/edit(id=*{id})}">編集</a>
                     </div>
                 </div>

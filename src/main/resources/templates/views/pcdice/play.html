@@ -4,24 +4,29 @@
 </head>
 <body>
     <div class="pcDicePlay">
-        <th:block th:if="${session.login_user != null}">
-            <th:block th:if="${pic.user.id != session.login_user.id}">
-                <form name="PcLike" method="POST" th:action="@{/picLike}">
-                    <th:block th:if="${like == null}">
-                        <input class="likeButtonOff" type="submit" value="お気に入りに追加" />
-                    </th:block>
-                    <th:block th:if="${like != null}">
-                        <input class="likeButtonOn" type="submit" value="お気に入り済" onclick="return Submit('PcLike','@{/pcLike}','POST');" />
-                    </th:block>
-                    <input type="hidden" name="token" th:value="${token}" />
-                    <input type="hidden" name="id" th:value="${pic.id}" />
-                </form>
+        <div class="container">
+        <div class="item">
+            <th:block th:if="${session.login_user != null}">
+                <th:block th:if="${pic.user.id != session.login_user.id}">
+                    <form name="PcLike" method="POST" th:action="@{/picLike}">
+                        <th:block th:if="${like == null}">
+                            <input class="likeButtonOff likeButton" type="submit" value="♥" />
+                        </th:block>
+                        <th:block th:if="${like != null}">
+                            <input class="likeButtonOn likeButton" type="submit" value="♥" onclick="return Submit('PcLike','@{/pcLike}','POST');" />
+                        </th:block>
+                        <input type="hidden" name="token" th:value="${token}" />
+                        <input type="hidden" name="id" th:value="${pic.id}" />
+                    </form>
+                </th:block>
             </th:block>
-        </th:block>
-        <a class="button" href="#" onclick="showMenu();">文字の編集</a>
+            </div>
+            <div class="item">
+            <a class="button" href="#" onclick="showMenu();">文字の編集</a>
+            </div>
+        </div>
         <div class="imgWrap">
-            <img id="rollImg" th:src="@{/images/pd/{userId}/{id}/{defaImg}(userId=${pic.user.id},id=${pic.id},defaImg=${pic.defaImg})}" onclick="roll();" onmouseover="hover();"
-                onmouseleave="notHover();" />
+            <img id="rollImg" th:src="@{/images/pd/{userId}/{id}/{defaImg}(userId=${pic.user.id},id=${pic.id},defaImg=${pic.defaImg})}" onclick="roll();" onmouseover="hover();" onmouseleave="notHover();" />
             <p id="rollNum" onclick="roll();">PUSH</p>
         </div>
         <script th:inline="javascript">
@@ -57,13 +62,13 @@
                                         loadingNum = setInterval(function(){
                                             Num();
 
-                                            if(count > 1400){
+                                            if(count > 1200){
                                                 clearInterval(loadingNum);
                                             }
                                         },50);
                                     }
                                         loading();
-                                        setTimeout("change();" , 1500);
+                                        setTimeout("change();" , 1300);
 
                                     }
                                     /*]]>*/
@@ -80,7 +85,7 @@
                 <div id="wkSlider2" class="wkSlider none"></div>
                 <div id="wkValue2" class="wkValue"></div>
             </div>
-            <form name="pdDiceTextForm" method="post" th:action="@{/pd/adjustment}">
+            <form id="pdDiceTextForm" name="pdDiceTextForm" method="post" th:action="@{/pd/adjustment}">
                 <label for="color">文字色</label>
                 <input type="color" id="colorSelect" name="color" th:value="${pic.color}" />
                 <br />

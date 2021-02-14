@@ -29,8 +29,7 @@
                     <div class="item">
                         <p th:text="'NAME:' + *{name}"></p>
                         <p th:text="'作成者:' + *{user.name}"></p>
-                        <a class="cs_show" th:href="@{/cs/show(id=*{id})}">観覧</a>
-                        <a class="cs_edit" th:href="@{/cs/edit(id=*{id})}">編集</a>
+                        <a class="cs_edit" th:href="@{/cs/show(id=*{id})}">観覧</a>
                     </div>
                 </div>
             </div>

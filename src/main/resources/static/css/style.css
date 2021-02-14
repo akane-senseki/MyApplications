@@ -3,7 +3,8 @@
   margin: 0;
   padding: 0; }
 
-.button {
+.button,
+button {
   display: inline-block;
   text-align: center;
   margin: 10px auto 10px auto;
@@ -15,9 +16,32 @@
   background-image: linear-gradient(#fed6e3 0%, #b0c4de 100%);
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28); }
-  .button:hover {
+  .button:hover,
+  button:hover {
     background-image: linear-gradient(#FFEDF3 0%, #b0c4de 100%); }
-  .button:active {
+  .button:active,
+  button:active {
+    box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.32);
+    background-image: linear-gradient(#fed6e3 0%, #7B94B5 100%); }
+
+.deleteButton {
+  display: inline-block;
+  text-align: center;
+  margin: 10px auto 10px auto;
+  text-decoration: none;
+  border: solid 2px;
+  padding: 8px 30px;
+  font-family: "Microsoft JhengHei UI";
+  color: #393f4c;
+  background-image: linear-gradient(#fed6e3 0%, #b0c4de 100%);
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
+  margin-top: 60px;
+  background: #ccc;
+  color: #333; }
+  .deleteButton:hover {
+    background-image: linear-gradient(#FFEDF3 0%, #b0c4de 100%); }
+  .deleteButton:active {
     box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.32);
     background-image: linear-gradient(#fed6e3 0%, #7B94B5 100%); }
 
@@ -62,7 +86,10 @@ header {
     header .header_container .button {
       margin-left: 10px; }
   header h1 {
-    margin-top: 10px; }
+    margin-top: 10px;
+    font-size: 2rem;
+    color: #fff;
+    font-family: "Segoe Script"; }
   header .header_nav {
     text-align: center;
     margin-top: 10px; }
@@ -73,7 +100,8 @@ header {
         text-decoration: none;
         transition: all 0.5s 0s ease;
         position: relative;
-        font-size: 1.2rem; }
+        font-size: 1.2rem;
+        color: #333; }
         header .header_nav li a::before {
           content: "";
           display: block;
@@ -214,6 +242,19 @@ main {
     border: solid 1px #333;
     padding: 10px 20px;
     border-radius: 0px 0px 10px 10px; }
+  .modal label {
+    margin-top: 15px; }
+  .modal button {
+    margin-top: 20px; }
+  .modal .checkD {
+    height: 35px; }
+    .modal .checkD .checkP {
+      background: #f5b1aa;
+      color: #640125; }
+
+.modalUp {
+  top: 155px;
+  left: 37%; }
 
 .noneModal {
   display: none;
@@ -232,26 +273,49 @@ main {
 .cs_form img {
   width: 200px; }
 .cs_form .cs_form_container {
+  margin-top: 60px;
   display: flex;
   text-align: center;
   justify-content: center; }
   .cs_form .cs_form_container .right {
     margin-left: 150px; }
-.cs_form .ability_form input,
-.cs_form .skill_form input {
-  width: 120px;
-  height: 36px; }
-.cs_form .ability_form input[type="number"]::-webkit-outer-spin-button,
-.cs_form .skill_form input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0; }
-.cs_form .ability_form input[type="number"]::-webkit-inner-spin-button,
-.cs_form .skill_form input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0; }
-.cs_form .ability_form input[type="number"],
-.cs_form .skill_form input[type="number"] {
-  -moz-appearance: textfield; }
+  .cs_form .cs_form_container .cs_form_item {
+    display: grid; }
+    .cs_form .cs_form_container .cs_form_item label {
+      text-align: left;
+      position: relative;
+      bottom: -5px; }
+.cs_form .ability_form,
+.cs_form .skill_form {
+  margin-bottom: 30px; }
+  .cs_form .ability_form input,
+  .cs_form .skill_form input {
+    width: 120px;
+    height: 36px; }
+  .cs_form .ability_form input[type="number"]::-webkit-outer-spin-button,
+  .cs_form .skill_form input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0; }
+  .cs_form .ability_form input[type="number"]::-webkit-inner-spin-button,
+  .cs_form .skill_form input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; }
+  .cs_form .ability_form input[type="number"],
+  .cs_form .skill_form input[type="number"] {
+    -moz-appearance: textfield; }
+.cs_form h2 {
+  font-size: 1.3rem;
+  margin-top: 30px;
+  text-align: center; }
+.cs_form table {
+  background: #eee;
+  margin: auto; }
+  .cs_form table th,
+  .cs_form table td {
+    border: solid 1px #888;
+    width: 100px;
+    font-size: 1.3rem;
+    padding: 5px 10px; }
 
 .cs_index_wrapper {
   text-align: center; }
@@ -295,7 +359,8 @@ main {
           width: 150px;
           max-height: 150px;
           object-fit: contain; }
-        .cs_index_wrapper .cs_index_list .cs_index_container .item .cs_edit, .cs_index_wrapper .cs_index_list .cs_index_container .item .cs_show {
+        .cs_index_wrapper .cs_index_list .cs_index_container .item .cs_edit,
+        .cs_index_wrapper .cs_index_list .cs_index_container .item .cs_show {
           display: inline-block;
           text-align: center;
           margin: 10px auto 10px auto;
@@ -316,15 +381,18 @@ main {
           position: absolute;
           right: 0px;
           bottom: 10px; }
-          .cs_index_wrapper .cs_index_list .cs_index_container .item .cs_edit:hover, .cs_index_wrapper .cs_index_list .cs_index_container .item .cs_show:hover {
+          .cs_index_wrapper .cs_index_list .cs_index_container .item .cs_edit:hover,
+          .cs_index_wrapper .cs_index_list .cs_index_container .item .cs_show:hover {
             background-image: linear-gradient(#FFEDF3 0%, #b0c4de 100%); }
-          .cs_index_wrapper .cs_index_list .cs_index_container .item .cs_edit:active, .cs_index_wrapper .cs_index_list .cs_index_container .item .cs_show:active {
+          .cs_index_wrapper .cs_index_list .cs_index_container .item .cs_edit:active,
+          .cs_index_wrapper .cs_index_list .cs_index_container .item .cs_show:active {
             box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.32);
             background-image: linear-gradient(#fed6e3 0%, #7B94B5 100%); }
         .cs_index_wrapper .cs_index_list .cs_index_container .item .cs_show {
           right: 80px; }
 
 .csShowWrap {
+  margin-top: 60px;
   text-align: center; }
   .csShowWrap .csShowContainer {
     display: flex;
@@ -346,7 +414,8 @@ main {
     margin-top: 30px; }
   .csShowWrap table {
     margin: auto; }
-    .csShowWrap table th, .csShowWrap table td {
+    .csShowWrap table th,
+    .csShowWrap table td {
       border: solid 1px #888;
       width: 100px;
       font-size: 1.3rem;
@@ -415,15 +484,13 @@ main {
     flex-wrap: wrap; }
     .pdIndexWrapper .pdIndexContainer .item {
       flex-basis: 24vw;
-      background: #ccc;
       padding: 10px 0px 0px 0px;
       margin: 10px;
-      background: #d4dfed;
-      border-left: 5px solid #8ca9cf;
-      border-right: 5px solid #8ca9cf; }
+      border: solid 2px #baseColor;
+      border-radius: 5px; }
       .pdIndexWrapper .pdIndexContainer .item img {
-        max-width: 200px;
-        max-height: 100px;
+        max-width: 300px;
+        max-height: 200px;
         filter: drop-shadow(3px 3px 0px #fff); }
 
 .pd_form .pd_form_container {
@@ -434,13 +501,30 @@ main {
 .pcDicePlay {
   text-align: center;
   position: relative; }
+  .pcDicePlay .container {
+    display: flex;
+    justify-content: center; }
+    .pcDicePlay .container .item .likeButton {
+      margin: 10px;
+      border-radius: 50%;
+      font-size: 2.3rem;
+      width: 45px;
+      height: 45px;
+      border: solid 1px #888; }
+    .pcDicePlay .container .item .likeButtonOff {
+      color: #888; }
+    .pcDicePlay .container .item .likeButtonOn {
+      color: #dc143c;
+      border: solid 1px #ffc0cb;
+      background: #fff0f5; }
   .pcDicePlay .imgWrap img {
     width: 800px;
-    filter: drop-shadow(10px 10px 0px #B0CDEF); }
+    filter: drop-shadow(10px 10px 0px #B0CDEF);
+    margin-top: 50px; }
     .pcDicePlay .imgWrap img:active {
       filter: drop-shadow(0px 0px 0px #B0CDEF);
       margin-left: 10px;
-      margin-top: 10px; }
+      margin-top: 60px; }
   .pcDicePlay .imgWrap #rollNum {
     color: #888;
     position: absolute;
@@ -477,6 +561,8 @@ main {
         background: #93c3cd url(images/ui-bg_diagonals-small_50_93c3cd_40x40.png) 50% 50% repeat; }
     .pcDicePlay .picMenu .slidebar .wkValue {
       margin-top: 11px; }
+    .pcDicePlay .picMenu #pdDiceTextForm {
+      margin-top: 45px; }
   .pcDicePlay .none {
     width: 0px; }
   .pcDicePlay .opacity {
@@ -494,7 +580,7 @@ main {
     margin: 60px 60px 0px 60px; }
   .aboutWrap .skill {
     font-size: 2.0rem;
-    margin-top: 60px; }
+    margin-top: 160px; }
   .aboutWrap .skillWrap {
     position: relative;
     background: #d4dfed;
@@ -518,20 +604,33 @@ main {
       right: 0%;
       position: absolute;
       top: 0%; }
-  .aboutWrap i {
-    font-size: 4rem;
-    margin: 35px 35px 135px 35px;
-    background: #b0c4de;
-    padding: 16px;
-    border-radius: 50%;
-    color: #fff;
-    width: 100px; }
-    .aboutWrap i:hover {
-      background: #c2d1e6; }
+  .aboutWrap .hobbyWrap .container {
+    text-align: initial;
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+    align-items: flex-end; }
+    .aboutWrap .hobbyWrap .container .item {
+      margin: 15px; }
+      .aboutWrap .hobbyWrap .container .item img {
+        width: 550px;
+        filter: drop-shadow(10px 14px 0px #b0c4de); }
+  .aboutWrap .contactWrap a {
+    text-decoration: none; }
+    .aboutWrap .contactWrap a i {
+      font-size: 4rem;
+      margin: 35px;
+      background: #b0c4de;
+      padding: 16px;
+      border-radius: 50%;
+      color: #fff;
+      width: 100px; }
+      .aboutWrap .contactWrap a i:hover {
+        background: #c2d1e6; }
 
 #arrow i {
   position: fixed;
-  bottom: 100px;
+  bottom: 20px;
   right: 20px;
   font-size: 3.0rem;
   opacity: 0.3;
@@ -552,7 +651,19 @@ footer {
     footer ul li {
       display: inline-block; }
       footer ul li a {
-        text-decoration: none; }
+        text-decoration: none;
+        color: #333; }
+        footer ul li a:hover {
+          color: #666; }
+
+.terms h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 20px 0px; }
+.terms h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 20px; }
 
 /*# sourceMappingURL=style.css.map */
 

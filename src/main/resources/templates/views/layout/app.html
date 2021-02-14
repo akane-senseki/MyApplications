@@ -17,7 +17,7 @@
         <header>
             <div class="header_container">
                 <div class="header_item">
-                    <h1>MyApplications</h1>
+                    <h1>PicDemo!</h1>
                 </div>
                 <div class="header_item">
                     <th:block th:if="${session.login_user == null}">
@@ -35,7 +35,6 @@
                 <li><a th:href="@{/db/index}">Demo Battle</a></li>
                 <li><a th:href="@{/pd/index}">Pc Dice</a></li>
                 <li><a th:href="@{/cs/index}">Characeter Sheet</a></li>
-                <li><a th:href="@{/}">Info</a></li>
             </ul>
         </header>
         <main>
@@ -57,7 +56,6 @@
                 <li><a th:href="@{/db/index}">Demo Battle</a></li>
                 <li><a th:href="@{/pd/user}">Pc Dice</a></li>
                 <li><a th:href="@{/cs/user}">Characeter Sheet</a></li>
-                <li><a th:href="@{/}">Info</a></li>
                 <th:block th:if="${session.login_user != null}">
                     <a href="#" onclick="userDestroy()">アカウントを削除</a>
                     <form name="userDestroyForm" method="POST" th:action="@{/user/destroy}">
@@ -76,7 +74,7 @@
         </footer>
     </div>
     <!-- サインインフォーム -->
-    <form name="signinForm" class="signinFormWrapper modal" method="POST" th:action="@{/signin}">
+    <form name="signinForm" class="signinFormWrapper modal modalUp" method="POST" th:action="@{/signin}">
         <div th:replace="~{views/form/signin::registForm(${user})}"></div>
     </form>
     <script>
@@ -98,7 +96,6 @@
                         document.getElementById("signupForm").classList
                                 .toggle("noneModal");
                     }
-
                 </script>
     <a href="#!" id="overlay1" class="overlay noneModal" onclick="showSignin()"></a>
     <a href="#!" id="overlay2" class="overlay noneModal" onclick="showSignup()"></a>

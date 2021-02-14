@@ -233,8 +233,14 @@ public class CsController {
         Optional<PcEntity> oppc = pcrepository.findById(peForm.getId());
         ModelMapper modelMapper = new ModelMapper();
         peForm = modelMapper.map(oppc.orElse(new PcEntity()), PcEntityForm.class);
+        String pd = "--";
+        if(peForm.getCon() != 0 && peForm.getSiz() != 0) {
+            pd = peForm.getDb(peForm.getCon(), peForm.getSiz());
+        }
+
 
         mv.addObject("pc", peForm);
+        mv.addObject("pd", pd);
         mv.setViewName("views/charactersheet/show");
 
         //お気に入りの確認
@@ -259,8 +265,13 @@ public class CsController {
         ModelMapper modelMapper = new ModelMapper();
         peForm = modelMapper.map(p.orElse(new PcEntity()), PcEntityForm.class);
         peForm.setToken(session.getId());
-
+        String pd = "--";
+        if(peForm.getCon() != 0 && peForm.getSiz() != 0) {
+            pd = peForm.getDb(peForm.getCon(), peForm.getSiz());
+        }
+        System.out.println(pd);
         mv.addObject("pc", peForm);
+        mv.addObject("pd", pd);
         session.setAttribute("pcId", peForm.getId());
         mv.setViewName("views/charactersheet/edit");
         return mv;

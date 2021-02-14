@@ -41,4 +41,15 @@ public class TopPageController {
         mv.setViewName("views/toppage/about");
         return mv;
     }
+
+    @RequestMapping(path = "/terms" , method = RequestMethod.GET)
+    public ModelAndView terms(ModelAndView mv) {
+        mv.setViewName("views/toppage/terms");
+        return mv;
+    }
+    @RequestMapping(path = "/pp" , method = RequestMethod.GET)
+    public ModelAndView pp(ModelAndView mv) {
+        mv.setViewName("views/toppage/pp");
+        return mv;
+    }
 }

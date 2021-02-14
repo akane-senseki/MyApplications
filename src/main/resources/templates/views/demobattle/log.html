@@ -8,7 +8,7 @@
         <div class="log_line" th:each="log , status : ${log}">
             <p th:id="${status.count}" class="none" th:utext="${log}"></p>
         </div>
-        <a href="#" onclick="sumple();">一括表示</a>
+        <a href="#" class="button" onclick="sumple();">一括表示</a>
         <script th:inline="javascript">
     　　　　 /*<![CDATA[*/
          var time ;
