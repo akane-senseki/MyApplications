@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* myapp.MyApplicationsApplication
+web: java $JAVA_OPTS -cp target/classes:target/dependency/* myapp.MyApplicationsApplication --server.port=${PORT}
