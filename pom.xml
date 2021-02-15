@@ -11,10 +11,10 @@
     </parent>
 
     <groupId>com.example</groupId>
-    <artifactId>MyApprications</artifactId>
+    <artifactId>MyApplications</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>MyApprications</name>
+    <name>MyApplications</name>
     <description>MyApplications for Spring Boot</description>
 
     <properties>
@@ -83,6 +83,19 @@
                         <web>java $JAVA_OPTS -cp target/classes:target/dependency/* Main</web>
                     </processTypes>
                 </configuration>
+            </plugin>
+
+             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals><goal>copy-dependencies</goal></goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
