@@ -8,7 +8,7 @@
             <div class="dbSelectContainer">
                 <div class="item">
                     <div id="selectPc1">
-                        <img src="/myapplications/images/defo/noimage.png" />
+                        <img src="/images/defo/noimage.png" />
                         <p>選択されていません</p>
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                                 <img th:src="@{/images/{id}/{img_path}(id=*{user.id},img_path=*{imgPath})}" />
                             </th:block>
                             <th:block th:unless="*{imgPath != null}">
-                                <img src="/myapplications/images/defo/noimage.png" />
+                                <img src="/images/defo/noimage.png" />
                             </th:block>
                             <span th:id="*{name} + *{id}" th:text="*{name}"></span>
                         </div>
@@ -29,7 +29,7 @@
             <div class="dbSelectContainer">
                 <div class="item">
                     <div id="selectPc2">
-                        <img src="/myapplications/images/defo/noimage.png" />
+                        <img src="/images/defo/noimage.png" />
                         <p>選択されていません</p>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                                 <img th:src="@{/images/{id}/{img_path}(id=*{user.id},img_path=*{imgPath})}" />
                             </th:block>
                             <th:block th:unless="*{imgPath != null}">
-                                <img src="/myapplications/images/defo/noimage.png" />
+                                <img src="/images/defo/noimage.pwng" />
                             </th:block>
                             <span th:id="*{name} + *{id}" th:text="*{name}"></span>
                         </div>

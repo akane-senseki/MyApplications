@@ -10,7 +10,7 @@
                 <br />
                 <input type="file" name="csImg" id="cs_img" accept=".png,.jpg,.jpeg">
                 <th:block th:if="${pc.imgPath == null}">
-                    <img id="preview" src="/myapplications/images/defo/noimage.png" alt="cs_img" />
+                    <img id="preview" src="/images/defo/noimage.png" alt="cs_img" />
                 </th:block>
                 <th:block th:unless="${pc.imgPath == null}">
                     <img id="preview" th:src="@{/images/{id}/{img_path}(id=${pc.user.id},img_path=${pc.imgPath})}" alt="cs_img" />

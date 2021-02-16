@@ -18,7 +18,7 @@
                     <img id="defaSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.defaImg})}" />
                 </th:block>
                 <th:block th:if="${pd.defaImg == null}">
-                    <img id="defaSrc" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+                    <img id="defaSrc" src="/images/defo/noimage.png" alt="pd_img" />
                 </th:block>
             </div>
             <div class="pd_form_item">
@@ -29,7 +29,7 @@
                     <img id="criticalSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.criticalImg})}" />
                 </th:block>
                 <th:block th:if="${pd.criticalImg == pd.defaImg}">
-                    <img id="criticalSrc" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+                    <img id="criticalSrc" src="/images/defo/noimage.png" alt="pd_img" />
                 </th:block>
             </div>
             <div class="pd_form_item">
@@ -40,7 +40,7 @@
                     <img id="fumbleSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.fumbleImg})}" />
                 </th:block>
                 <th:block th:if="${pd.fumbleImg == pd.defaImg}">
-                    <img id="fumbleSrc" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+                    <img id="fumbleSrc" src="/images/defo/noimage.png" alt="pd_img" />
                 </th:block>
             </div>
         </div>
@@ -53,7 +53,7 @@
                     <img id="loadSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.loadImg})}" />
                 </th:block>
                 <th:block th:if="${pd.loadImg == pd.defaImg}">
-                    <img id="loadSrc" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+                    <img id="loadSrc" src="/images/defo/noimage.png" alt="pd_img" />
                 </th:block>
             </div>
             <div class="pd_form_item">
@@ -64,7 +64,7 @@
                     <img id="hoverSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.hoverImg})}" />
                 </th:block>
                 <th:block th:if="${pd.hoverImg == pd.defaImg}">
-                    <img id="hoverSrc" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+                    <img id="hoverSrc" src="/images/defo/noimage.png" alt="pd_img" />
                 </th:block>
             </div>
             <div class="pd_form_item">
@@ -75,7 +75,7 @@
                     <img id="activeSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.activeImg})}" />
                 </th:block>
                 <th:block th:if="${pd.activeImg == pd.defaImg}">
-                    <img id="activeSrc" src="/myapplications/images/defo/noimage.png" alt="pd_img" />
+                    <img id="activeSrc" src="/images/defo/noimage.png" alt="pd_img" />
                 </th:block>
             </div>
         </div>
@@ -111,7 +111,7 @@
         <script th:inline="javascript">
                                     /*<![CDATA[*/
     　　　　function picSubmit(){
-        if(document.getElementById('defaSrc').src == "http://localhost:8080/myapplications/images/defo/noimage.png"){
+        if(document.getElementById('defaSrc').src == "http://localhost:8080/images/defo/noimage.png"){
             alert("デフォルト画像を選択してください");
         }else{
             if(document.getElementById('defa').files[0] != null){
