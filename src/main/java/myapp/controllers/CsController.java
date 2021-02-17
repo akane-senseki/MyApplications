@@ -3,7 +3,9 @@ package myapp.controllers;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,6 +30,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.transfer.TransferManager;
+import com.amazonaws.services.s3.transfer.TransferManagerConfiguration;
+
 import myapp.config.SecurityData;
 import myapp.forms.PcEntityForm;
 import myapp.models.PcEntity;
@@ -36,8 +46,15 @@ import myapp.models.User;
 import myapp.repositories.PcLikeRepository;
 import myapp.repositories.PcRepository;
 
+
 @Controller
 public class CsController {
+    // アクセスキー
+    private static final String ACCESS_KEY = "AKIAZQSKYVWGET3XY7N4 ";
+    // シークレットアクセスキー
+    private static final String SECRET_ACCESS_KEY = "Ms6PE+wkWI1UDurOIZ30f9FZDVDN3LitJeX2IN2e";
+    // 分割サイズ
+    private static final long PART_SIZE = 5 * 1024L * 1024L;
 
     @Autowired
     HttpSession session; // セッション
@@ -90,11 +107,66 @@ public class CsController {
         return mv;
     }
 
+    @SuppressWarnings({ "resource", "deprecation" })
     @RequestMapping(value = "/cs/index", method = RequestMethod.GET)
-    public ModelAndView csIndex(@RequestParam(name = "page", required = false) Integer page, ModelAndView mv) {
+    public ModelAndView csIndex(@RequestParam(name = "page", required = false) Integer page, ModelAndView mv) throws IOException {
         if (page == null) {
             page = 1;
         }
+        //お試しS3に画像アップロード。
+        System.out.println("アップロード開始");
+        byte[] b;
+
+        // ファイルを読み込み
+        File file = new File(securitydate.getImg_path() + "defa/fun.png");
+        System.out.println(file.getName());
+        InputStream inputStream = new FileInputStream(file);
+        ByteArrayOutputStream bout = new ByteArrayOutputStream();
+        int data;
+        while ((data = inputStream.read()) != -1) {
+            bout.write(data);
+        }
+        b = bout.toByteArray();
+        System.out.println("bに格納");
+
+     // 長さ
+        long contentLength = b.length;
+
+        // 設定情報
+        BasicAWSCredentials credentials;
+        credentials = new BasicAWSCredentials(ACCESS_KEY, SECRET_ACCESS_KEY);
+
+        // AWSのクライアント取得
+        AmazonS3 s3 = new AmazonS3Client(credentials);
+
+        // バケット名
+        String bucketName = "picdemo";
+
+        // アップロードキー名(被ってたら上書される）
+        String key = "book.png";
+
+        // パスを指定することで指定の場所へ配置できる(ファイルがない場合は作成してくれる)
+        String objectPath = "challenge/" + key;
+
+        // TransferManagerを利用
+        TransferManager manager = new TransferManager(s3);
+
+        // 分割サイズを設定
+        TransferManagerConfiguration c = new TransferManagerConfiguration();
+        c.setMinimumUploadPartSize(PART_SIZE);
+        manager.setConfiguration(c);
+
+        // メタデータに分割したデータのサイズを指定
+        ObjectMetadata putMetaData = new ObjectMetadata();
+        putMetaData.setContentLength(contentLength);
+
+     // upload
+        PutObjectRequest object = new PutObjectRequest(bucketName, objectPath, new ByteArrayInputStream(b), putMetaData);
+        s3.putObject(object);
+
+
+
+
 
         Page<PcEntity> pc = pcrepository.findByDeleteFlagAndReleaseFlag(0, 0,
                 PageRequest.of(page - 1, 10, Sort.by("id").descending()));
@@ -155,6 +227,7 @@ public class CsController {
 
             //ここから画像のパス作成------------------------------------
 
+
             //画像保存場所+ログインユーザーIDでフォルダの作成
             File images = new File(securitydate.getImg_path() + u.getId());
             images.mkdirs();
@@ -196,6 +269,54 @@ public class CsController {
                         writer.write(data);
                     }
 
+                  //S3に画像アップロード。
+                    byte[] b;
+
+                    // ファイルを読み込み
+                    File file = new File(securitydate.getImg_path() + u.getId() + "/" + img_path);
+                    @SuppressWarnings("resource")
+                    InputStream inputStream = new FileInputStream(file);
+                    ByteArrayOutputStream bout = new ByteArrayOutputStream();
+                    int data1;
+                    while ((data1 = inputStream.read()) != -1) {
+                        bout.write(data1);
+                    }
+                    b = bout.toByteArray();
+
+                 // 長さ
+                    long contentLength = b.length;
+
+                    // 設定情報
+                    BasicAWSCredentials credentials;
+                    credentials = new BasicAWSCredentials(ACCESS_KEY, SECRET_ACCESS_KEY);
+
+                    // AWSのクライアント取得
+                    AmazonS3 s3 = new AmazonS3Client(credentials);
+
+                    // パスを指定することで指定の場所へ配置できる(ファイルがない場合は作成してくれるし同名だったら上書してくれる。)
+                    String objectPath = "/" + u.getId() + "/"  + img_path;
+
+                    // TransferManagerを利用
+                    TransferManager manager = new TransferManager(s3);
+
+                    // 分割サイズを設定
+                    TransferManagerConfiguration c = new TransferManagerConfiguration();
+                    c.setMinimumUploadPartSize(PART_SIZE);
+                    manager.setConfiguration(c);
+
+                    // メタデータに分割したデータのサイズを指定
+                    ObjectMetadata putMetaData = new ObjectMetadata();
+                    putMetaData.setContentLength(contentLength);
+
+                 // upload
+                    PutObjectRequest object = new PutObjectRequest("picdemo", objectPath, new ByteArrayInputStream(b), putMetaData);
+                    s3.putObject(object);
+
+
+
+
+
+
                 } catch (FileNotFoundException e) {
                     // TODO 自動生成された catch ブロック
                     e.printStackTrace();
@@ -206,6 +327,7 @@ public class CsController {
             } else {
                 p.setImgPath(null);
             }
+
 
             peForm.setToken(session.getId());
 

@@ -23,7 +23,7 @@
                             <img th:src="@{/images/{id}/{img_path}(id=*{user.id},img_path=*{imgPath})}" />
                         </th:block>
                         <th:block th:unless="*{imgPath != null}">
-                            <img src="/images/defo/noimage.png" />
+                            <img src="https://picdemo.s3-ap-northeast-1.amazonaws.com/defo/noimage.png" />
                         </th:block>
                     </div>
                     <div class="item">
