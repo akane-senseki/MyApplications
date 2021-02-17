@@ -1,13 +1,8 @@
 package myapp.controllers;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -45,7 +40,6 @@ import myapp.models.PcEntityLike;
 import myapp.models.User;
 import myapp.repositories.PcLikeRepository;
 import myapp.repositories.PcRepository;
-
 
 @Controller
 public class CsController {
@@ -93,80 +87,26 @@ public class CsController {
 
     @RequestMapping(value = "/cs/userLike", method = RequestMethod.GET)
     public ModelAndView csUserLikeIndex(ModelAndView mv) {
-            List<PcEntityLike> likes = pcLikerepository.findByUser((User) session.getAttribute("login_user"));
-            List<PcEntity> pc = new ArrayList<PcEntity>();
-            for (int i = 0; i < likes.size(); i++) {
-                if (likes.get(i).getPc_entity().getDeleteFlag() == 0) {
-                    pc.add(likes.get(i).getPc_entity());
-                }
+        List<PcEntityLike> likes = pcLikerepository.findByUser((User) session.getAttribute("login_user"));
+        List<PcEntity> pc = new ArrayList<PcEntity>();
+        for (int i = 0; i < likes.size(); i++) {
+            if (likes.get(i).getPc_entity().getDeleteFlag() == 0) {
+                pc.add(likes.get(i).getPc_entity());
             }
+        }
 
-            mv.addObject("pc", pc);
-            mv.setViewName("views/charactersheet/like");
+        mv.addObject("pc", pc);
+        mv.setViewName("views/charactersheet/like");
 
         return mv;
     }
 
-    @SuppressWarnings({ "resource", "deprecation" })
     @RequestMapping(value = "/cs/index", method = RequestMethod.GET)
-    public ModelAndView csIndex(@RequestParam(name = "page", required = false) Integer page, ModelAndView mv) throws IOException {
+    public ModelAndView csIndex(@RequestParam(name = "page", required = false) Integer page, ModelAndView mv)
+            throws IOException {
         if (page == null) {
             page = 1;
         }
-        //お試しS3に画像アップロード。
-        System.out.println("アップロード開始");
-        byte[] b;
-
-        // ファイルを読み込み
-        File file = new File(securitydate.getImg_path() + "defa/fun.png");
-        System.out.println(file.getName());
-        InputStream inputStream = new FileInputStream(file);
-        ByteArrayOutputStream bout = new ByteArrayOutputStream();
-        int data;
-        while ((data = inputStream.read()) != -1) {
-            bout.write(data);
-        }
-        b = bout.toByteArray();
-        System.out.println("bに格納");
-
-     // 長さ
-        long contentLength = b.length;
-
-        // 設定情報
-        BasicAWSCredentials credentials;
-        credentials = new BasicAWSCredentials(ACCESS_KEY, SECRET_ACCESS_KEY);
-
-        // AWSのクライアント取得
-        AmazonS3 s3 = new AmazonS3Client(credentials);
-
-        // バケット名
-        String bucketName = "picdemo";
-
-        // アップロードキー名(被ってたら上書される）
-        String key = "book.png";
-
-        // パスを指定することで指定の場所へ配置できる(ファイルがない場合は作成してくれる)
-        String objectPath = "challenge/" + key;
-
-        // TransferManagerを利用
-        TransferManager manager = new TransferManager(s3);
-
-        // 分割サイズを設定
-        TransferManagerConfiguration c = new TransferManagerConfiguration();
-        c.setMinimumUploadPartSize(PART_SIZE);
-        manager.setConfiguration(c);
-
-        // メタデータに分割したデータのサイズを指定
-        ObjectMetadata putMetaData = new ObjectMetadata();
-        putMetaData.setContentLength(contentLength);
-
-     // upload
-        PutObjectRequest object = new PutObjectRequest(bucketName, objectPath, new ByteArrayInputStream(b), putMetaData);
-        s3.putObject(object);
-
-
-
-
 
         Page<PcEntity> pc = pcrepository.findByDeleteFlagAndReleaseFlag(0, 0,
                 PageRequest.of(page - 1, 10, Sort.by("id").descending()));
@@ -227,11 +167,6 @@ public class CsController {
 
             //ここから画像のパス作成------------------------------------
 
-
-            //画像保存場所+ログインユーザーIDでフォルダの作成
-            File images = new File(securitydate.getImg_path() + u.getId());
-            images.mkdirs();
-
             //画像がアップロードされていたら
             if (!peForm.getCsImg().get(0).getOriginalFilename().equals("")
                     && peForm.getCsImg().get(0).getOriginalFilename() != null) {
@@ -255,79 +190,51 @@ public class CsController {
                 }
                 p.setImgPath(img_path);
 
-                //MultipartFile型をInputStream型にキャストしてる(入出力出来るように)
-                byte[] byteArr = imgFile.getBytes();
-                InputStream image = new ByteArrayInputStream(byteArr);
-                BufferedInputStream reader = new BufferedInputStream(image);
+                //S3に画像アップロード。
+                byte[] b = imgFile.getBytes();
 
-                try (
-                        FileOutputStream img = new FileOutputStream(
-                                securitydate.getImg_path() + u.getId() + "/" + img_path);
-                        BufferedOutputStream writer = new BufferedOutputStream(img);) {
-                    int data;
-                    while ((data = reader.read()) != -1) {
-                        writer.write(data);
-                    }
-
-                  //S3に画像アップロード。
-                    byte[] b;
-
-                    // ファイルを読み込み
-                    File file = new File(securitydate.getImg_path() + u.getId() + "/" + img_path);
-                    @SuppressWarnings("resource")
-                    InputStream inputStream = new FileInputStream(file);
-                    ByteArrayOutputStream bout = new ByteArrayOutputStream();
-                    int data1;
-                    while ((data1 = inputStream.read()) != -1) {
-                        bout.write(data1);
-                    }
-                    b = bout.toByteArray();
-
-                 // 長さ
-                    long contentLength = b.length;
-
-                    // 設定情報
-                    BasicAWSCredentials credentials;
-                    credentials = new BasicAWSCredentials(ACCESS_KEY, SECRET_ACCESS_KEY);
-
-                    // AWSのクライアント取得
-                    AmazonS3 s3 = new AmazonS3Client(credentials);
-
-                    // パスを指定することで指定の場所へ配置できる(ファイルがない場合は作成してくれるし同名だったら上書してくれる。)
-                    String objectPath = "/" + u.getId() + "/"  + img_path;
-
-                    // TransferManagerを利用
-                    TransferManager manager = new TransferManager(s3);
-
-                    // 分割サイズを設定
-                    TransferManagerConfiguration c = new TransferManagerConfiguration();
-                    c.setMinimumUploadPartSize(PART_SIZE);
-                    manager.setConfiguration(c);
-
-                    // メタデータに分割したデータのサイズを指定
-                    ObjectMetadata putMetaData = new ObjectMetadata();
-                    putMetaData.setContentLength(contentLength);
-
-                 // upload
-                    PutObjectRequest object = new PutObjectRequest("picdemo", objectPath, new ByteArrayInputStream(b), putMetaData);
-                    s3.putObject(object);
-
-
-
-
-
-
-                } catch (FileNotFoundException e) {
-                    // TODO 自動生成された catch ブロック
-                    e.printStackTrace();
-                } catch (IOException e1) {
-                    // TODO 自動生成された catch ブロック
-                    e1.printStackTrace();
+                // ファイルを読み込み
+                InputStream inputStream = new ByteArrayInputStream(b);
+                ByteArrayOutputStream bout = new ByteArrayOutputStream();
+                int data1;
+                while ((data1 = inputStream.read()) != -1) {
+                    bout.write(data1);
                 }
+                b = bout.toByteArray();
+
+                // 長さ
+                long contentLength = b.length;
+
+                // 設定情報
+                BasicAWSCredentials credentials;
+                credentials = new BasicAWSCredentials(ACCESS_KEY, SECRET_ACCESS_KEY);
+
+                // AWSのクライアント取得
+                AmazonS3 s3 = new AmazonS3Client(credentials);
+
+                // パスを指定することで指定の場所へ配置できる(ファイルがない場合は作成してくれるし同名だったら上書してくれる。)
+                String objectPath = "cs/" + u.getId() + "/" + img_path;
+
+                // TransferManagerを利用
+                TransferManager manager = new TransferManager(s3);
+
+                // 分割サイズを設定
+                TransferManagerConfiguration c = new TransferManagerConfiguration();
+                c.setMinimumUploadPartSize(PART_SIZE);
+                manager.setConfiguration(c);
+
+                // メタデータに分割したデータのサイズを指定
+                ObjectMetadata putMetaData = new ObjectMetadata();
+                putMetaData.setContentLength(contentLength);
+
+                // upload
+                PutObjectRequest object = new PutObjectRequest("picdemo", objectPath, new ByteArrayInputStream(b),
+                        putMetaData);
+                s3.putObject(object);
+
             } else {
                 p.setImgPath(null);
             }
-
 
             peForm.setToken(session.getId());
 
@@ -354,10 +261,9 @@ public class CsController {
         ModelMapper modelMapper = new ModelMapper();
         peForm = modelMapper.map(oppc.orElse(new PcEntity()), PcEntityForm.class);
         String pd = "--";
-        if(peForm.getCon() != 0 && peForm.getSiz() != 0) {
+        if (peForm.getCon() != 0 && peForm.getSiz() != 0) {
             pd = peForm.getDb(peForm.getCon(), peForm.getSiz());
         }
-
 
         mv.addObject("pc", peForm);
         mv.addObject("pd", pd);
@@ -386,7 +292,7 @@ public class CsController {
         peForm = modelMapper.map(p.orElse(new PcEntity()), PcEntityForm.class);
         peForm.setToken(session.getId());
         String pd = "--";
-        if(peForm.getCon() != 0 && peForm.getSiz() != 0) {
+        if (peForm.getCon() != 0 && peForm.getSiz() != 0) {
             pd = peForm.getDb(peForm.getCon(), peForm.getSiz());
         }
         System.out.println(pd);
@@ -404,12 +310,10 @@ public class CsController {
         if (peForm.getToken() != null && peForm.getToken().equals(session.getId())) {
             Optional<PcEntity> opp = pcrepository.findById((Integer) session.getAttribute("pcId"));
             PcEntity p = opp.orElse(null);
-            //orElse……存在しない場合はother(この場合はnull)を返却する。
 
             p.setName(peForm.getName());
             p.setNameRuby(peForm.getNameRuby());
             p.setReleaseFlag(peForm.getReleaseFlag());
-
 
             p.setStr(peForm.getStr());
             p.setCon(peForm.getCon());
@@ -429,14 +333,15 @@ public class CsController {
             if (!peForm.getCsImg().get(0).getOriginalFilename().equals("")
                     && peForm.getCsImg().get(0).getOriginalFilename() != null) {
 
-                //登録されていた画像の削除
-                File delete_images = new File(securitydate.getImg_path() + u.getId() + "/" + p.getImgPath());
+                //登録されていた画像の削除(ローカル)
+                File delete_images = new File( u.getId() + "/" + p.getImgPath());
+                String deletePath = "cs/" + u.getId() + "/" + p.getImgPath();
                 delete_images.delete();
 
                 //ここからcreate時と同様の処理
-                MultipartFile img_file = peForm.getCsImg().get(peForm.getCsImg().size() - 1);
+                MultipartFile imgFile = peForm.getCsImg().get(peForm.getCsImg().size() - 1);
 
-                String img_name = img_file.getOriginalFilename();
+                String img_name = imgFile.getOriginalFilename();
                 String extension = img_name.substring(img_name.lastIndexOf("."));//最後の.より右側の文字(拡張子)を取得
                 String img_path = (int) (Math.floor(Math.random() * 1000000000)) + extension;
                 List<PcEntity> pc = pcrepository.findByUserAndDeleteFlag(u, 0);
@@ -453,27 +358,49 @@ public class CsController {
                 }
                 p.setImgPath(img_path);
 
-                //MultipartFile型をInputStream型にキャストしてる(入出力出来るように)
-                byte[] byteArr = img_file.getBytes();
-                InputStream image = new ByteArrayInputStream(byteArr);
-                BufferedInputStream reader = new BufferedInputStream(image);
+                //S3に画像アップロード。
+                byte[] b = imgFile.getBytes();
 
-                try (
-                        FileOutputStream img = new FileOutputStream(
-                                securitydate.getImg_path() + u.getId() + "/" + img_path);
-                        BufferedOutputStream writer = new BufferedOutputStream(img);) {
-                    int data;
-                    while ((data = reader.read()) != -1) {
-                        writer.write(data);
-                    }
-
-                } catch (FileNotFoundException e) {
-                    // TODO 自動生成された catch ブロック
-                    e.printStackTrace();
-                } catch (IOException e1) {
-                    // TODO 自動生成された catch ブロック
-                    e1.printStackTrace();
+                // ファイルを読み込み
+                InputStream inputStream = new ByteArrayInputStream(b);
+                ByteArrayOutputStream bout = new ByteArrayOutputStream();
+                int data1;
+                while ((data1 = inputStream.read()) != -1) {
+                    bout.write(data1);
                 }
+                b = bout.toByteArray();
+
+                // 長さ
+                long contentLength = b.length;
+
+                // 設定情報
+                BasicAWSCredentials credentials;
+                credentials = new BasicAWSCredentials(ACCESS_KEY, SECRET_ACCESS_KEY);
+
+                // AWSのクライアント取得
+                AmazonS3 s3 = new AmazonS3Client(credentials);
+
+                // パスを指定することで指定の場所へ配置できる(ファイルがない場合は作成してくれるし同名だったら上書してくれる。)
+                String objectPath = "cs/" + u.getId() + "/" + img_path;
+
+                // TransferManagerを利用
+                TransferManager manager = new TransferManager(s3);
+
+                // 分割サイズを設定
+                TransferManagerConfiguration c = new TransferManagerConfiguration();
+                c.setMinimumUploadPartSize(PART_SIZE);
+                manager.setConfiguration(c);
+
+                // メタデータに分割したデータのサイズを指定
+                ObjectMetadata putMetaData = new ObjectMetadata();
+                putMetaData.setContentLength(contentLength);
+
+                // upload
+                PutObjectRequest object = new PutObjectRequest("picdemo", objectPath, new ByteArrayInputStream(b),
+                        putMetaData);
+                s3.putObject(object);
+                s3.deleteObject("picdemo", deletePath);
+
             }
 
             peForm.setToken(session.getId());
