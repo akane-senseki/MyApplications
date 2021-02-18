@@ -180,7 +180,7 @@ public class DemoBattleController {
 
             mv.addObject("log" , log);
         }else {
-            errorlog.add("永遠ループしている可能性があります");
+            errorlog.add("無限ループしている可能性があります");
             errorlog.add("技能値等の確認を行ってください");
             mv.addObject("log" , errorlog);
         }

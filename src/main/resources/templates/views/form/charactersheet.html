@@ -6,9 +6,9 @@
     <div class="cs_form" th:fragment="registForm(charactersheet)">
         <div class="cs_form_container">
             <div class="cs_form_item">
-                <label for="csImg">画像をアップロード</label>
+                <label class="picButton" for="csImg">画像をアップロード</label>
                 <br />
-                <input type="file" name="csImg" id="cs_img" accept=".png,.jpg,.jpeg">
+                <input class="picInput" type="file" name="csImg" id="cs_img" accept=".png,.jpg,.jpeg">
                 <th:block th:if="${pc.imgPath == null}">
                     <img id="preview" src="https://picdemo.s3-ap-northeast-1.amazonaws.com/defo/noimage.png" alt="cs_img" />
                 </th:block>
@@ -131,7 +131,7 @@
                     </tr>
                     <tr>
                         <th>頭突き</th>
-                        <td>10</td>
+                        <td>30</td>
                         <td>
                             <input type="number" name="headbuttAdd" id="headbutt_add" class="input_min" onkeyup="show()" th:value="${pc.headbuttAdd}" />
                         </td>
@@ -155,7 +155,7 @@
                                 document.getElementById('avoidance').innerHTML = parseInt(/*[[ ${pc.avoidanceAdd} ]]*/) + ( /*[[ ${pc.dex} ]]*/ )*2;
                                 document.getElementById('kick').innerHTML = parseInt(/*[[ ${pc.kickAdd} ]]*/) + 25 ;
                                 document.getElementById('fist').innerHTML = parseInt(/*[[ ${pc.fistAdd} ]]*/) + 50 ;
-                                document.getElementById('headbutt').innerHTML = parseInt(/*[[ ${pc.headbuttAdd} ]]*/) + 40 ;
+                                document.getElementById('headbutt').innerHTML = parseInt(/*[[ ${pc.headbuttAdd} ]]*/) + 30 ;
 
 
                             }

@@ -73,6 +73,14 @@ button {
     background: #ccc;
     color: #333;
 }
+.picButton{
+        @include button();
+    background: #ccc;
+    color: #333;
+}
+.picInput{
+    display:none;
+}
 
 .wrapper {
     overflow: hidden;
@@ -698,6 +706,7 @@ main {
 .pd_form {
     .pd_form_container {
         display: flex;
+        justify-content: space-around;
 
         img {
             width: 200px;

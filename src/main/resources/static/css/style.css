@@ -65,6 +65,29 @@ button {
     box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.32);
     background-image: linear-gradient(#fed6e3 0%, #7B94B5 100%); }
 
+.picButton {
+  display: inline-block;
+  text-align: center;
+  margin: 10px auto 10px auto;
+  text-decoration: none;
+  border: solid 2px;
+  padding: 8px 30px;
+  font-family: "Microsoft JhengHei UI";
+  color: #393f4c;
+  background-image: linear-gradient(#fed6e3 0%, #b0c4de 100%);
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
+  background: #ccc;
+  color: #333; }
+  .picButton:hover {
+    background-image: linear-gradient(#FFEDF3 0%, #b0c4de 100%); }
+  .picButton:active {
+    box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.32);
+    background-image: linear-gradient(#fed6e3 0%, #7B94B5 100%); }
+
+.picInput {
+  display: none; }
+
 .wrapper {
   overflow: hidden;
   margin: 0;
@@ -529,7 +552,8 @@ main {
         filter: drop-shadow(3px 3px 0px #fff); }
 
 .pd_form .pd_form_container {
-  display: flex; }
+  display: flex;
+  justify-content: space-around; }
   .pd_form .pd_form_container img {
     width: 200px; }
 

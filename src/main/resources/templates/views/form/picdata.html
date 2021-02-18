@@ -11,9 +11,9 @@
         <br />
         <div class="pd_form_container">
             <div class="pd_form_item">
-                <label for="defa">デフォルト画像</label>
+                <label class="picButton" for="defa">デフォルト画像</label>
                 <br />
-                <input type="file" name="defa" id="defa" accept=".png,.jpg,.jpeg" onChange="change();" />
+                <input class="picInput" type="file" name="defa" id="defa" accept=".png,.jpg,.jpeg" onChange="change();" />
                 <th:block th:if="${pd.defaImg != null}">
                     <img id="defaSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.defaImg})}" />
                 </th:block>
@@ -22,9 +22,9 @@
                 </th:block>
             </div>
             <div class="pd_form_item">
-                <label for="critical">クリティカル差分</label>
+                <label class="picButton" for="critical">クリティカル差分</label>
                 <br />
-                <input type="file" name="critical" id="critical" accept=".png,.jpg,.jpeg" onChange="change();" />
+                <input class="picInput" type="file" name="critical" id="critical" accept=".png,.jpg,.jpeg" onChange="change();" />
                 <th:block th:if="${pd.criticalImg != null && pd.criticalImg != pd.defaImg}">
                     <img id="criticalSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.criticalImg})}" />
                 </th:block>
@@ -33,9 +33,9 @@
                 </th:block>
             </div>
             <div class="pd_form_item">
-                <label for="fumble">ファンブル差分</label>
+                <label class="picButton" for="fumble">ファンブル差分</label>
                 <br />
-                <input type="file" name="fumble" id="fumble" accept=".png,.jpg,.jpeg" onChange="change();" />
+                <input class="picInput" type="file" name="fumble" id="fumble" accept=".png,.jpg,.jpeg" onChange="change();" />
                 <th:block th:if="${pd.fumbleImg != null && pd.fumbleImg != pd.defaImg}">
                     <img id="fumbleSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.fumbleImg})}" />
                 </th:block>
@@ -46,9 +46,9 @@
         </div>
         <div class="pd_form_container">
             <div class="pd_form_item">
-                <label for="load">読み込み中差分</label>
+                <label class="picButton" for="load">読み込み中差分</label>
                 <br />
-                <input type="file" name="load" id="load" accept=".png,.jpg,.jpeg" onChange="change();" />
+                <input class="picInput" type="file" name="load" id="load" accept=".png,.jpg,.jpeg" onChange="change();" />
                 <th:block th:if="${pd.loadImg != null && pd.loadImg != pd.defaImg}">
                     <img id="loadSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.loadImg})}" />
                 </th:block>
@@ -57,9 +57,9 @@
                 </th:block>
             </div>
             <div class="pd_form_item">
-                <label for="hover">ホバー時差分</label>
+                <label class="picButton" for="hover">ホバー時差分</label>
                 <br />
-                <input type="file" name="hover" id="hover" accept=".png,.jpg,.jpeg" onChange="change();">
+                <input class="picInput" type="file" name="hover" id="hover" accept=".png,.jpg,.jpeg" onChange="change();">
                 <th:block th:if="${pd.hoverImg != null && pd.hoverImg != pd.defaImg}">
                     <img id="hoverSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.hoverImg})}" />
                 </th:block>
@@ -68,9 +68,9 @@
                 </th:block>
             </div>
             <div class="pd_form_item">
-                <label for="active">クリック時差分</label>
+                <label class="picButton" for="active">クリック時差分</label>
                 <br />
-                <input type="file" name="active" id="active" accept=".png,.jpg,.jpeg" onChange="change();">
+                <input class="picInput" type="file" name="active" id="active" accept=".png,.jpg,.jpeg" onChange="change();">
                 <th:block th:if="${pd.activeImg != null && pd.activeImg != pd.defaImg}">
                     <img id="activeSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.activeImg})}" />
                 </th:block>
