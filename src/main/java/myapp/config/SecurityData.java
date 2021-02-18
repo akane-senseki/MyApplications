@@ -40,6 +40,42 @@ public class SecurityData {
         this.picPath = picPath;
     }
 
+    //S3用ユーザー
+    @Value("${user}")
+    private String user;
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    //S3用アクセスキー
+    @Value("${acKey}")
+    private String acKey;
+
+    public String getAcKey() {
+        return acKey;
+    }
+
+    public void setAcKey(String acKey) {
+        this.acKey = acKey;
+    }
+
+    //S3用アクセスキー
+    @Value("${scKey}")
+    private String scKey;
+
+    public String getScKey() {
+        return scKey;
+    }
+
+    public void setScKey(String scKey) {
+        this.scKey = scKey;
+    }
+
 
 
 }

@@ -148,7 +148,7 @@ public class PcEntityForm extends PcEntity{
     public int attackSkill(){     //一番技能値が高い戦闘技能のダイスの値---------------------
         if(this.getKick() > this.getFist() && this.getKick() > this.getHeadbutt()){
             return getKick();
-        }else if(this.getFist() > this.getHeadbutt()){ //等しい場合は頭突きに-----------------------
+        }else if(this.getHeadbutt() > this.getFist()){ //等しい場合は頭突きに-----------------------
             return getHeadbutt();
         }else{
             return getFist();

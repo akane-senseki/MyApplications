@@ -73,6 +73,14 @@ button {
     background: #ccc;
     color: #333;
 }
+.picButton{
+    @include button();
+    background: #ccc;
+    color: #333;
+}
+.picInput{
+    display:none;
+}
 
 .wrapper {
     overflow: hidden;
@@ -374,7 +382,6 @@ main {
         .checkP {
             background: #f5b1aa;
             color: #640125;
-
         }
     }
 }
@@ -409,7 +416,7 @@ main {
 .cs_form {
 
     img {
-        width: 200px;
+        width: 210px;
     }
 
     .cs_form_container {
@@ -479,6 +486,34 @@ main {
     }
 
 }
+
+//csエラーテキスト装飾用
+.eWrp{
+    position: relative;
+    span{
+            background: #f5b1aa;
+            color: #640125;
+            position: absolute;
+            padding: 5px;
+            width: 131px;
+        bottom: -40px;
+
+    }
+
+    #sizE{
+        right: 247px;
+    }
+    #dexE{
+    right: 390px;
+}
+#conE{
+    left: 191px;
+}
+#strE{
+        left: 49px;
+}
+}
+
 
 //CSのindexページ--------------------------------------
 .cs_index_wrapper {
@@ -695,12 +730,18 @@ main {
 //pdForm---------------------
 
 .pd_form {
+    margin-top: 60px;
     .pd_form_container {
+        text-align: center;
         display: flex;
+        justify-content: space-around;
 
         img {
             width: 200px;
         }
+    .item{
+
+    }
     }
 }
 

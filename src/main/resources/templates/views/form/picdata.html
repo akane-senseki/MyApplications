@@ -10,10 +10,10 @@
         <br />
         <br />
         <div class="pd_form_container">
-            <div class="pd_form_item">
-                <label for="defa">デフォルト画像</label>
+            <div class="item">
+                <label for="defa" class="picButton">デフォルト画像</label>
                 <br />
-                <input type="file" name="defa" id="defa" accept=".png,.jpg,.jpeg" onChange="change();" />
+                <input type="file" name="defa" id="defa" class="picInput" accept=".png,.jpg,.jpeg" onChange="change();" />
                 <th:block th:if="${pd.defaImg != null}">
                     <img id="defaSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.defaImg})}" />
                 </th:block>
@@ -21,10 +21,10 @@
                     <img id="defaSrc" src="https://picdemo.s3-ap-northeast-1.amazonaws.com/defo/noimage.png" alt="pd_img" />
                 </th:block>
             </div>
-            <div class="pd_form_item">
-                <label for="critical">クリティカル差分</label>
+            <div class="item">
+                <label for="critical" class="picButton">クリティカル差分</label>
                 <br />
-                <input type="file" name="critical" id="critical" accept=".png,.jpg,.jpeg" onChange="change();" />
+                <input type="file" name="critical" id="critical" class="picInput" accept=".png,.jpg,.jpeg" onChange="change();" />
                 <th:block th:if="${pd.criticalImg != null && pd.criticalImg != pd.defaImg}">
                     <img id="criticalSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.criticalImg})}" />
                 </th:block>
@@ -32,10 +32,10 @@
                     <img id="criticalSrc" src="https://picdemo.s3-ap-northeast-1.amazonaws.com/defo/noimage.png" alt="pd_img" />
                 </th:block>
             </div>
-            <div class="pd_form_item">
-                <label for="fumble">ファンブル差分</label>
+            <div class="item">
+                <label for="fumble" class="picButton">ファンブル差分</label>
                 <br />
-                <input type="file" name="fumble" id="fumble" accept=".png,.jpg,.jpeg" onChange="change();" />
+                <input type="file" name="fumble" id="fumble" class="picInput" accept=".png,.jpg,.jpeg" onChange="change();" />
                 <th:block th:if="${pd.fumbleImg != null && pd.fumbleImg != pd.defaImg}">
                     <img id="fumbleSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.fumbleImg})}" />
                 </th:block>
@@ -45,10 +45,10 @@
             </div>
         </div>
         <div class="pd_form_container">
-            <div class="pd_form_item">
-                <label for="load">読み込み中差分</label>
+            <div class="item">
+                <label for="load" class="picButton">読み込み中差分</label>
                 <br />
-                <input type="file" name="load" id="load" accept=".png,.jpg,.jpeg" onChange="change();" />
+                <input type="file" name="load" id="load" class="picInput" accept=".png,.jpg,.jpeg" onChange="change();" />
                 <th:block th:if="${pd.loadImg != null && pd.loadImg != pd.defaImg}">
                     <img id="loadSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.loadImg})}" />
                 </th:block>
@@ -56,10 +56,10 @@
                     <img id="loadSrc" src="https://picdemo.s3-ap-northeast-1.amazonaws.com/defo/noimage.png" alt="pd_img" />
                 </th:block>
             </div>
-            <div class="pd_form_item">
-                <label for="hover">ホバー時差分</label>
+            <div class="item">
+                <label for="hover" class="picButton">ホバー時差分</label>
                 <br />
-                <input type="file" name="hover" id="hover" accept=".png,.jpg,.jpeg" onChange="change();">
+                <input type="file" name="hover" id="hover" class="picInput" accept=".png,.jpg,.jpeg" onChange="change();">
                 <th:block th:if="${pd.hoverImg != null && pd.hoverImg != pd.defaImg}">
                     <img id="hoverSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.hoverImg})}" />
                 </th:block>
@@ -67,10 +67,10 @@
                     <img id="hoverSrc" src="https://picdemo.s3-ap-northeast-1.amazonaws.com/defo/noimage.png" alt="pd_img" />
                 </th:block>
             </div>
-            <div class="pd_form_item">
-                <label for="active">クリック時差分</label>
+            <div class="item">
+                <label for="active" class="picButton">クリック時差分</label>
                 <br />
-                <input type="file" name="active" id="active" accept=".png,.jpg,.jpeg" onChange="change();">
+                <input type="file" name="active" id="active" class="picInput" accept=".png,.jpg,.jpeg" onChange="change();">
                 <th:block th:if="${pd.activeImg != null && pd.activeImg != pd.defaImg}">
                     <img id="activeSrc" th:src="@{/images/pd/{userId}/{id}/{Img}(userId=${pd.user.id},id=${pd.id},Img=${pd.activeImg})}" />
                 </th:block>
@@ -111,7 +111,7 @@
         <script th:inline="javascript">
                                     /*<![CDATA[*/
     　　　　function picSubmit(){
-        if(document.getElementById('defaSrc').src == "http://localhost:8080https://picdemo.s3-ap-northeast-1.amazonaws.com/defo/noimage.png"){
+        if(document.getElementById('defaSrc').src == "https://picdemo.s3-ap-northeast-1.amazonaws.com/defo/noimage.png"){
             alert("デフォルト画像を選択してください");
         }else{
             if(document.getElementById('defa').files[0] != null){
