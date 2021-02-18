@@ -43,6 +43,12 @@ import myapp.repositories.PcRepository;
 
 @Controller
 public class CsController {
+    // アクセスキー
+    private static final String ACCESS_KEY = "AKIAZQSKYVWGET3XY7N4 ";
+    // シークレットアクセスキー
+    private static final String SECRET_ACCESS_KEY = "Ms6PE+wkWI1UDurOIZ30f9FZDVDN3LitJeX2IN2e";
+    // 分割サイズ
+    private static final long PART_SIZE = 5 * 1024L * 1024L;
 
     @Autowired
     HttpSession session; // セッション
@@ -55,9 +61,6 @@ public class CsController {
 
     @Autowired
     PcLikeRepository pcLikerepository;
-
-    // 分割サイズ
-    private static final long PART_SIZE = 5 * 1024L * 1024L;
 
     @RequestMapping(value = "/cs/user", method = RequestMethod.GET)
     public ModelAndView csUserIndex(@RequestParam(name = "page", required = false) Integer page, ModelAndView mv) {
@@ -204,7 +207,7 @@ public class CsController {
 
                 // 設定情報
                 BasicAWSCredentials credentials;
-                credentials = new BasicAWSCredentials(securitydate.getAcKey(), securitydate.getScKey());
+                credentials = new BasicAWSCredentials(ACCESS_KEY, SECRET_ACCESS_KEY);
 
                 // AWSのクライアント取得
                 AmazonS3 s3 = new AmazonS3Client(credentials);
@@ -372,7 +375,7 @@ public class CsController {
 
                 // 設定情報
                 BasicAWSCredentials credentials;
-                credentials = new BasicAWSCredentials(securitydate.getAcKey(), securitydate.getScKey());
+                credentials = new BasicAWSCredentials(ACCESS_KEY, SECRET_ACCESS_KEY);
 
                 // AWSのクライアント取得
                 AmazonS3 s3 = new AmazonS3Client(credentials);

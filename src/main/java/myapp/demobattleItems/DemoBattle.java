@@ -18,11 +18,7 @@ public class DemoBattle {
         log.add(attacker.attack() + attackerDb + ":[" + damage + "," + dbDamage + "] >" + (damage + dbDamage));
         log.add("");
         beforeHp = defender.getHp()+"";
-        int atcDamage = damage + dbDamage ;
-        if(atcDamage < 0) {
-            atcDamage = 0 ;
-        }
-        defender.setHp(defender.getHp() - atcDamage);
+        defender.setHp(defender.getHp() - (damage + dbDamage));
         log.add(defender.getName() + "の体力");
         log.add(beforeHp + " → " + defender.getHp());
         log.add("");

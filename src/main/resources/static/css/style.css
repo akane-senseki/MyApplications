@@ -65,29 +65,6 @@ button {
     box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.32);
     background-image: linear-gradient(#fed6e3 0%, #7B94B5 100%); }
 
-.picButton {
-  display: inline-block;
-  text-align: center;
-  margin: 10px auto 10px auto;
-  text-decoration: none;
-  border: solid 2px;
-  padding: 8px 30px;
-  font-family: "Microsoft JhengHei UI";
-  color: #393f4c;
-  background-image: linear-gradient(#fed6e3 0%, #b0c4de 100%);
-  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
-  background: #ccc;
-  color: #333; }
-  .picButton:hover {
-    background-image: linear-gradient(#FFEDF3 0%, #b0c4de 100%); }
-  .picButton:active {
-    box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.32);
-    background-image: linear-gradient(#fed6e3 0%, #7B94B5 100%); }
-
-.picInput {
-  display: none; }
-
 .wrapper {
   overflow: hidden;
   margin: 0;
@@ -327,7 +304,7 @@ main {
   opacity: 0.8; }
 
 .cs_form img {
-  width: 210px; }
+  width: 200px; }
 .cs_form .cs_form_container {
   margin-top: 60px;
   display: flex;
@@ -372,24 +349,6 @@ main {
     width: 100px;
     font-size: 1.3rem;
     padding: 5px 10px; }
-
-.eWrp {
-  position: relative; }
-  .eWrp span {
-    background: #f5b1aa;
-    color: #640125;
-    position: absolute;
-    padding: 5px;
-    width: 131px;
-    bottom: -40px; }
-  .eWrp #sizE {
-    right: 247px; }
-  .eWrp #dexE {
-    right: 390px; }
-  .eWrp #conE {
-    left: 191px; }
-  .eWrp #strE {
-    left: 49px; }
 
 .cs_index_wrapper {
   text-align: center; }
@@ -567,14 +526,10 @@ main {
         max-height: 200px;
         filter: drop-shadow(3px 3px 0px #fff); }
 
-.pd_form {
-  margin-top: 60px; }
-  .pd_form .pd_form_container {
-    text-align: center;
-    display: flex;
-    justify-content: space-around; }
-    .pd_form .pd_form_container img {
-      width: 200px; }
+.pd_form .pd_form_container {
+  display: flex; }
+  .pd_form .pd_form_container img {
+    width: 200px; }
 
 .pcDicePlay {
   text-align: center;

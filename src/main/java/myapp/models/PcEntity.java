@@ -150,6 +150,8 @@ public class PcEntity {
         this.fistAdd = fistAdd;
     }
 
+
+
     public int getHeadbuttAdd() {         //頭突き-----------------------------
         return headbuttAdd;
     }

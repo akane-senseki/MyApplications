@@ -31,10 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-application.properties
-applicationLocal.properties
-applicationHe.properties
-security.properties
-securityLocal.properties
-securityHe.properties
