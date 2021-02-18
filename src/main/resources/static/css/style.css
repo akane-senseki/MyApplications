@@ -489,8 +489,10 @@ main {
       .dbSelectWarapper .dbSelect .dbSelectContainer .selectList img {
         width: 60px; }
 
-.logWarraper .none {
-  display: none; }
+.logWarraper {
+  margin-top: 60px; }
+  .logWarraper .none {
+    display: none; }
 
 .pdIndexWrapper {
   text-align: center; }

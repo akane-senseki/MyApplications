@@ -55,6 +55,7 @@ public class DemoBattleController {
         pc2.setHp((pc2.getCon() + pc2.getSiz())/2);
 
         List<String> log = new ArrayList<String>();
+        List<String> errorlog = new ArrayList<String>();
 
         if (pc1.getDex() == pc2.getDex()) {
             first = pc1;
@@ -72,7 +73,7 @@ public class DemoBattleController {
 
         //ここからログ作成-----------------------------------------------
 
-        while (first.getHp() > 0 && latter.getHp() > 0) {
+        while (first.getHp() > 0 && latter.getHp() > 0 && round < 100) {
             log.add("▼"+first.getName() + "の行動");
             roll = (int) Math.ceil(Math.random() * 100);
 
@@ -170,13 +171,21 @@ public class DemoBattleController {
             log.add("&nbsp;");
         }
 
-        if (first.getHp() < 3) {
-            log.add("勝者：" + latter.getName());
-        } else {
-            log.add("勝者：" + first.getName());
+        if(round < 100) {
+            if (first.getHp() < 3) {
+                log.add("勝者：" + latter.getName());
+            } else {
+                log.add("勝者：" + first.getName());
+            }
+
+            mv.addObject("log" , log);
+        }else {
+            errorlog.add("永遠ループしている可能性があります");
+            errorlog.add("技能値等の確認を行ってください");
+            mv.addObject("log" , errorlog);
         }
 
-        mv.addObject("log" , log);
+
         mv.setViewName("/views/demobattle/log");
 
         return mv;

@@ -13,7 +13,7 @@
                     <img id="preview" src="https://picdemo.s3-ap-northeast-1.amazonaws.com/defo/noimage.png" alt="cs_img" />
                 </th:block>
                 <th:block th:unless="${pc.imgPath == null}">
-                    <img id="preview" th:src="@{/images/{id}/{img_path}(id=${pc.user.id},img_path=${pc.imgPath})}" alt="cs_img" />
+                    <img id="preview" th:src="@{https://picdemo.s3-ap-northeast-1.amazonaws.com/cs/{id}/{img_path}(id=${pc.user.id},img_path=${pc.imgPath})}" alt="cs_img" />
                 </th:block>
                 <script type="text/javascript">
 //画像をプレビューする

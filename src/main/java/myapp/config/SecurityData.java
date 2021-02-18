@@ -40,6 +40,32 @@ public class SecurityData {
         this.picPath = picPath;
     }
 
+    //Csアクセスキー
+    @Value("${acKey}")
+    private String acKey;
+
+    public String getAcKey() {
+        return acKey;
+    }
+
+    public void setAcKey(String acKey) {
+        this.acKey = acKey;
+    }
+
+    //Csシークレットアクセスキー
+    @Value("${scKey}")
+    private String scKey;
+
+    public String getScKey() {
+        return scKey;
+    }
+
+    public void setScKey(String scKey) {
+        this.scKey = scKey;
+    }
+
+
+
 
 
 }
