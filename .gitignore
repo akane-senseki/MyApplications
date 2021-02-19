@@ -33,4 +33,4 @@ build/
 .vscode/
 
 
-security.properties
+###security.properties
