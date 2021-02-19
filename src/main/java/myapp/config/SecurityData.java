@@ -17,29 +17,6 @@ public class SecurityData {
     public void setPepper(String pepper) {
         this.pepper = pepper;
     }
-    //キャラシ画像の保存場所
-    @Value("${img_path}")
-    private String img_path;
-
-    public String getImg_path() {
-        return img_path;
-    }
-
-    public void setImg_path(String img_path) {
-        this.img_path = img_path;
-    }
-    //PcDiceの画像の保存場所
-    @Value("${picPath}")
-    private String picPath;
-
-    public String getPicPath() {
-        return picPath;
-    }
-
-    public void setPicPath(String picPath) {
-        this.picPath = picPath;
-    }
-
     //Csアクセスキー
     @Value("${acKey}")
     private String acKey;

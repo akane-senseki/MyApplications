@@ -2,7 +2,6 @@ package myapp.controllers;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -425,9 +424,9 @@ public class CsController {
             p.setDeleteFlag(1);
 
             //保存している画像の削除
-            User u = (User) session.getAttribute("login_user");
+            /*            User u = (User) session.getAttribute("login_user");
             File delete_images = new File(securitydate.getImg_path() + u.getId() + "/" + p.getImgPath());
-            delete_images.delete();
+            delete_images.delete();*/
 
             pcrepository.save(p);
             session.removeAttribute("pcId");

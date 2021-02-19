@@ -29,50 +29,6 @@
             <img id="rollImg" th:src="@{https://picdemo.s3-ap-northeast-1.amazonaws.com/pd/{userId}/{id}/{defaImg}(userId=${pic.user.id},id=${pic.id},defaImg=${pic.defaImg})}" onclick="roll();" onmouseover="hover();" onmouseleave="notHover();" />
             <p id="rollNum" onclick="roll();">PUSH</p>
         </div>
-        <script th:inline="javascript">
-                                    /*<![CDATA[*/
-                                        function notHover(){
-                                            document.getElementById("rollImg").src = /*[[ @{https://picdemo.s3-ap-northeast-1.amazonaws.com/pd/{userId}/{id}/{Img}(userId=${pic.user.id},id=${pic.id},Img=${pic.defaImg})} ]]*/ "";
-                                    }
-                                        function hover(){
-                                            document.getElementById("rollImg").src = /*[[ @{https://picdemo.s3-ap-northeast-1.amazonaws.com/pd/{userId}/{id}/{Img}(userId=${pic.user.id},id=${pic.id},Img=${pic.hoverImg})} ]]*/ "";
-                                    }
-
-                                    function change() {
-                                        var random = Math.floor(Math.random()*100 + 1);
-                                        document.getElementById("rollNum").innerHTML = random ;
-                                        if(random > 95){
-                                            document.getElementById("rollImg").src = /*[[ @{https://picdemo.s3-ap-northeast-1.amazonaws.com/pd/{userId}/{id}/{Img}(userId=${pic.user.id},id=${pic.id},Img=${pic.fumbleImg})} ]]*/ "";
-                                            }else if(random < 6){
-                                                document.getElementById("rollImg").src = /*[[ @{https://picdemo.s3-ap-northeast-1.amazonaws.com/pd/{userId}/{id}/{Img}(userId=${pic.user.id},id=${pic.id},Img=${pic.criticalImg})} ]]*/ "";
-                                            }else{
-                                                document.getElementById("rollImg").src = /*[[ @{https://picdemo.s3-ap-northeast-1.amazonaws.com/pd/{userId}/{id}/{Img}(userId=${pic.user.id},id=${pic.id},Img=${pic.defaImg})} ]]*/ "";
-                                            }
-                                        }
-                                    function roll(){
-                                        document.getElementById("rollImg").src = /*[[ @{https://picdemo.s3-ap-northeast-1.amazonaws.com/pd/{userId}/{id}/{loadImg}(userId=${pic.user.id},id=${pic.id},loadImg=${pic.loadImg})} ]]*/ "";
-
-                                        var count = 0;
-                                        var Num = function(){
-                                            var rdm = Math.floor(Math.random()*100);
-                                            document.getElementById("rollNum").innerHTML = rdm ;
-                                            count += 50 ;
-                                        }
-                                        function loading(){
-                                        loadingNum = setInterval(function(){
-                                            Num();
-
-                                            if(count > 1200){
-                                                clearInterval(loadingNum);
-                                            }
-                                        },50);
-                                    }
-                                        loading();
-                                        setTimeout("change();" , 1300);
-
-                                    }
-                                    /*]]>*/
-                                </script>
         <div id="picMenu" class="picMenu none">
             <a class="xbutton" href="#" onclick="showMenu();">×</a>
             <div class="slidebar">
@@ -102,6 +58,50 @@
     </div>
     <script th:inline="javascript">
             /*<![CDATA[*/
+
+                  function notHover(){
+                                            document.getElementById("rollImg").src = /*[[ @{https://picdemo.s3-ap-northeast-1.amazonaws.com/pd/{userId}/{id}/{Img}(userId=${pic.user.id},id=${pic.id},Img=${pic.defaImg})} ]]*/ "";
+                                    }
+                                        function hover(){
+                                            document.getElementById("rollImg").src = /*[[ @{https://picdemo.s3-ap-northeast-1.amazonaws.com/pd/{userId}/{id}/{Img}(userId=${pic.user.id},id=${pic.id},Img=${pic.hoverImg})} ]]*/ "";
+                                    }
+
+                                    function change() {
+                                        var random = Math.floor(Math.random()*100 +1);
+                                        document.getElementById("rollNum").innerHTML = random ;
+                                        if(random > 95){
+                                            console.log(random);
+                                            document.getElementById("rollImg").src = /*[[ @{https://picdemo.s3-ap-northeast-1.amazonaws.com/pd/{userId}/{id}/{Img}(userId=${pic.user.id},id=${pic.id},Img=${pic.fumbleImg})} ]]*/ "";
+                                            }else if(random < 6){
+                                                console.log(random);
+                                                document.getElementById("rollImg").src = /*[[ @{https://picdemo.s3-ap-northeast-1.amazonaws.com/pd/{userId}/{id}/{Img}(userId=${pic.user.id},id=${pic.id},Img=${pic.criticalImg})} ]]*/ "";
+                                            }else{
+                                                console.log(random);
+                                                document.getElementById("rollImg").src = /*[[ @{https://picdemo.s3-ap-northeast-1.amazonaws.com/pd/{userId}/{id}/{Img}(userId=${pic.user.id},id=${pic.id},Img=${pic.defaImg})} ]]*/ "";
+                                            }
+                                        }
+                                    function roll(){
+                                        document.getElementById("rollImg").src = /*[[ @{https://picdemo.s3-ap-northeast-1.amazonaws.com/pd/{userId}/{id}/{loadImg}(userId=${pic.user.id},id=${pic.id},loadImg=${pic.loadImg})} ]]*/ "";
+
+                                        var count = 0;
+                                        var Num = function(){
+                                            var rdm = Math.floor(Math.random()*100);
+                                            document.getElementById("rollNum").innerHTML = rdm ;
+                                            count += 50 ;
+                                        }
+                                        function loading(){
+                                        loadingNum = setInterval(function(){
+                                            Num();
+
+                                            if(count > 1200){
+                                                clearInterval(loadingNum);
+                                            }
+                                        },50);
+                                    }
+                                        loading();
+                                        setTimeout("change();" , 1550);
+
+                                    }
 
                     function adjustmentSubmit() {
                         document.forms['pdDiceTextForm'].submit();
@@ -168,5 +168,6 @@
                     document.getElementById("saveButton").classList.toggle("opacity");
                 }
         </script>
+
 </body>
 </html>

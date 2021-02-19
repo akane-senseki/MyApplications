@@ -1,6 +1,5 @@
 package myapp.controllers;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -421,14 +420,14 @@ public class PcDiceController {
             p.setDeleteFlag(1);
 
             //保存している画像の削除
-            User u = (User) session.getAttribute("login_user");
-            File deleteFIle = new File(securitydate.getPicPath() + u.getId() + "/" + p.getId());
+            //User u = (User) session.getAttribute("login_user");
+            /*File deleteFIle = new File(securitydate.getPicPath() + u.getId() + "/" + p.getId());
             File[] deleteImages = deleteFIle.listFiles();
             if (deleteImages != null) {
                 for (int i = 0; i < deleteImages.length; i++) {
                     deleteImages[i].delete();
                 }
-            }
+            }*/
             pdrepository.save(p);
             session.removeAttribute("picId");
             session.setAttribute("flush", "削除しました");

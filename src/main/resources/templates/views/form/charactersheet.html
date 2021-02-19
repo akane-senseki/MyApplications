@@ -6,14 +6,14 @@
     <div class="cs_form" th:fragment="registForm(charactersheet)">
         <div class="cs_form_container">
             <div class="cs_form_item">
-                <label class="picButton" for="csImg">画像をアップロード</label>
+                <label  for="csImg" class="picButton">画像をアップロード</label>
                 <br />
-                <input class="picInput" type="file" name="csImg" id="cs_img" accept=".png,.jpg,.jpeg">
+                <input class="picInput" type="file" name="csImg" id="csImg" accept=".png,.jpg,.jpeg">
                 <th:block th:if="${pc.imgPath == null}">
-                    <img id="preview" src="https://picdemo.s3-ap-northeast-1.amazonaws.com/defo/noimage.png" alt="cs_img" />
+                    <img id="preview" src="https://picdemo.s3-ap-northeast-1.amazonaws.com/defo/noimage.png" alt="csImg" />
                 </th:block>
                 <th:block th:unless="${pc.imgPath == null}">
-                    <img id="preview" th:src="@{https://picdemo.s3-ap-northeast-1.amazonaws.com/cs/{id}/{img_path}(id=${pc.user.id},img_path=${pc.imgPath})}" alt="cs_img" />
+                    <img id="preview" th:src="@{https://picdemo.s3-ap-northeast-1.amazonaws.com/cs/{id}/{img_path}(id=${pc.user.id},img_path=${pc.imgPath})}" alt="csImg" />
                 </th:block>
                 <script type="text/javascript">
 //画像をプレビューする
@@ -29,7 +29,7 @@
     }
 
     //<input>でファイルが選択されたときの処理
-    const fileInput = document.getElementById('cs_img');
+    const fileInput = document.getElementById('csImg');
     const handleFileSelect = () => {
         const files = fileInput.files;
         previewFile(files[0]);
@@ -197,8 +197,8 @@
             document.getElementById('headbutt').innerHTML = parseInt( headbutt_add_data ) + 40 ;
         }
         function csSubmit(){
-            if(document.getElementById('cs_img').files[0] != null){
-            if(document.getElementById('cs_img').files[0].size > 1000000){
+            if(document.getElementById('csImg').files[0] != null){
+            if(document.getElementById('csImg').files[0].size > 1000000){
                 alert("画像ファイルは1MG以下のものを選択してください");
             }else{
                 document.forms[0].submit();
