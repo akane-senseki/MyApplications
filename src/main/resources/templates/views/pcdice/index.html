@@ -19,7 +19,7 @@
             <div class="item" th:each="pic : ${pic}" th:object="${pic}">
                 <th:block th:if="*{defaImg != null}">
                     <a th:href="@{/pd/play(id=*{id})}">
-                        <img th:src="@{/images/pd/{userId}/{id}/{defaImg}(userId=*{user.id},id=*{id},defaImg=*{defaImg})}" />
+                        <img th:src="@{https://picdemo.s3-ap-northeast-1.amazonaws.com/pd/{userId}/{id}/{defaImg}(userId=*{user.id},id=*{id},defaImg=*{defaImg})}" />
                     </a>
                 </th:block>
                 <th:block th:unless="*{defaImg != null}">

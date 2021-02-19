@@ -329,10 +329,8 @@ public class CsController {
             if (!peForm.getCsImg().get(0).getOriginalFilename().equals("")
                     && peForm.getCsImg().get(0).getOriginalFilename() != null) {
 
-                //登録されていた画像の削除(ローカル)
-                File delete_images = new File( u.getId() + "/" + p.getImgPath());
+                //登録されていた画像を削除するためのパス
                 String deletePath = "cs/" + u.getId() + "/" + p.getImgPath();
-                delete_images.delete();
 
                 //ここからcreate時と同様の処理
                 MultipartFile imgFile = peForm.getCsImg().get(peForm.getCsImg().size() - 1);

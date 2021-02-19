@@ -26,31 +26,31 @@
             </div>
         </div>
         <div class="imgWrap">
-            <img id="rollImg" th:src="@{/images/pd/{userId}/{id}/{defaImg}(userId=${pic.user.id},id=${pic.id},defaImg=${pic.defaImg})}" onclick="roll();" onmouseover="hover();" onmouseleave="notHover();" />
+            <img id="rollImg" th:src="@{https://picdemo.s3-ap-northeast-1.amazonaws.com/pd/{userId}/{id}/{defaImg}(userId=${pic.user.id},id=${pic.id},defaImg=${pic.defaImg})}" onclick="roll();" onmouseover="hover();" onmouseleave="notHover();" />
             <p id="rollNum" onclick="roll();">PUSH</p>
         </div>
         <script th:inline="javascript">
                                     /*<![CDATA[*/
                                         function notHover(){
-                                            document.getElementById("rollImg").src = /*[[ @{/images/pd/{userId}/{id}/{Img}(userId=${pic.user.id},id=${pic.id},Img=${pic.defaImg})} ]]*/ "";
+                                            document.getElementById("rollImg").src = /*[[ @{https://picdemo.s3-ap-northeast-1.amazonaws.com/pd/{userId}/{id}/{Img}(userId=${pic.user.id},id=${pic.id},Img=${pic.defaImg})} ]]*/ "";
                                     }
                                         function hover(){
-                                            document.getElementById("rollImg").src = /*[[ @{/images/pd/{userId}/{id}/{Img}(userId=${pic.user.id},id=${pic.id},Img=${pic.hoverImg})} ]]*/ "";
+                                            document.getElementById("rollImg").src = /*[[ @{https://picdemo.s3-ap-northeast-1.amazonaws.com/pd/{userId}/{id}/{Img}(userId=${pic.user.id},id=${pic.id},Img=${pic.hoverImg})} ]]*/ "";
                                     }
 
                                     function change() {
                                         var random = Math.floor(Math.random()*100 + 1);
                                         document.getElementById("rollNum").innerHTML = random ;
                                         if(random > 95){
-                                            document.getElementById("rollImg").src = /*[[ @{/images/pd/{userId}/{id}/{Img}(userId=${pic.user.id},id=${pic.id},Img=${pic.fumbleImg})} ]]*/ "";
+                                            document.getElementById("rollImg").src = /*[[ @{https://picdemo.s3-ap-northeast-1.amazonaws.com/pd/{userId}/{id}/{Img}(userId=${pic.user.id},id=${pic.id},Img=${pic.fumbleImg})} ]]*/ "";
                                             }else if(random < 6){
-                                                document.getElementById("rollImg").src = /*[[ @{/images/pd/{userId}/{id}/{Img}(userId=${pic.user.id},id=${pic.id},Img=${pic.criticalImg})} ]]*/ "";
+                                                document.getElementById("rollImg").src = /*[[ @{https://picdemo.s3-ap-northeast-1.amazonaws.com/pd/{userId}/{id}/{Img}(userId=${pic.user.id},id=${pic.id},Img=${pic.criticalImg})} ]]*/ "";
                                             }else{
-                                                document.getElementById("rollImg").src = /*[[ @{/images/pd/{userId}/{id}/{Img}(userId=${pic.user.id},id=${pic.id},Img=${pic.defaImg})} ]]*/ "";
+                                                document.getElementById("rollImg").src = /*[[ @{https://picdemo.s3-ap-northeast-1.amazonaws.com/pd/{userId}/{id}/{Img}(userId=${pic.user.id},id=${pic.id},Img=${pic.defaImg})} ]]*/ "";
                                             }
                                         }
                                     function roll(){
-                                        document.getElementById("rollImg").src = /*[[ @{/images/pd/{userId}/{id}/{loadImg}(userId=${pic.user.id},id=${pic.id},loadImg=${pic.loadImg})} ]]*/ "";
+                                        document.getElementById("rollImg").src = /*[[ @{https://picdemo.s3-ap-northeast-1.amazonaws.com/pd/{userId}/{id}/{loadImg}(userId=${pic.user.id},id=${pic.id},loadImg=${pic.loadImg})} ]]*/ "";
 
                                         var count = 0;
                                         var Num = function(){

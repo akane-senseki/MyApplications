@@ -133,17 +133,16 @@ public class PcDiceController {
 
             //フォルダ作成
             Long count = pdrepository.count() + 1;
-            File images = new File(securitydate.getPicPath() + u.getId() + "/" + count);
-            images.mkdirs();
 
             //画像パス　defaImg---------------------------
             String defaultPath = null;
             if (!pdForm.getDefa().get(0).getOriginalFilename().equals("")
                     && pdForm.getDefa().get(0).getOriginalFilename() != null) {
+
                 imgFile = pdForm.getDefa().get(pdForm.getDefa().size() - 1);
                 img_path = PicSaveClass.PicSavePath(u, img_path, imgFile, pdrepository);
                 p.setDefaImg(img_path);
-                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
+                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate , "");
                 defaultPath = img_path;
 
             } else {
@@ -156,7 +155,7 @@ public class PcDiceController {
                 imgFile = pdForm.getLoad().get(pdForm.getLoad().size() - 1);
                 img_path = PicSaveClass.PicSavePath(u, img_path, imgFile, pdrepository);
                 p.setLoadImg(img_path);
-                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
+                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate , "");
 
             } else {
                 p.setLoadImg(defaultPath);
@@ -168,7 +167,7 @@ public class PcDiceController {
                 imgFile = pdForm.getCritical().get(pdForm.getCritical().size() - 1);
                 img_path = PicSaveClass.PicSavePath(u, img_path, imgFile, pdrepository);
                 p.setCriticalImg(img_path);
-                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
+                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate , "");
 
             } else {
                 p.setCriticalImg(defaultPath);
@@ -180,7 +179,7 @@ public class PcDiceController {
                 imgFile = pdForm.getFumble().get(pdForm.getFumble().size() - 1);
                 img_path = PicSaveClass.PicSavePath(u, img_path, imgFile, pdrepository);
                 p.setFumbleImg(img_path);
-                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
+                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate , "");
 
             } else {
                 p.setFumbleImg(defaultPath);
@@ -192,7 +191,7 @@ public class PcDiceController {
                 imgFile = pdForm.getHover().get(pdForm.getHover().size() - 1);
                 img_path = PicSaveClass.PicSavePath(u, img_path, imgFile, pdrepository);
                 p.setHoverImg(img_path);
-                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
+                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate , "");
 
             } else {
                 p.setHoverImg(defaultPath);
@@ -204,7 +203,7 @@ public class PcDiceController {
                 imgFile = pdForm.getActive().get(pdForm.getActive().size() - 1);
                 img_path = PicSaveClass.PicSavePath(u, img_path, imgFile, pdrepository);
                 p.setActiveImg(img_path);
-                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
+                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate , "");
 
             } else {
                 p.setActiveImg(defaultPath);
@@ -293,6 +292,10 @@ public class PcDiceController {
             String img_path = null;
             MultipartFile imgFile = null;
 
+            //デフォルト画像変更後、デフォルト画像を参考している画像も変更
+            String beforeDefaPath = "";
+            String afterDefaPath = "";
+
             if (pdForm.getName() != null && !pdForm.getName().equals("")) {
                 p.setName(pdForm.getName());
             }
@@ -306,86 +309,91 @@ public class PcDiceController {
             //画像パス　defaImg---------------------------
             if (!pdForm.getDefa().get(0).getOriginalFilename().equals("")
                     && pdForm.getDefa().get(0).getOriginalFilename() != null) {
-                //登録されていた画像の削除
-                File delete_images = new File(
-                        securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getDefaImg());
-                delete_images.delete();
+
+                String deletePath = "pd/" +  u.getId() + "/" + p.getId() + "/" + p.getDefaImg();
+                beforeDefaPath = p.getDefaImg();
 
                 imgFile = pdForm.getDefa().get(pdForm.getDefa().size() - 1);
                 img_path = PicSaveClass.PicSavePath(u, img_path, imgFile, pdrepository);
                 p.setDefaImg(img_path);
-                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
+                afterDefaPath = img_path;
+                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate , deletePath);
 
             }
 
             //画像パス　LoadImg---------------------------
             if (!pdForm.getLoad().get(0).getOriginalFilename().equals("")
                     && pdForm.getLoad().get(0).getOriginalFilename() != null) {
-                File delete_images = new File(
-                        securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getLoadImg());
-                delete_images.delete();
+
+                String deletePath = "pd/" +  u.getId() + "/" + p.getId() + "/" + p.getLoadImg();
 
                 imgFile = pdForm.getLoad().get(pdForm.getLoad().size() - 1);
                 img_path = PicSaveClass.PicSavePath(u, img_path, imgFile, pdrepository);
                 p.setLoadImg(img_path);
-                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
+                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate , deletePath);
 
+            }else if(!beforeDefaPath.equals("") && p.getLoadImg().equals(beforeDefaPath)){
+                p.setLoadImg(afterDefaPath);
             }
 
             //画像パス　CriticalImg---------------------------
             if (!pdForm.getCritical().get(0).getOriginalFilename().equals("")
                     && pdForm.getCritical().get(0).getOriginalFilename() != null) {
-                File delete_images = new File(
-                        securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getCriticalImg());
-                delete_images.delete();
+
+                String deletePath = "pd/" +  u.getId() + "/" + p.getId() + "/" + p.getCriticalImg();
 
                 imgFile = pdForm.getCritical().get(pdForm.getCritical().size() - 1);
                 img_path = PicSaveClass.PicSavePath(u, img_path, imgFile, pdrepository);
                 p.setCriticalImg(img_path);
-                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
+                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate , deletePath);
 
+            }else if(!beforeDefaPath.equals("") && p.getCriticalImg().equals(beforeDefaPath)){
+                p.setCriticalImg(afterDefaPath);
             }
 
             //画像パス　FumbleImg---------------------------
             if (!pdForm.getFumble().get(0).getOriginalFilename().equals("")
                     && pdForm.getFumble().get(0).getOriginalFilename() != null) {
-                File delete_images = new File(
-                        securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getFumbleImg());
-                delete_images.delete();
+
+                String deletePath = "pd/" +  u.getId() + "/" + p.getId() + "/" + p.getFumbleImg();
 
                 imgFile = pdForm.getFumble().get(pdForm.getFumble().size() - 1);
                 img_path = PicSaveClass.PicSavePath(u, img_path, imgFile, pdrepository);
                 p.setFumbleImg(img_path);
-                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
+                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate , deletePath);
 
+            }else if(!beforeDefaPath.equals("") && p.getFumbleImg().equals(beforeDefaPath)){
+                p.setFumbleImg(afterDefaPath);
             }
 
             //画像パス　HoverImg---------------------------
             if (!pdForm.getHover().get(0).getOriginalFilename().equals("")
                     && pdForm.getHover().get(0).getOriginalFilename() != null) {
-                File delete_images = new File(
-                        securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getHoverImg());
-                delete_images.delete();
+
+                String deletePath = "pd/" +  u.getId() + "/" + p.getId() + "/" + p.getHoverImg();
 
                 imgFile = pdForm.getHover().get(pdForm.getHover().size() - 1);
                 img_path = PicSaveClass.PicSavePath(u, img_path, imgFile, pdrepository);
                 p.setHoverImg(img_path);
-                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
+                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate , deletePath);
 
+            }else if(!beforeDefaPath.equals("") && p.getHoverImg().equals(beforeDefaPath)){
+                p.setHoverImg(afterDefaPath);
             }
 
             //画像パス　ActiveImg---------------------------
             if (!pdForm.getActive().get(0).getOriginalFilename().equals("")
                     && pdForm.getActive().get(0).getOriginalFilename() != null) {
-                File delete_images = new File(
-                        securitydate.getPicPath() + u.getId() + "/" + p.getId() + "/" + p.getActiveImg());
-                delete_images.delete();
+
+                String deletePath = "pd/" +  u.getId() + "/" + p.getId() + "/" + p.getActiveImg();
 
                 imgFile = pdForm.getActive().get(pdForm.getActive().size() - 1);
                 img_path = PicSaveClass.PicSavePath(u, img_path, imgFile, pdrepository);
                 p.setActiveImg(img_path);
-                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate);
+                PicSaveClass.PicSaveFile(u, imgFile, img_path, count, securitydate , deletePath);
 
+            }else if(!beforeDefaPath.equals("") && p.getActiveImg().equals(beforeDefaPath)){
+                p.setActiveImg(afterDefaPath);
             }
 
             pdForm.setToken(session.getId());
