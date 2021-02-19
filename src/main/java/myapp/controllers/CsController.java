@@ -424,9 +424,16 @@ public class CsController {
             p.setDeleteFlag(1);
 
             //保存している画像の削除
-            /*            User u = (User) session.getAttribute("login_user");
-            File delete_images = new File(securitydate.getImg_path() + u.getId() + "/" + p.getImgPath());
-            delete_images.delete();*/
+            // 設定情報
+            BasicAWSCredentials credentials;
+            credentials = new BasicAWSCredentials(securitydate.getAcKey(), securitydate.getScKey());
+
+            // AWSのクライアント取得
+            AmazonS3 s3 = new AmazonS3Client(credentials);
+            User u = (User) session.getAttribute("login_user");
+
+            String deletePath = "cs/" + u.getId() + "/" + p.getImgPath();
+            s3.deleteObject("picdemo", deletePath);
 
             pcrepository.save(p);
             session.removeAttribute("pcId");
