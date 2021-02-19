@@ -3,7 +3,6 @@
 <head>
 </head>
 <body>
-    <h2>PcDiceEditページ</h2>
     <form id="Pic_DataForm" name="Pic_DataForm" enctype="multipart/form-data" method="post" th:action="@{/pd/update}">
         <div th:replace="~{views/form/picdata::registForm(${picdata})}"></div>
     </form>

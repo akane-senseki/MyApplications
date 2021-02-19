@@ -34,6 +34,7 @@
                 <li><a th:href="@{/db/index}">Demo Battle</a></li>
                 <li><a th:href="@{/pd/index}">Pc Dice</a></li>
                 <li><a th:href="@{/cs/index}">Characeter Sheet</a></li>
+                <li><a th:href="@{/top/about}">About</a></li>
             </ul>
         </header>
         <main>
@@ -55,6 +56,7 @@
                 <li><a th:href="@{/db/index}">Demo Battle</a></li>
                 <li><a th:href="@{/pd/user}">Pc Dice</a></li>
                 <li><a th:href="@{/cs/user}">Characeter Sheet</a></li>
+                <li><a th:href="@{/top/about}">About</a></li>
                 <th:block th:if="${session.login_user != null}">
                     <a href="#" onclick="userDestroy()">アカウントを削除</a>
                     <form name="userDestroyForm" method="POST" th:action="@{/user/destroy}">
