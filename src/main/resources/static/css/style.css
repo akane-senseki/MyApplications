@@ -496,6 +496,8 @@ main {
       .dbContainer .item a:hover {
         background-image: linear-gradient(#FFEDF3 0%, #b0c4de 100%); }
 
+.dbSelectWarapper .none {
+  display: none; }
 .dbSelectWarapper .dbSelect {
   display: flex;
   justify-content: space-between; }
@@ -511,6 +513,10 @@ main {
       overflow: scroll; }
       .dbSelectWarapper .dbSelect .dbSelectContainer .selectList img {
         width: 60px; }
+
+.btnContainer {
+  display: flex;
+  justify-content: space-between; }
 
 .logWarraper {
   margin-top: 60px; }
@@ -604,7 +610,7 @@ main {
         background: none; }
       .pcDicePlay .picMenu .slidebar .wkSlider .show {
         border: 1px solid #93c3cd;
-        background: #93c3cd url(images/ui-bg_diagonals-small_50_93c3cd_40x40.png) 50% 50% repeat; }
+        background: #93c3cd; }
     .pcDicePlay .picMenu .slidebar .wkValue {
       margin-top: 11px; }
     .pcDicePlay .picMenu #pdDiceTextForm {

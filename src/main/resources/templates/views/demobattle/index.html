@@ -12,7 +12,7 @@
                         <p>選択されていません</p>
                     </div>
                 </div>
-                <div class="item selectList">
+                <div id="all1" class="item selectList">
                     <div th:each="pc , status : ${pc}" th:object="${pc}">
                         <div th:id="*{id}" onclick="select1(this);">
                             <th:block th:if="*{imgPath != null}">
@@ -25,6 +25,34 @@
                         </div>
                     </div>
                 </div>
+                <th:block th:unless="${session.login_user == null}">
+                    <div id="user1" class="item selectList none">
+                        <div th:each="up , status : ${up}" th:object="${up}">
+                            <div th:id="*{id}" onclick="select1(this);">
+                                <th:block th:if="*{imgPath != null}">
+                                    <img th:src="@{https://picdemo.s3-ap-northeast-1.amazonaws.com/cs/{id}/{img_path}(id=*{user.id},img_path=*{imgPath})}" />
+                                </th:block>
+                                <th:block th:unless="*{imgPath != null}">
+                                    <img src="https://picdemo.s3-ap-northeast-1.amazonaws.com/defo/noimage.png" />
+                                </th:block>
+                                <span th:id="*{name} + *{id}" th:text="*{name}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="like1" class="item selectList none">
+                        <div th:each="lp , status : ${lp}" th:object="${lp}">
+                            <div th:id="*{id}" onclick="select1(this);">
+                                <th:block th:if="*{imgPath != null}">
+                                    <img th:src="@{https://picdemo.s3-ap-northeast-1.amazonaws.com/cs/{id}/{img_path}(id=*{user.id},img_path=*{imgPath})}" />
+                                </th:block>
+                                <th:block th:unless="*{imgPath != null}">
+                                    <img src="https://picdemo.s3-ap-northeast-1.amazonaws.com/defo/noimage.png" />
+                                </th:block>
+                                <span th:id="*{name} + *{id}" th:text="*{name}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
             </div>
             <div class="dbSelectContainer">
                 <div class="item">
@@ -33,7 +61,7 @@
                         <p>選択されていません</p>
                     </div>
                 </div>
-                <div class="item selectList">
+                <div id="all2" class="item selectList">
                     <div th:each="pc , status : ${pc}" th:object="${pc}">
                         <div th:id="*{id}" onclick="select2(this);">
                             <th:block th:if="*{imgPath != null}">
@@ -46,10 +74,83 @@
                         </div>
                     </div>
                 </div>
+                <th:block th:unless="${session.login_user == null}">
+                    <div id="user2" class="item selectList none">
+                        <div th:each="up , status : ${up}" th:object="${up}">
+                            <div th:id="*{id}" onclick="select1(this);">
+                                <th:block th:if="*{imgPath != null}">
+                                    <img th:src="@{https://picdemo.s3-ap-northeast-1.amazonaws.com/cs/{id}/{img_path}(id=*{user.id},img_path=*{imgPath})}" />
+                                </th:block>
+                                <th:block th:unless="*{imgPath != null}">
+                                    <img src="https://picdemo.s3-ap-northeast-1.amazonaws.com/defo/noimage.png" />
+                                </th:block>
+                                <span th:id="*{name} + *{id}" th:text="*{name}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="like2" class="item selectList none">
+                        <div th:each="lp , status : ${lp}" th:object="${lp}">
+                            <div th:id="*{id}" onclick="select1(this);">
+                                <th:block th:if="*{imgPath != null}">
+                                    <img th:src="@{https://picdemo.s3-ap-northeast-1.amazonaws.com/cs/{id}/{img_path}(id=*{user.id},img_path=*{imgPath})}" />
+                                </th:block>
+                                <th:block th:unless="*{imgPath != null}">
+                                    <img src="https://picdemo.s3-ap-northeast-1.amazonaws.com/defo/noimage.png" />
+                                </th:block>
+                                <span th:id="*{name} + *{id}" th:text="*{name}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
             </div>
         </div>
+        <th:block th:unless="${session.login_user == null}">
+            <div class="btnContainer">
+                <div class="selectButtonList">
+                    <a class="button selectButton" href="#" onclick="all1();">ALL</a>
+                    <a class="button selectButton" href="#" onclick="my1();">My</a>
+                    <a class="button selectButton" href="#" onclick="like1();">Like</a>
+                </div>
+                <div class="selectButtonList">
+                    <a class="button selectButton" href="#" onclick="all2();">ALL</a>
+                    <a class="button selectButton" href="#" onclick="my2();">My</a>
+                    <a class="button selectButton" href="#" onclick="like2();">Like</a>
+                </div>
+            </div>
+        </th:block>
         <script th:inline="javascript">
+            function all1(){
+                document.getElementById("all1").style.display = "block" ;
+                document.getElementById("user1").style.display = "none" ;
+                document.getElementById("like1").style.display = "none" ;
+            }
+            function my1(){
+                document.getElementById("all1").style.display = "none" ;
+                document.getElementById("user1").style.display = "block" ;
+                document.getElementById("like1").style.display = "none" ;
+            }
+            function like1(){
+                document.getElementById("all1").style.display = "none" ;
+                document.getElementById("user1").style.display = "none" ;
+                document.getElementById("like1").style.display = "block" ;
+            }
+            function all2(){
+                document.getElementById("all2").style.display = "block" ;
+                document.getElementById("user2").style.display = "none" ;
+                document.getElementById("like2").style.display = "none" ;
+            }
+            function my2(){
+                document.getElementById("all2").style.display = "none" ;
+                document.getElementById("user2").style.display = "block" ;
+                document.getElementById("like2").style.display = "none" ;
+            }
+            function like2(){
+                document.getElementById("all2").style.display = "none" ;
+                document.getElementById("user2").style.display = "none" ;
+                document.getElementById("like2").style.display = "block" ;
+            }
             /*<![CDATA[*/
+
             var id1;
             var id2;
 

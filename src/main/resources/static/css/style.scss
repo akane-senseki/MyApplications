@@ -626,9 +626,13 @@ main {
     }
 }
 
+
 //demobattle selectPage-------------------------------------------------------
 
 .dbSelectWarapper {
+        .none{
+        display:none;
+    }
     .dbSelect {
         display: flex;
         justify-content: space-between;
@@ -653,6 +657,10 @@ main {
             }
         }
     }
+}
+.btnContainer{
+        display: flex;
+    justify-content: space-between;
 }
 
 //logpage----------------------------------------------------------------------
